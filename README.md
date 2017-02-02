@@ -1,4 +1,4 @@
-LineageUI, An ultra lightweight Interface for 1.12 WoW clients running @ 1920x1080. Powered by a custom of pfUI found here: https://github.com/danvdh/Custom-pfUI
+LineageUI, An ultra lightweight Interface for 1.12 WoW clients running @ 1920x1080. Powered by a custom fork of pfUI found here: https://github.com/danvdh/Custom-pfUI
 
 ## Installation (common)
 1. Download from Github as Zip, unpack and replace your Interface and WTF folders with the ones provided.
