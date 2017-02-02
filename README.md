@@ -18,6 +18,8 @@ Lineage UI: A Powerful & extremely lightweight Interface for 1.12 WoW clients ru
 * [Clean_Up](https://github.com/shirsig/Clean_Up-lib) Automatically stacks and sorts your items.
 * [Decursive] (https://drive.google.com/open?id=0B5QT3H5F-mBXNDRtbUloODJnWVU) Dispel & decurse automation.
 * [Cartographer] (https://drive.google.com/open?id=0B5QT3H5F-mBXRHlUbGVrTW1ZUm8) Cartographer is a modular, lightweight, and efficient framework for manipulation of the world map with mining/herb support.
+* [Atlas] (https://github.com/Cabro/Atlas/) The best version of Atlas, Atlas Loot, and Atlas Quest your going to find for the 1.12 client.
+
 
 ## Addon Commands
 
@@ -27,10 +29,10 @@ Lineage UI: A Powerful & extremely lightweight Interface for 1.12 WoW clients ru
     /buffalo Configure buff frames
 	/swstats Configure damage meter
 	/bigwigs Configure boss mods
-	/al      Open Atlas loot
+
 	
 
-Custom fork of pfUI and license can be found here: https://github.com/danvdh/Custom-pfUI
+Custom fork of pfUI and license can be found here: https://github.com/vashin1/Custom-pfUI
 
 
 
