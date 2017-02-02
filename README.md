@@ -23,12 +23,10 @@ LineageUI, An ultra lightweight Interface for 1.12 WoW clients running @ 1920x10
 ![Moving Frames](http://i.imgur.com/LVEsKsw.jpg)
 
 ## Recommended Addons
-* [DPSMate](https://github.com/Geigerkind/DPSMate) An advanced combat analyzation tool
-* [HealComm](https://github.com/Aviana/HealComm/releases) Visual representation of incoming heals
-* [WIM](http://addons.us.to/addon/wim), [WIM (continued)](https://github.com/shirsig/WIM) Give whispers an instant messenger feel
-* [MobHealth3](http://addons.us.to/addon/mobhealth) Estimates a mob's health
+* [HealComm](https://github.com/Aviana/HealComm/releases) Visual representation of incoming heals. *Required for all healers
+* [WIM (continued)](https://github.com/shirsig/WIM) Give whispers an instant messenger feel
 * [Clean_Up](https://github.com/shirsig/Clean_Up-lib) Automatically stacks and sorts your items.
-
+* [Decursive] (https://drive.google.com/open?id=0B5QT3H5F-mBXNDRtbUloODJnWVU) Dispel automation
 
 
 
