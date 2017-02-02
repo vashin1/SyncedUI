@@ -1,4 +1,4 @@
-Lineage UI: A Powerful & extremely lightweight Interface for 1.12 WoW clients running @ 1920x1080. 
+Lineage UI: A Powerful & extremely lightweight Interface for 1.12 WoW clients running @ 1920x1080. Powered by a custom fork of pfUI - https://github.com/vashin1/Custom-pfUI
 
 ## Screenshots
 ![Screenshot](http://i.imgur.com/AHY2YjX.jpg)
@@ -31,8 +31,9 @@ Lineage UI: A Powerful & extremely lightweight Interface for 1.12 WoW clients ru
 	/bigwigs Configure boss mods
 
 	
+## Credits
 
-Custom fork of pfUI and license can be found here: https://github.com/vashin1/Custom-pfUI
+Shagu - https://github.com/shagu/pfUI
 
 
 
