@@ -1,11 +1,4 @@
-    __    _                             __  ______
-   / /   (_)___  ___  ____ _____ ____  / / / /  _/
-  / /   / / __ \/ _ \/ __ `/ __ `/ _ \/ / / // /  
- / /___/ / / / /  __/ /_/ / /_/ /  __/ /_/ // /   
-/_____/_/_/ /_/\___/\__,_/\__, /\___/\____/___/   
-                         /____/                   
-
-A Powerful & extremely lightweight Interface for 1.12 WoW clients running @ 1920x1080. 
+Lineage UI: A Powerful & extremely lightweight Interface for 1.12 WoW clients running @ 1920x1080. 
 
 ## Screenshots
 ![Screenshot](http://i.imgur.com/AHY2YjX.jpg)
@@ -37,7 +30,7 @@ A Powerful & extremely lightweight Interface for 1.12 WoW clients running @ 1920
 	/al      Open Atlas loot
 	
 
-Powered by a licensed custom fork of pfUI found here: https://github.com/danvdh/Custom-pfUI
+Custom fork of pfUI and license can be found here: https://github.com/danvdh/Custom-pfUI
 
 
 
