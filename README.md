@@ -1,4 +1,11 @@
-LineageUI, An ultra lightweight Interface for 1.12 WoW clients running @ 1920x1080. Powered by a custom fork of pfUI found here: https://github.com/danvdh/Custom-pfUI
+    __    _                             __  ______
+   / /   (_)___  ___  ____ _____ ____  / / / /  _/
+  / /   / / __ \/ _ \/ __ `/ __ `/ _ \/ / / // /  
+ / /___/ / / / /  __/ /_/ / /_/ /  __/ /_/ // /   
+/_____/_/_/ /_/\___/\__,_/\__, /\___/\____/___/   
+                         /____/                   
+
+A Powerful & extremely lightweight Interface for 1.12 WoW clients running @ 1920x1080. 
 
 ## Screenshots
 ![Screenshot](http://i.imgur.com/AHY2YjX.jpg)
@@ -13,10 +20,11 @@ LineageUI, An ultra lightweight Interface for 1.12 WoW clients running @ 1920x10
 5. Start WoW and configure Video, Sound, Interface, Keybinds and Macro's.  Note: You can use pfUI to hover bind your bars.
 
 ## Recommended Addons
-* [HealComm](https://github.com/Aviana/HealComm/releases) Visual representation of incoming heals. *Required for all healers
-* [WIM (continued)](https://github.com/shirsig/WIM) Give whispers an instant messenger feel
+* [HealComm](https://github.com/Aviana/HealComm/releases) Visual representation of incoming heals. Note: Required for all healers
+* [WIM (continued)](https://github.com/shirsig/WIM) Give whispers an instant messenger feel.
 * [Clean_Up](https://github.com/shirsig/Clean_Up-lib) Automatically stacks and sorts your items.
-* [Decursive] (https://drive.google.com/open?id=0B5QT3H5F-mBXNDRtbUloODJnWVU) Dispel automation
+* [Decursive] (https://drive.google.com/open?id=0B5QT3H5F-mBXNDRtbUloODJnWVU) Dispel & decurse automation.
+* [Cartographer] (https://drive.google.com/open?id=0B5QT3H5F-mBXRHlUbGVrTW1ZUm8) Cartographer is a modular, lightweight, and efficient framework for manipulation of the world map with mining/herb support.
 
 ## Addon Commands
 
@@ -29,6 +37,7 @@ LineageUI, An ultra lightweight Interface for 1.12 WoW clients running @ 1920x10
 	/al      Open Atlas loot
 	
 
+Powered by a licensed custom fork of pfUI found here: https://github.com/danvdh/Custom-pfUI
 
 
 
