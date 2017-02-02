@@ -28,9 +28,9 @@ pfUI supports and contains language specific code for the following languages.
 
 ## Installation (common)
 1. Download from Github as Zip, unpack and replace your Interface and WTF folders with the ones provided.
-2. Rename the your-account-name folder to your account name in all caps.
+2. Rename the "your-account" folder to your account name in all caps.
 3. Rename the "Kronos" folder to the realm your currently playing on
-4. Rename the your-character-name folder to your characters name, make a copy and rename for any alts on that account.
+4. Rename the "your-character" folder to your characters name, make a copy and rename for any alts on that account.
 5. Start Wow
 
 
