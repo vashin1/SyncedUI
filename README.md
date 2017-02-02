@@ -1,12 +1,15 @@
-Lineage UI: A Powerful & extremely lightweight Interface for 1.12 WoW clients running @ 1920x1080. Powered by a custom fork of pfUI - https://github.com/vashin1/Custom-pfUI
+Lineage UI: A powerful & extremely lightweight Interface for 1.12 WoW clients running @ 1920x1080. Powered by a custom fork of pfUI - https://github.com/vashin1/Custom-pfUI
 
 ## Screenshots
 ![Screenshot](http://i.imgur.com/AHY2YjX.jpg)
 
 ![Moving Frames](http://i.imgur.com/LVEsKsw.jpg)
 
+![Raid](http://i.imgur.com/hmZ0Q4t.jpg)
+
+
 ## Installation
-1. Download from Github as Zip, unpack and replace your Interface and WTF folders with the ones provided.
+1. Unpack the ZIP & replace your Interface and WTF folders with the ones provided in the ZIP. Note: Backup your old ones just in case
 2. Rename the "your-account" folder to your account name in all caps.
 3. Rename the "Kronos" folder to the realm your currently playing on.
 4. Rename the "your-character" folder to your characters name, make a copy and rename for any alts on that account.
