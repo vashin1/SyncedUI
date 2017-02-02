@@ -1,22 +1,26 @@
-LineageUI powered by pfUI by Shagu for 1.12 WoW clients running 1920x1080
+LineageUI, An ultra lightweight Interface for 1.12 WoW clients running @ 1920x1080. Powered by a custom of pfUI found here: https://github.com/danvdh/Custom-pfUI
 
 ## Installation (common)
 1. Download from Github as Zip, unpack and replace your Interface and WTF folders with the ones provided.
 2. Rename the "your-account" folder to your account name in all caps.
-3. Rename the "Kronos" folder to the realm your currently playing on
+3. Rename the "Kronos" folder to the realm your currently playing on.
 4. Rename the "your-character" folder to your characters name, make a copy and rename for any alts on that account.
-5. Start Wow
+5. Start WoW and configure Video, Sound, Interface, Keybinds and Macro's.  Note: You can use pfUI to hover bind your bars.
 
 ## Commands
 
-    /pfui   Open the configuration GUI
-    /gm     Open the ticket Dialog
-    /rl     Reload the whole UI
-
+    /pfui    Open the configuration GUI
+    /gm      Open the ticket Dialog
+    /rl      Reload the whole UI
+    /buffalo Configure buff frames
+	/swstats Configure damage meter
+	/bigwigs Configure boss mods
+	/al      Open Atlas loot
+	
 ## Screenshots
-![Screenshot](http://mephis.he-hosting.de/shaguaddons/pfUI/mmobase/screen.jpg)
+![Screenshot](http://i.imgur.com/AHY2YjX.jpg)
 
-![Moving Frames](http://mephis.he-hosting.de/shaguaddons/pfUI/mmobase/moveit.jpg)
+![Moving Frames](http://i.imgur.com/LVEsKsw.jpg)
 
 ## Recommended Addons
 * [DPSMate](https://github.com/Geigerkind/DPSMate) An advanced combat analyzation tool
