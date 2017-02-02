@@ -1,0 +1,6 @@
+## Interface: 11200
+## Author: shirsig
+## Title: linkmend
+## Notes: Fixes CLINKs and foreign language links
+## Version: 1.0
+linkmend.lua

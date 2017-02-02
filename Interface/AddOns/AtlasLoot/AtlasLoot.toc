@@ -1,0 +1,27 @@
+﻿## Interface: 11200
+## Title: AtlasLoot Enhanced
+## Notes: Shows the possible loot from the bosses
+## Author: Daviesh
+## Version: 4.06.04
+## SavedVariablesPerCharacter: AtlasLootCharDB
+## OptionalDeps: Alphamap, AtlasLoader, LootLink, ItemSync, DewdropLib, Ace2, EquipCompare, EQCompare
+
+Libs\AceLibrary\AceLibrary.lua
+Libs\AceOO\AceOO-2.0.lua
+Libs\AceEvent\AceEvent-2.0.lua
+Libs\AceDB\AceDB-2.0.lua
+Libs\AceLocale\AceLocale-2.2.lua
+Libs\AceAddon\AceAddon-2.0.lua
+Libs\Dewdrop\Dewdrop-2.0.lua
+
+Locale\Locale.xml
+Bossnames\BossNames.xml
+Sets\Sets.xml
+Crafting\Crafting.xml
+PvP\PvP.xml
+WorldEvents\WorldEvents.xml
+Factions\Factions.xml
+Instances\Instances.xml
+WorldBosses\WorldBosses.xml
+TableRegister\TableRegister.xml
+Core\AtlasLoot.xml
