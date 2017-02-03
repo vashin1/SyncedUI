@@ -1,5 +1,5 @@
 ## Interface: 11200
-## Title: Classic Snowfall |cff7fff7f -Ace2-|r 
+## Title: Classic Snowfall |cff33ffcc -Ace2-|r 
 ## Author: Vallan
 ## Notes: Keydown Cast Support for Vanilla
 ## OptionalDeps: Ace2
