@@ -205,8 +205,6 @@ function BigWigsMandokir:BigWigs_RecvSync(sync, rest, nick)
 		self:TriggerEvent("BigWigs_StartBar", self, L["enragebar"], 90, "Interface\\Icons\\Spell_Shadow_UnholyFrenzy")
 	elseif sync == "MandokirEnrageEnd" and self.db.profile.enraged then
 		self:TriggerEvent("BigWigs_StopBar", self, L["enragebar"])
-	elseif sync == "MandokirGazeCast" and self.db.profile.gaze then
-		self:TriggerEvent("BigWigs_StartBar", self, L["gazecast"], 2, "Interface\\Icons\\Spell_Shadow_Charm")
 	elseif sync == "MandokirGazeAfflict" and self.db.profile.gaze then
 		self:TriggerEvent("BigWigs_StartBar", self, string.format(L["gazewatchedbar"], rest), 5, "Interface\\Icons\\Spell_Shadow_Charm", true, "Black")
 	elseif sync == "MandokirGazeEnd" then
