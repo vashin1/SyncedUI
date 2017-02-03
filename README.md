@@ -7,6 +7,7 @@ Lineage UI: A powerful & extremely lightweight Interface for 1.12 WoW clients ru
 
 ![Raid](http://i.imgur.com/hmZ0Q4t.jpg)
 
+![Modular](http://i.imgur.com/jcNkVYZ.jpg)
 
 ## Installation
 1. Unpack the ZIP & replace your Interface and WTF folders with the ones provided in the ZIP. Note: Backup your old ones just in case
