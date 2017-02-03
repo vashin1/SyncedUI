@@ -1,5 +1,5 @@
 ## Interface: 11200
-## Title: KLHThreatMeter |cff1fff1f<Mesmerize>|r edition
+## Title: KLHThreatMeter |cff33ffcc<Lineage>
 ## Author: Kenco@Perenolde, edited by Sulfuras
 ## Notes: A Threat Meter
 ## DefaultState: Enabled

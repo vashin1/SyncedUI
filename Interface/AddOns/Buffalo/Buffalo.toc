@@ -1,5 +1,5 @@
 ## Interface: 11200
-## Title: Buffalo |cff7fff7f -Ace2-|r
+## Title: Buffalo |cff33ffcc -Ace2-|r
 ## Title-koKR: |CFF99FF99B|CFFFFFFFFuffalo |cff7fff7f -Ace2-|r
 ## Notes: Customizing your buff display
 ## Notes-koKR: 사용자의 설정에 따라서 버프를 표시합니다.
