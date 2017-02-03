@@ -46,15 +46,4 @@ Frame: SW_BarSettingsFrameV2
 FrameLevel: 14
 X: 1237
 Y: -326
-Frame: VCB_BF_ConfigFrame
-FrameLevel: 1
-X: 562
-Y: -233
-Frame: VCB_BF_BUFF_FRAME
-FrameLevel: 8
-X: 1547
-Y: -3
-Frame: VCB_BF_DEBUFF_FRAME
-FrameLevel: 10
-X: 1547
-Y: -190
+
