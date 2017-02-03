@@ -134,14 +134,6 @@ Buffalo_OptionsTable={
 					set = function(v) Buffalo.SetCols(Buffalo, v, "buff") end,
 					order=70
 				},
-				hide = {
-					type='toggle',
-					name=L["Hide"],
-					desc=L["Hides these buff frames"],
-					get= function() return Buffalo.db.profile.hide["buff"] end,
-					set = function(v) Buffalo.ToggleHide(Buffalo, v, "buff") end,
-					order=90
-				},
 				flashing = {
 					type='toggle',
 					name=L["Flashing"],
@@ -297,14 +289,6 @@ Buffalo_OptionsTable={
 					set = function(v) Buffalo.SetCols(Buffalo, v, "debuff") end,
 					order=80
 				},
-				hide = {
-					type='toggle',
-					name=L["Hide"],
-					desc=L["Hides these buff frames"],
-					get= function() return Buffalo.db.profile.hide["debuff"] end,
-					set = function(v) Buffalo.ToggleHide(Buffalo, v, "debuff") end,
-					order=90
-				},
 				flashing = {
 					type='toggle',
 					name=L["Flashing"],
@@ -459,14 +443,6 @@ Buffalo_OptionsTable={
 					get = function() return Buffalo.db.profile.cols["weapon"] end,
 					set = function(v) Buffalo.SetCols(Buffalo, v, "weapon") end,
 					order=8
-				},
-				hide = {
-					type='toggle',
-					name=L["Hide"],
-					desc=L["Hides these buff frames"],
-					get= function() return Buffalo.db.profile.hide["weapon"] end,
-					set = function(v) Buffalo.ToggleHide(Buffalo, v, "weapon") end,
-					order=90
 				},
 				flashing = {
 					type='toggle',
