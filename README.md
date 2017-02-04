@@ -36,7 +36,7 @@ Lineage UI: A powerful & extremely lightweight Interface for 1.12 WoW clients ru
 
 ## FAQ
 
-**How can I enable mouseover cast?**
+**How can I enable mouseover cast?**  
 Create a macro with "/pfcast SPELLNAME".	
 	
 ## Credits
