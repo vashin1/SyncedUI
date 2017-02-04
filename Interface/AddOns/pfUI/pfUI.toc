@@ -1,5 +1,5 @@
 ## Interface: 11200
-## Title: |cff33ffccpf|cffffffffUI|cff33ffcc-<Lineage>
+## Title: |cff33ffccpf|cffffffffUI|cff33ffcc<Lineage>
 ## Author: Shagu
 ## Notes: A complete user interface replacement.
 ## Version: Custom
