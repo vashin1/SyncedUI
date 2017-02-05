@@ -8,7 +8,7 @@ Lineage UI: A powerful & extremely lightweight Interface for 1.12 WoW clients ru
 5. Start WoW and configure Video, Sound, Interface, Keybinds and Macro's.  Note: You can use pfUI to hover bind your bars.
 
 ## Screenshots
-![Screenshot](http://i.imgur.com/AHY2YjX.jpg)
+![Screenshot](http://i.imgur.com/YieZJsk.jpg)
 
 ![Moving Frames](http://i.imgur.com/LVEsKsw.jpg)
 
