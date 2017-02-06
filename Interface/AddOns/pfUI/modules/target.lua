@@ -26,7 +26,7 @@ pfUI:RegisterModule("target", function ()
   pfUI.uf.target:SetHeight(pfUI_config.unitframes.target.height + pfUI_config.unitframes.target.pheight + 2*default_border + spacing)
   pfUI.uf.target:SetPoint("BOTTOMLEFT", UIParent, "BOTTOM", 75, 125)
   pfUI.api:UpdateMovable(pfUI.uf.target)
-  pfUI.uf.target:RegisterForClicks('LeftButtonUp', 'RightButtonUp')
+  pfUI.uf.target:RegisterForClicks('LeftButtonUp', 'RightButtonUp', 'MiddleButtonUp', 'Button4Up', 'Button5Up')
   pfUI.uf.target:SetScript("OnEnter", function()
     GameTooltip_SetDefaultAnchor(GameTooltip, this)
     GameTooltip:SetUnit(this.label .. this.id)
@@ -42,42 +42,8 @@ pfUI:RegisterModule("target", function ()
   end)
 
   pfUI.uf.target:SetScript("OnClick", function ()
-      if arg1 == "RightButton" then
-        ToggleDropDownMenu(1, nil, TargetFrameDropDown, "cursor")
-      else
-        if pfUI_config.unitframes.globalclick == "0" then return end
-
-        -- clickcast: shift modifier
-        if IsShiftKeyDown() then
-          if pfUI_config.unitframes.raid.clickcast_shift ~= "" then
-            CastSpellByName(pfUI_config.unitframes.raid.clickcast_shift)
-            pfUI.uf.target.noanim = "yes"
-            return
-          end
-        -- clickcast: alt modifier
-        elseif IsAltKeyDown() then
-          if pfUI_config.unitframes.raid.clickcast_alt ~= "" then
-            CastSpellByName(pfUI_config.unitframes.raid.clickcast_alt)
-            pfUI.uf.target.noanim = "yes"
-            return
-          end
-        -- clickcast: ctrl modifier
-        elseif IsControlKeyDown() then
-          if pfUI_config.unitframes.raid.clickcast_ctrl ~= "" then
-            CastSpellByName(pfUI_config.unitframes.raid.clickcast_ctrl)
-            pfUI.uf.target.noanim = "yes"
-            return
-          end
-        -- clickcast: default
-        else
-          if pfUI_config.unitframes.raid.clickcast ~= "" then
-            CastSpellByName(pfUI_config.unitframes.raid.clickcast)
-            pfUI.uf.target.noanim = "yes"
-            return
-          end
-        end
-      end
-    end)
+    pfUI.uf:ClickAction(arg1)
+  end)
 
   pfUI.uf.target:RegisterEvent("RAID_TARGET_UPDATE")
   pfUI.uf.target:RegisterEvent("PARTY_LEADER_CHANGED")
@@ -196,18 +162,12 @@ pfUI:RegisterModule("target", function ()
         local r, g, b = r1 + (r2 - r1)*perc, g1 + (g2 - g1)*perc, b1 + (b2 - b1)*perc
         pfUI.uf.target.hpText:SetTextColor(r, g, b,1)
 
-        local leveldiff = UnitLevel("player") - UnitLevel("target")
         local levelcolor
-        if leveldiff >= 9 then
-          levelcolor = "555555"
-        elseif leveldiff >= 3 then
-          levelcolor = "55ff55"
-        elseif leveldiff >= -2 then
-          levelcolor = "aaff55"
-        elseif leveldiff >= -4 then
-          levelcolor = "ffaa55"
-        else
+        if UnitLevel("target") < 0 then
           levelcolor = "ff5555"
+        else
+          local lcol = GetDifficultyColor(UnitLevel("target"))
+          levelcolor = string.format("%02x%02x%02x", lcol.r*255, lcol.g*255, lcol.b*255)
         end
 
         local name = string.sub(UnitName("target"),1,25)

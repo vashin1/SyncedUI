@@ -294,6 +294,15 @@ pfUI:RegisterModule("castbar", function ()
     end
   end)
 
+  pfUI.castbar.target.SPELL_CAST = string.gsub(string.gsub(SPELLCASTOTHERSTART,"%d%$",""), "%%s", "(.+)")
+  pfUI.castbar.target.SPELL_PERFORM = string.gsub(string.gsub(SPELLPERFORMOTHERSTART,"%d%$",""), "%%s", "(.+)")
+  pfUI.castbar.target.SPELL_GAINS = string.gsub(string.gsub(AURAADDEDOTHERHELPFUL,"%d%$",""), "%%s", "(.+)")
+  pfUI.castbar.target.SPELL_AFFLICTED = string.gsub(string.gsub(AURAADDEDOTHERHARMFUL,"%d%$",""), "%%s", "(.+)")
+  pfUI.castbar.target.SPELL_HIT = string.gsub(string.gsub(string.gsub(SPELLLOGSELFOTHER,"%d%$",""),"%%d","%%d+"),"%%s","(.+)")
+  pfUI.castbar.target.SPELL_CRIT = string.gsub(string.gsub(string.gsub(SPELLLOGCRITSELFOTHER,"%d%$",""),"%%d","%%d+"),"%%s","(.+)")
+  pfUI.castbar.target.OTHER_SPELL_HIT = string.gsub(string.gsub(string.gsub(SPELLLOGOTHEROTHER,"%d%$",""), "%%s", "(.+)"), "%%d", "%%d+")
+  pfUI.castbar.target.OTHER_SPELL_CRIT = string.gsub(string.gsub(string.gsub(SPELLLOGOTHEROTHER,"%d%$",""), "%%s", "(.+)"), "%%d", "%%d+")
+
   pfUI.castbar.target:RegisterEvent("CHAT_MSG_SPELL_SELF_DAMAGE")
   pfUI.castbar.target:RegisterEvent("CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE")
   pfUI.castbar.target:RegisterEvent("CHAT_MSG_SPELL_HOSTILEPLAYER_BUFF")
@@ -316,58 +325,73 @@ pfUI:RegisterModule("castbar", function ()
   pfUI.castbar.target.casterDB = {}
 
   pfUI.castbar.target:SetScript("OnEvent", function()
-    if (arg1 ~= nil) then
-      for mob, spell in string.gfind(arg1, pfLocaleSpellEvents[pfUI.cache["locale"]]['SPELL_CAST']) do
-        pfUI.castbar.target:Action(mob, spell)
-        return
-      end
-      for mob, spell in string.gfind(arg1, pfLocaleSpellEvents[pfUI.cache["locale"]]['SPELL_PERFORM']) do
-        pfUI.castbar.target:Action(mob, spell)
-        return
-      end
-      -- this part will be used for interruption of spells
-      --for mob, spell in string.gfind(arg1, pfLocaleSpellEvents[pfUI.cache["locale"]]['SPELL_GAINS']) do
-      --  pfUI.castbar.target:Action(mob, spell, true)
-      --  return
-      --end
-      --for mob, spell in string.gfind(arg1, pfLocaleSpellEvents[pfUI.cache["locale"]]['SPELL_AFFLICTED']) do
-      --  pfUI.castbar.target:Action(mob, spell, "afflicted")
-      --  return
-      --end
-      --for spell, mob in string.gfind(arg1, pfLocaleSpellEvents[pfUI.cache["locale"]]['SPELL_HIT']) do
-      --  -- you hit mob with XX
-      --  -- pfUI.castbar.target:Action(mob, spell, "hit")
-      --  return
-      --end
-      --for spell, mob in string.gfind(arg1, pfLocaleSpellEvents[pfUI.cache["locale"]]['OTHER_SPELL_HIT']) do
-      --  -- someone hits mob with XX
-      --  -- pfUI.castbar.target:Action(mob, spell, "hit")
-      --  return
-      --end
-    end
-
-    if UnitExists("target") and pfUI.castbar.target.casterDB[UnitName("target")] then
-      local starttime = pfUI.castbar.target.casterDB[UnitName("target")].starttime or 0
-      local casttime = pfUI.castbar.target.casterDB[UnitName("target")].casttime or 0
-      if starttime + casttime > GetTime() then
-        if pfUI_config.castbar.target.hide_pfui == "1" then
+    if event == "PLAYER_TARGET_CHANGED" then
+      if UnitExists("target") and pfUI.castbar.target.casterDB[UnitName("target")] then
+        local starttime = pfUI.castbar.target.casterDB[UnitName("target")].starttime or 0
+        local casttime = pfUI.castbar.target.casterDB[UnitName("target")].casttime or 0
+        if starttime + casttime > GetTime() then
+          if pfUI_config.castbar.target.hide_pfui == "1" then
+            pfUI.castbar.target:Hide()
+          else
+            pfUI.castbar.target:Show()
+          end
+        elseif pfUI.castbar.target.drag and not pfUI.castbar.target.drag:IsShown() then
+          pfUI.castbar.target.casterDB[UnitName("target")] = nil
           pfUI.castbar.target:Hide()
-        else
-          pfUI.castbar.target:Show()
         end
-      elseif pfUI.castbar.target.drag and not pfUI.castbar.target.drag:IsShown() then
-        pfUI.castbar.target.casterDB[UnitName("target")] = nil
-        pfUI.castbar.target:Hide()
+      end
+    elseif arg1 then
+      -- (.+) begins to cast (.+).
+      for mob, spell in string.gfind(arg1, pfUI.castbar.target.SPELL_CAST) do
+        pfUI.castbar.target:Action(mob, spell)
+        return
+      end
+      -- (.+) begins to perform (.+).
+      for mob, spell in string.gfind(arg1, pfUI.castbar.target.SPELL_PERFORM) do
+        pfUI.castbar.target:Action(mob, spell)
+        return
+      end
+
+      -- (.+) gains (.+).
+      for mob, spell in string.gfind(arg1, pfUI.castbar.target.SPELL_GAINS) do
+        pfUI.castbar.target:StopAction(mob, spell)
+        return
+      end
+
+      -- (.+) is afflicted by (.+).
+      for mob, spell in string.gfind(arg1, pfUI.castbar.target.SPELL_AFFLICTED) do
+        pfUI.castbar.target:StopAction(mob, spell)
+        return
+      end
+
+      -- Your (.+) hits (.+) for %d+.
+      for spell, mob in string.gfind(arg1, pfUI.castbar.target.SPELL_HIT) do
+        pfUI.castbar.target:StopAction(mob, spell)
+        return
+      end
+
+      -- Your (.+) crits (.+) for %d+.
+      for spell, mob in string.gfind(arg1, pfUI.castbar.target.SPELL_CRIT) do
+        pfUI.castbar.target:StopAction(mob, spell)
+        return
+      end
+
+      -- (.+)'s (.+) %a hits (.+) for %d+.
+      for _, spell, mob in string.gfind(arg1, pfUI.castbar.target.OTHER_SPELL_HIT) do
+        pfUI.castbar.target:StopAction(mob, spell)
+        return
+      end
+
+      -- (.+)'s (.+) %a crits (.+) for %d+.
+      for _, spell, mob in string.gfind(arg1, pfUI.castbar.target.OTHER_SPELL_CRIT) do
+        pfUI.castbar.target:StopAction(mob, spell)
+        return
       end
     end
   end)
 
-  function pfUI.castbar.target:Action(mob, spell, gains)
+  function pfUI.castbar.target:Action(mob, spell)
     if pfLocaleSpells[pfUI.cache["locale"]][spell] ~= nil then
-      if gains and pfUI.castbar.target.casterDB[mob] and pfUI.castbar.target.casterDB[mob]["cast"] == spell then
-        pfUI.castbar.target.casterDB[mob] = nil
-        return
-      end
       local casttime = pfLocaleSpells[pfUI.cache["locale"]][spell].t / 1000
       local icon = pfLocaleSpells[pfUI.cache["locale"]][spell].icon
       pfUI.castbar.target.casterDB[mob] = {cast = spell, starttime = GetTime(), casttime = casttime, icon = icon}
@@ -380,6 +404,12 @@ pfUI:RegisterModule("castbar", function ()
       elseif pfUI.castbar.target.drag and not pfUI.castbar.target.drag:IsShown() then
         pfUI.castbar.target:Hide()
       end
+    end
+  end
+
+  function pfUI.castbar.target:StopAction(mob, spell)
+    if pfUI.castbar.target.casterDB[mob] and pfLocaleSpellInterrupts[pfUI.cache["locale"]][spell] ~= nil then
+      pfUI.castbar.target.casterDB[mob] = nil
     end
   end
 end)
