@@ -1,4 +1,3 @@
-Lineage UI: A powerful & extremely lightweight Interface for 1.12 WoW clients running @ 1920x1080. Powered by a custom fork of pfUI - https://github.com/vashin1/pfUI
 
 ## Installation
 1. Unpack the ZIP & replace your Interface and WTF folders with the ones provided in the ZIP. Note: Backup your old ones just in case
