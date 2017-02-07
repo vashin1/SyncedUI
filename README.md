@@ -1,10 +1,11 @@
 
 ## Installation
-1. Unpack the ZIP & replace your Interface and WTF folders with the ones provided in the ZIP. Note: Backup your old ones just in case
-2. Rename the "your-account" folder to your account name in all caps.
-3. Rename the "Kronos" folder to the realm your currently playing on.
-4. Rename the "your-character" folder to your characters name, make a copy and rename for any alts on that account.
-5. Start WoW and configure Video, Sound, Interface, Keybinds and Macro's.  Note: You can use pfUI to hover bind your bars.
+1. Backup your current Interface & WTF folders to a safe place.
+2. Unpack the ZIP & replace your Interface and WTF folders with the ones provided in the ZIP.
+3. Rename the "your-account" folder to your account name in all caps.
+4. Rename the "Kronos" folder to the realm your currently playing on.
+5. Rename the "your-character" folder to your characters name, make a copy and rename for any alts on that account.
+6. Start WoW and configure Video, Sound, Interface, Keybinds and Macro's.  Note: You can use pfUI to hover bind your bars.
 
 ## Screenshots
 ![Screenshot](http://i.imgur.com/YieZJsk.jpg)
