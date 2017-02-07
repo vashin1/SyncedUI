@@ -5,10 +5,8 @@ pfUI_profiles = {
 			["other"] = {
 				["minimap"] = "zone",
 			},
-			["left"] = {
-				["center"] = "durability",
-				["right"] = "friends",
-				["left"] = "guild",
+			["xp"] = {
+				["showalways"] = "0",
 			},
 			["right"] = {
 				["center"] = "time",
@@ -18,8 +16,10 @@ pfUI_profiles = {
 			["micro"] = {
 				["enable"] = "1",
 			},
-			["xp"] = {
-				["showalways"] = "0",
+			["left"] = {
+				["center"] = "durability",
+				["right"] = "friends",
+				["left"] = "guild",
 			},
 		},
 		["disabled"] = {
@@ -28,7 +28,7 @@ pfUI_profiles = {
 			["roll"] = "0",
 			["skin"] = "0",
 			["target"] = "0",
-			["map"] = "0",
+			["infight"] = "0",
 			["xpbar"] = "0",
 			["addons"] = "0",
 			["tooltip"] = "0",
@@ -39,17 +39,17 @@ pfUI_profiles = {
 			["eqcompare"] = "0",
 			["group"] = "0",
 			["bags"] = "0",
-			["minimap"] = "0",
+			["chat"] = "0",
 			["autoshift"] = "0",
 			["raid"] = "0",
 			["panel"] = "0",
 			["castbar"] = "0",
-			["infight"] = "0",
+			["map"] = "0",
 			["targettarget"] = "0",
 			["sellvalue"] = "0",
 			["hoverbind"] = "0",
 			["uf_tukui"] = "0",
-			["chat"] = "0",
+			["minimap"] = "0",
 			["actionbar"] = "0",
 			["nameplates"] = "0",
 			["loot"] = "0",
@@ -89,15 +89,15 @@ pfUI_profiles = {
 			["raid"] = {
 				["show_missing"] = "0",
 				["clickcast"] = "",
-				["buffs_classonly"] = "0",
+				["debuffs_class"] = "0",
 				["pspace"] = "-3",
 				["clickcast_ctrl"] = "",
-				["clickcast_shift"] = "",
+				["clickcast_alt"] = "",
 				["buffs_hots"] = "0",
 				["buffs_procs"] = "0",
-				["debuffs_class"] = "0",
+				["buffs_classonly"] = "0",
 				["debuffs_enable"] = "0",
-				["clickcast_alt"] = "",
+				["clickcast_shift"] = "",
 				["invert_healthbar"] = "0",
 				["buffs_buffs"] = "1",
 			},
@@ -106,8 +106,8 @@ pfUI_profiles = {
 			["animation_speed"] = "5",
 			["layout"] = "default",
 			["pet"] = {
-				["portrait"] = "bar",
 				["pspace"] = "-3",
+				["portrait"] = "bar",
 			},
 			["customcolor"] = ".2,.2,.2,1",
 			["player"] = {
@@ -124,9 +124,10 @@ pfUI_profiles = {
 			["custom"] = "0",
 			["portraitalpha"] = "0.1",
 			["ttarget"] = {
-				["portrait"] = "off",
 				["pspace"] = "-3",
+				["portrait"] = "off",
 			},
+			["debuff_size"] = "24",
 			["target"] = {
 				["portrait"] = "bar",
 				["animation"] = "0",
@@ -136,7 +137,6 @@ pfUI_profiles = {
 				["height"] = "50",
 				["buffs"] = "top",
 			},
-			["debuff_size"] = "24",
 			["disable"] = "0",
 		},
 		["thirdparty"] = {
@@ -165,16 +165,16 @@ pfUI_profiles = {
 			["cd"] = {
 				["threshold"] = "2",
 				["daycolor"] = ".2,.2,1,1",
-				["mincolor"] = ".2,1,1,1",
 				["hourcolor"] = ".2,.5,1,1",
+				["mincolor"] = ".2,1,1,1",
 			},
 			["castbar"] = {
-				["castbarcolor"] = "0.1,0.5,0.7,0.8",
 				["channelcolor"] = "0.4,0.4,0.4,0.8",
+				["castbarcolor"] = "0.1,0.5,0.7,0.8",
 			},
 			["bags"] = {
-				["borderlimit"] = "1",
 				["borderonlygear"] = "0",
+				["borderlimit"] = "1",
 			},
 			["border"] = {
 				["groupframes"] = "-1",
@@ -183,10 +183,10 @@ pfUI_profiles = {
 				["panels"] = "-1",
 				["actionbars"] = "-1",
 				["default"] = "3",
-				["raidframes"] = "-1",
+				["chat"] = "-1",
 				["background"] = "0,0,0,1",
 				["unitframes"] = "-1",
-				["chat"] = "-1",
+				["raidframes"] = "-1",
 			},
 			["loot"] = {
 				["autoresize"] = "1",
@@ -272,8 +272,8 @@ pfUI_profiles = {
 			["friendclassc"] = "1",
 			["raidiconsize"] = "16",
 			["clickthrough"] = "0",
-			["spellname"] = "0",
 			["enemyclassc"] = "1",
+			["spellname"] = "0",
 		},
 		["bars"] = {
 			["glowrange"] = "1",
@@ -285,7 +285,9 @@ pfUI_profiles = {
 			["hide_bottomright"] = "0",
 			["background"] = "1",
 			["hide_tworight"] = "1",
-			["hide_time"] = "1",
+			["shapeshift"] = {
+				["formfactor"] = "10 x 1",
+			},
 			["hide_shapeshift"] = "0",
 			["hide_bottomleft"] = "0",
 			["pet"] = {
@@ -304,12 +306,10 @@ pfUI_profiles = {
 			["hide_right"] = "0",
 			["hunterbar"] = "1",
 			["hide_actionmain"] = "0",
-			["shapeshift"] = {
-				["formfactor"] = "10 x 1",
-			},
 			["tworight"] = {
 				["formfactor"] = "1 x 12",
 			},
+			["hide_time"] = "1",
 		},
 		["chat"] = {
 			["global"] = {
@@ -337,22 +337,22 @@ pfUI_profiles = {
 				["time"] = "0",
 				["input_width"] = "0",
 				["timeformat"] = "%H:%M:%S",
-				["input_height"] = "0",
 				["timecolor"] = ".8,.8,.8,1",
+				["input_height"] = "0",
 			},
 		},
 		["global"] = {
-			["pixelperfect"] = "0",
+			["errors_hide"] = "1",
 			["font_default"] = "PT_Sans_Narrow",
 			["errors_limit"] = "1",
 			["force_region"] = "1",
 			["font_size"] = "12",
-			["font_combat"] = "PT_Sans_Narrow",
+			["pixelperfect"] = "0",
 			["font_square"] = "PT_Sans_Narrow",
 			["hidewbuff"] = "0",
 			["hidebuff"] = "1",
 			["profile"] = "RisenUI",
-			["errors_hide"] = "1",
+			["font_combat"] = "PT_Sans_Narrow",
 		},
 	},
 }
