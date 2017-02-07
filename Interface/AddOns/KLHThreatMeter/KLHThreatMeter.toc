@@ -1,6 +1,6 @@
 ## Interface: 11200
-## Title: KLHThreatMeter |cff33ffcc<Lineage>
-## Author: Kenco@Perenolde, edited by Sulfuras
+## Title: KLHThreatMeter |cff1fff1fpfUI|r edition
+## Author: Kenco@Perenolde, edited by Sulfuras, pfUi mod by Renew
 ## Notes: A Threat Meter
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
@@ -37,3 +37,5 @@ Code\GUI\KTM_TitleGui.lua
 Code\GUI\KTM_OptionsGui.lua
 Code\GUI\KTM_Frame.xml
 Code\GUI\KTM_OptionsFrame.xml
+
+pfUI.lua

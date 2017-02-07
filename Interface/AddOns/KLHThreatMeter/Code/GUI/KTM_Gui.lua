@@ -224,8 +224,8 @@ function KLHTM_SetupGuiComponents()
 	gui.frame:RegisterForDrag("LeftButton");
 	gui.frame:SetMovable(true);
 	gui.frame:SetUserPlaced(true);
-	gui.frame:SetBackdropColor(0, 0, 0);
-	gui.frame:SetBackdropBorderColor(0, 0, 0);
+	gui.frame:SetBackdropColor(0, 0, 0, 0.75);
+	--gui.frame:SetBackdropBorderColor(0, 0, 0);
 end
 
 

@@ -18,7 +18,7 @@ local state = KLHTM_GuiState;
 local heights = KLHTM_GuiHeights;
 
 -- the height and width of command buttons
-local Button_Size = 18;
+local Button_Size = 16;
 
 ------------------------------------------------------------------------------
 -- Sets up the instance variable "gui.title". It contains data on the GUI
