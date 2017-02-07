@@ -14,8 +14,8 @@ SW_Settings = {
 		},
 	},
 	["lastWOWBuild"] = "1.12.15875Sep 19 2006",
-	["SW_TL_AutoDelete"] = true,
-	["LAST_V_RUN"] = "2.0 Beta.7",
+	["IsRunning"] = true,
+	["OPT_ShowMainWinDPS"] = 1,
 	["SHOWMAIN"] = true,
 	["BFLocked"] = true,
 	["Colors"] = {
@@ -110,10 +110,9 @@ SW_Settings = {
 			[4] = 1,
 		},
 	},
-	["OPT_ShowMainWinDPS"] = 1,
-	["IsRunning"] = true,
+	["LAST_V_RUN"] = "2.0 Beta.7",
+	["SW_TL_AutoDelete"] = true,
 	["SW_IconPosR"] = 80,
-	["OPT_ShowTLB"] = 1,
 	["InfoSettings"] = {
 		[1] = {
 			["CF"] = 1,
@@ -131,7 +130,7 @@ SW_Settings = {
 				[3] = 0,
 				[4] = 1,
 			},
-			["BFS"] = 14,
+			["BFS"] = 12,
 			["BT"] = 13,
 			["PF"] = "SW_PF_Inactive",
 			["ShowRank"] = 1,
@@ -148,34 +147,32 @@ SW_Settings = {
 			["BH"] = 11,
 		},
 	},
+	["OPT_ShowTLB"] = 1,
 }
 SW_RPS = {
-	["lastFightSecs"] = 1.5,
+	["lastFightSecs"] = 14.79700000000048,
 	["allowLastFightUpdate"] = true,
 	["isRunning"] = false,
 	["startTimer"] = {
-		["uTS"] = -150029.2650001049,
-		["msO"] = -0.2649999999994179,
-		["epochTS"] = 1485929968,
+		["uTS"] = -51.2039999961853,
+		["msO"] = -0.2039999999997235,
+		["epochTS"] = 1486453342,
 	},
 	["uglyTruthStarted"] = true,
 	["lastFightDmg"] = 0,
 	["baseTimer"] = {
-		["uTS"] = -322940.3280000687,
+		["uTS"] = -696336.3280000687,
 		["msO"] = -0.3280000000004293,
 		["epochTS"] = 1485757057,
 	},
-	["lastEvent"] = 93.23500000000058,
-	["totalSecs"] = 129.9679999999989,
+	["lastEvent"] = 302.5930000000008,
+	["totalSecs"] = 176.4059999999972,
 	["maxDPS"] = 0,
 	["startDmg"] = 0,
 	["currentSecs"] = 0,
 }
 SW_StrTable = {
 	[1] = "Marelle",
-	[2] = "WORLD",
-	[3] = "Wolf",
-	[4] = "Furious Howl",
 }
 SW_DataCollection = {
 	["settings"] = {
@@ -202,9 +199,9 @@ SW_DataCollection = {
 	["data"] = {
 		[1] = {
 			["initTS"] = {
-				["uTS"] = 134.1409999999996,
-				["msO"] = 0.1409999999996217,
-				["epochTS"] = 1486080131,
+				["uTS"] = 7.70299999999952,
+				["msO"] = -0.2970000000004802,
+				["epochTS"] = 1486453401,
 			},
 			["Name"] = "Start",
 		},
