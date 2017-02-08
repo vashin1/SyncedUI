@@ -24,7 +24,7 @@ pfUI_profiles = {
 		},
 		["global"] = {
 			["pixelperfect"] = "0",
-			["font_combat"] = "PT_Sans_Narrow",
+			["font_combat"] = "Expressway",
 			["errors_limit"] = "1",
 			["force_region"] = "1",
 			["profile"] = "RisenUI",
@@ -32,8 +32,8 @@ pfUI_profiles = {
 			["font_size"] = "12",
 			["hidewbuff"] = "0",
 			["hidebuff"] = "1",
-			["font_square"] = "PT_Sans_Narrow",
-			["font_default"] = "PT_Sans_Narrow",
+			["font_square"] = "Expressway",
+			["font_default"] = "Expressway",
 		},
 		["castbar"] = {
 			["target"] = {
