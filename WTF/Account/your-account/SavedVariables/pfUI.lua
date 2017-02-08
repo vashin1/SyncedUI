@@ -356,7 +356,7 @@ pfUI_profiles = {
 		},
 		["global"] = {
 			["pixelperfect"] = "0",
-			["font_combat"] = "Continuum",
+			["font_combat"] = "Expressway-Slim",
 			["errors_limit"] = "1",
 			["force_region"] = "1",
 			["font_default"] = "Expressway",

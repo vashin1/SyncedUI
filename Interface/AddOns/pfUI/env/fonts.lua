@@ -13,7 +13,7 @@ function pfUI.environment:UpdateFonts()
   else
     pfUI.font_default = "Interface\\AddOns\\pfUI\\fonts\\Expressway.ttf"
     pfUI.font_square = "Interface\\AddOns\\pfUI\\fonts\\Expressway.ttf"
-    pfUI.font_combat = "Interface\\AddOns\\pfUI\\fonts\\Continuum.ttf"
+    pfUI.font_combat = "Interface\\AddOns\\pfUI\\fonts\\Expressway-Slim.ttf"
   end
 
   -- force locale based fonts
