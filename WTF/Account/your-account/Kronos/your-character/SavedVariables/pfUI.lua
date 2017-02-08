@@ -23,7 +23,7 @@ pfUI_config = {
 	},
 	["global"] = {
 		["errors_hide"] = "1",
-		["font_combat"] = "Expressway",
+		["font_combat"] = "Continuum",
 		["twentyfour"] = "0",
 		["force_region"] = "1",
 		["errors_limit"] = "1",
