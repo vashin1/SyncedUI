@@ -1,6 +1,4 @@
-pfUI_locale["deDE"] = {}
-
-pfUI_locale["deDE"]["class"] = {
+pfLocaleClass["deDE"] = {
   ["Hexenmeister"] = "WARLOCK",
   ["Krieger"] = "WARRIOR",
   ["Jäger"] = "HUNTER",
@@ -12,13 +10,13 @@ pfUI_locale["deDE"]["class"] = {
   ["Schurke"] = "ROGUE",
 }
 
-pfUI_locale["deDE"]["bagtypes"] = {
+pfLocaleBagtypes["deDE"] = {
   ["Köcher"] = "QUIVER",
   ["Seelentasche"] = "SOULBAG",
   ["Behälter"] = "DEFAULT",
 }
 
-pfUI_locale["deDE"]["itemtypes"] = {
+pfLocaleInvtypes["deDE"] = {
   ["INVTYPE_WAND"] = "Zauberstab",
   ["INVTYPE_GUN"] = "Schusswaffe",
   ["INVTYPE_GUNPROJECTILE"] = "Projektil",
@@ -27,7 +25,7 @@ pfUI_locale["deDE"]["itemtypes"] = {
   ["INVTYPE_THROWN"] = "Wurfwaffe",
 }
 
-pfUI_locale["deDE"]["stances"] = {
+pfLocaleShift["deDE"] = {
   ['BattleStance'] = "Kampfhaltung",
   ['DefensiveStance'] = "Verteidigungshaltung",
   ['BerserkerStance'] = "Berserkerhaltung",
@@ -38,24 +36,19 @@ pfUI_locale["deDE"]["stances"] = {
   ['wantBattleBerserkStance'] = "Muss in Kampfhaltung, Berserkerhaltung sein.",
 }
 
-pfUI_locale["deDE"]["interrupts"] = {
+pfLocaleSpellInterrupts["deDE"] = {
   ["Schildhieb"] = true;
   ["Zuschlagen"] = true;
   ["Tritt"] = true;
   ["Erdschock"] = true;
 }
 
-pfUI_locale["deDE"]["hunterpaging"] = {
+pfLocaleHunterbars["deDE"] = {
   ["MELEE"] = "Zurechtstutzen",
   ["RANGED"] = "Arkaner Schuss",
 }
 
-pfUI_locale["deDE"]["customcast"] = {
-  ["AIMEDSHOT"] = "Gezielter Schuss",
-  ["MULTISHOT"] = "Mehrfachschuss",
-}
-
-pfUI_locale["deDE"]["spells"] = {
+pfLocaleSpells["deDE"] = {
   ['Eisenherz nimmt wieder Huhngestalt an'] = {t=1000, icon="Ability_Racial_BearForm" };
   ['Monstrositätenspucke'] = {t=2500, icon="Spell_Nature_CorrosiveBreath" };
   ['Säure von Hakkar'] = {t=1000, icon="Spell_Nature_Acid_01" };

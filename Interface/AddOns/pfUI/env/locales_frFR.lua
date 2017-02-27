@@ -1,6 +1,4 @@
-pfUI_locale["frFR"] = {}
-
-pfUI_locale["frFR"]["class"] = {
+pfLocaleClass["frFR"] = {
   ["D\195\169moniste"] = "WARLOCK",
   ["Guerrier"] = "WARRIOR",
   ["Chasseur"] = "HUNTER",
@@ -12,13 +10,13 @@ pfUI_locale["frFR"]["class"] = {
   ["Voleur"] = "ROGUE",
 }
 
-pfUI_locale["frFR"]["bagtypes"] = {
+pfLocaleBagtypes["frFR"] = {
   ["Carquois"] = "QUIVER",
   ["Sac d'\195\162me"] = "SOULBAG",
   ["Conteneur"] = "DEFAULT"
 }
 
-pfUI_locale["frFR"]["itemtypes"] = {
+pfLocaleInvtypes["frFR"] = {
   ["INVTYPE_WAND"] = "Baguette",
   ["INVTYPE_GUN"] = "Arme \195\160 feu",
   ["INVTYPE_GUNPROJECTILE"] = "Projectile",
@@ -27,7 +25,7 @@ pfUI_locale["frFR"]["itemtypes"] = {
   ["INVTYPE_THROWN"] = "Arme de jet",
 }
 
-pfUI_locale["frFR"]["stances"] = {
+pfLocaleShift["frFR"] = {
   ['BattleStance'] = "Posture de combat",
   ['DefensiveStance'] = "Posture défensive",
   ['BerserkerStance'] = "Posture berserker",
@@ -38,24 +36,19 @@ pfUI_locale["frFR"]["stances"] = {
   ['wantBattleBerserkStance'] = "Requiert Posture de combat, Posture berserker",
 }
 
-pfUI_locale["frFR"]["interrupts"] = {
+pfLocaleSpellInterrupts["frFR"] = {
   ["Coup de bouclier"] = true;
   ["Volée de coups"] = true;
   ["Coup de pied"] = true;
   ["Horion de terre"] = true;
 }
 
-pfUI_locale["frFR"]["hunterpaging"] = {
+pfLocaleHunterbars["frFR"] = {
   ["MELEE"] = "Coupure d'ailes",
   ["RANGED"] = "Tir des Arcanes",
 }
 
-pfUI_locale["frFR"]["customcast"] = {
-  ["AIMEDSHOT"] = "Visée",
-  ["MULTISHOT"] = "Flèches multiples",
-}
-
-pfUI_locale["frFR"]["spells"] = {
+pfLocaleSpells["frFR"] = {
   ['Le Brave reprend sa forme de poulet'] = {t=1000, icon="Ability_Racial_BearForm" };
   ['Crachat d\'abomination'] = {t=2500, icon="Spell_Nature_CorrosiveBreath" };
   ['Acide d\'Hakkar'] = {t=1000, icon="Spell_Nature_Acid_01" };

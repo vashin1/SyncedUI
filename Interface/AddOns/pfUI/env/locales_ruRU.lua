@@ -1,6 +1,4 @@
-pfUI_locale["ruRU"] = {}
-
-pfUI_locale["ruRU"]["class"] = {
+pfLocaleClass["ruRU"] = {
   ["Чернокнижник"] = "WARLOCK",
   ["Воин"] = "WARRIOR",
   ["Охотник"] = "HUNTER",
@@ -12,13 +10,13 @@ pfUI_locale["ruRU"]["class"] = {
   ["Разбойник"] = "ROGUE",
 }
 
-pfUI_locale["ruRU"]["bagtypes"] = {
+pfLocaleBagtypes["ruRU"] = {
   ["Амуниция"] = "QUIVER",
   ["Сумка душ"] = "SOULBAG",
   ["Сумка"] = "DEFAULT"
 }
 
-pfUI_locale["ruRU"]["itemtypes"] = {
+pfLocaleInvtypes["ruRU"] = {
   ["INVTYPE_WAND"] = "Жезл",
   ["INVTYPE_GUN"] = "Огнестрельное",
   ["INVTYPE_GUNPROJECTILE"] = "Пуля",
@@ -27,7 +25,7 @@ pfUI_locale["ruRU"]["itemtypes"] = {
   ["INVTYPE_THROWN"] = "Метательное",
 }
 
-pfUI_locale["ruRU"]["stances"] = {
+pfLocaleShift["ruRU"] = {
   ['BattleStance'] = "Боевая стойка",
   ['DefensiveStance'] = "Оборонительная стойка",
   ['BerserkerStance'] = "Стойка берсерка",
@@ -38,24 +36,19 @@ pfUI_locale["ruRU"]["stances"] = {
   ['wantBattleBerserkStance'] = "Необходимо находиться в Боевая стойка, Стойка берсерка.",
 }
 
-pfUI_locale["ruRU"]["interrupts"] = {
+pfLocaleSpellInterrupts["ruRU"] = {
   ["Удар щитом"] = true;
   ["Зуботычина"] = true;
   ["Пинок"] = true;
   ["Земной шок"] = true;
 }
 
-pfUI_locale["ruRU"]["hunterpaging"] = {
+pfLocaleHunterbars["ruRU"] = {
   ["MELEE"] = "Подрезать крылья",
   ["RANGED"] = "Чародейский выстрел",
 }
 
-pfUI_locale["ruRU"]["customcast"] = {
-  ["AIMEDSHOT"] = "Прицельный выстрел",
-  ["MULTISHOT"] = "Залп",
-}
-
-pfUI_locale["ruRU"]["spells"] = {
+pfLocaleSpells["ruRU"] = {
   ['"Отчаянный" снова принимает облик цыпленка"'] = {t=1000, icon="Ability_Racial_BearForm" };
   ['Плевок мясника'] = {t=2500, icon="Spell_Nature_CorrosiveBreath" };
   ['Кислота Хаккара'] = {t=1000, icon="Spell_Nature_Acid_01" };
