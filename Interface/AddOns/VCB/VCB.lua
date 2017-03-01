@@ -56,7 +56,7 @@ VCB_THEME[1] = {
 	Timer_minutes_convert = false,
 	Timer_tenth = false,
 	Timer_round = false,
-	Timer_font = "Fonts\\FRIZQT__.ttf",
+	Timer_font = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf",
 	Timer_flash = false,
 	Timer_below_60 = false,
 	Timer_below_60_color_r = 1,
@@ -68,7 +68,7 @@ VCB_THEME[1] = {
 	CF_icon_color_g = 1,
 	CF_icon_color_b = 1,
 	CF_icon_fontsize = 13,
-	CF_icon_font = "Fonts\\FRIZQT__.ttf",
+	CF_icon_font = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf",
 	CF_icon_opacity = 1,
 	CF_icon_fontopacity = 1,
 	CF_icon_texture = "icon",
@@ -116,7 +116,7 @@ VCB_THEME[1] = {
 	CF_AURA_fontcolor_r = 1,
 	CF_AURA_fontcolor_g = 1,
 	CF_AURA_fontcolor_b = 1,
-	CF_AURA_font = "Fonts\\FRIZQT__.ttf",
+	CF_AURA_font = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf",
 	CF_AURA_fontopacity = 1,
 	CF_AURA_fontsize = 13,
 	CF_AURA_fontoffset_x = -5,
@@ -141,7 +141,7 @@ VCB_THEME[1] = {
 	BF_GENERAL_fontcolor_r = 1,
 	BF_GENERAL_fontcolor_g = 1,
 	BF_GENERAL_fontcolor_b = 1,
-	BF_GENERAL_font = "Fonts\\FRIZQT__.ttf",
+	BF_GENERAL_font = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf",
 	BF_GENERAL_fontopacity = 1,
 	BF_GENERAL_fontsize = 13,
 	BF_GENERAL_fontoffset_x = -5,
@@ -178,7 +178,7 @@ VCB_THEME[1] = {
 	DBF_GENERAL_fontcolor_r = 1,
 	DBF_GENERAL_fontcolor_g = 1,
 	DBF_GENERAL_fontcolor_b = 1,
-	DBF_GENERAL_font = "Fonts\\FRIZQT__.ttf",
+	DBF_GENERAL_font = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf",
 	DBF_GENERAL_fontopacity = 1,
 	DBF_GENERAL_fontsize = 13,
 	DBF_GENERAL_fontoffset_x = -5,
@@ -230,7 +230,7 @@ VCB_THEME[1] = {
 	WP_GENERAL_fontcolor_b = 1,
 	WP_GENERAL_bgopacity = 1,
 	WP_GENERAL_scale = 1,
-	WP_GENERAL_font = "Fonts\\FRIZQT__.ttf",
+	WP_GENERAL_font = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf",
 	WP_GENERAL_offset_x = -2,
 	WP_GENERAL_offset_y = 2,
 	WP_GENERAL_usecfont = false,
@@ -298,7 +298,7 @@ function VCB_OnEvent(event)
 				Timer_minutes_convert = false,
 				Timer_tenth = false,
 				Timer_round = false,
-				Timer_font = "Fonts\\FRIZQT__.ttf",
+				Timer_font = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf",
 				Timer_flash = false,
 				Timer_below_60 = false,
 				Timer_below_60_color_g = 0.82,
@@ -309,7 +309,7 @@ function VCB_OnEvent(event)
 				CF_icon_color_g = 1,
 				CF_icon_color_b = 1,
 				CF_icon_fontsize = 13,
-				CF_icon_font = "Fonts\\FRIZQT__.ttf",
+				CF_icon_font = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf",
 				CF_icon_opacity = 1,
 				CF_icon_fontopacity = 1,
 				CF_icon_texture = "icon",
@@ -357,7 +357,7 @@ function VCB_OnEvent(event)
 				CF_AURA_fontcolor_r = 1,
 				CF_AURA_fontcolor_g = 1,
 				CF_AURA_fontcolor_b = 1,
-				CF_AURA_font = "Fonts\\FRIZQT__.ttf",
+				CF_AURA_font = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf",
 				CF_AURA_fontopacity = 1,
 				CF_AURA_fontsize = 13,
 				CF_AURA_fontoffset_x = -5,
@@ -382,7 +382,7 @@ function VCB_OnEvent(event)
 				BF_GENERAL_fontcolor_r = 1,
 				BF_GENERAL_fontcolor_g = 1,
 				BF_GENERAL_fontcolor_b = 1,
-				BF_GENERAL_font = "Fonts\\FRIZQT__.ttf",
+				BF_GENERAL_font = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf",
 				BF_GENERAL_fontopacity = 1,
 				BF_GENERAL_fontsize = 13,
 				BF_GENERAL_fontoffset_x = -5,
@@ -419,7 +419,7 @@ function VCB_OnEvent(event)
 				DBF_GENERAL_fontcolor_r = 1,
 				DBF_GENERAL_fontcolor_g = 1,
 				DBF_GENERAL_fontcolor_b = 1,
-				DBF_GENERAL_font = "Fonts\\FRIZQT__.ttf",
+				DBF_GENERAL_font = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf",
 				DBF_GENERAL_fontopacity = 1,
 				DBF_GENERAL_fontsize = 13,
 				DBF_GENERAL_fontoffset_x = -5,
@@ -471,7 +471,7 @@ function VCB_OnEvent(event)
 				WP_GENERAL_fontcolor_b = 1,
 				WP_GENERAL_bgopacity = 1,
 				WP_GENERAL_scale = 1,
-				WP_GENERAL_font = "Fonts\\FRIZQT__.ttf",
+				WP_GENERAL_font = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf",
 				WP_GENERAL_offset_x = -2,
 				WP_GENERAL_offset_y = 2,
 				WP_GENERAL_usecfont = false,
@@ -589,12 +589,12 @@ function VCB_OnEvent(event)
 		
 		-- To catch a crash due to the font update
 		if strsub(VCB_SAVE["Timer_font"], 1, 5) ~= "Fonts" then
-			VCB_SAVE["Timer_font"] = "Fonts\\FRIZQT__.ttf"
-			VCB_SAVE["CF_icon_font"] = "Fonts\\FRIZQT__.ttf"
-			VCB_SAVE["CF_AURA_font"] = "Fonts\\FRIZQT__.ttf"
-			VCB_SAVE["BF_GENERAL_font"] = "Fonts\\FRIZQT__.ttf"
-			VCB_SAVE["DBF_GENERAL_font"] = "Fonts\\FRIZQT__.ttf"
-			VCB_SAVE["WP_GENERAL_font"] = "Fonts\\FRIZQT__.ttf"
+			VCB_SAVE["Timer_font"] = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf"
+			VCB_SAVE["CF_icon_font"] = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf"
+			VCB_SAVE["CF_AURA_font"] = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf"
+			VCB_SAVE["BF_GENERAL_font"] = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf"
+			VCB_SAVE["DBF_GENERAL_font"] = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf"
+			VCB_SAVE["WP_GENERAL_font"] = "Interface\\AddOns\\VCB\\Fonts\\DUF_Font1.ttf"
 		end
 		
 		VCB_INITIALIZE()
