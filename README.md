@@ -27,17 +27,20 @@
 
 ## Addon Commands
 
-    /pfui    Open the configuration GUI
-    /gm      Open the ticket Dialog
-    /rl      Reload the whole UI
-    /buffalo Configure buff frames
-	/swstats Configure damage meter
-	/bigwigs Configure boss mods
+    /pfui       Open the configuration GUI
+    /gm         Open the ticket Dialog
+    /rl         Reload the whole UI
+    /vcb config Configure buff frames
+	/swstats    Configure damage meter
+	/bigwigs    Configure boss mods
 
 ## FAQ
 
 **How can I enable mouseover cast?**  
-Create a macro with "/pfcast SPELLNAME".	
+Create a macro with "/pfcast SPELLNAME".
+
+**How can I get more modes for DPSMate?**
+Download DPSMate here https://github.com/Geigerkind/DPSMate/releases and add what modes you want and enable like any other addon.  (Currently using b93) 	
 	
 ## Credits
 
