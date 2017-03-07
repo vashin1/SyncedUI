@@ -40,7 +40,7 @@
 Create a macro with "/pfcast SPELLNAME".
 
 **How can I get more modes for DPSMate?**
-Download DPSMate here https://github.com/Geigerkind/DPSMate/releases and add what modes you want and enable like any other addon.  (Currently using b94) 	
+Download DPSMate here https://github.com/Geigerkind/DPSMate/releases and add what modes you want and enable like any other addon.  (Currently using b95) 	
 	
 ## Credits
 
