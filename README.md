@@ -7,17 +7,17 @@
 ![Modular](http://i.imgur.com/jcNkVYZ.jpg)
 
 ## Included Addons
-*  pfUI custom fork
-*  KTM 17.35 
-*  DPSMate
-*  Bigwigs
-*  Mik's Scrolling Battle Text
-*  VCB
-*  Linkmend
-*  Postal
-*  Crafty
-*  URLCopy
-*  Classic Snowfall
+*  **pfUI custom fork** - A complete rewrite of the stock UI  
+*  **KTM 17.35** - Threat meter     
+*  **DPSMate** - Advanced combat analysis  
+*  **Bigwigs** - Boss timers  
+*  **Mik's Scrolling Battle Text** - Scrolling combat text  
+*  **VCB** - Consolidated buff frames  
+*  **Linkmend** - Converts clink item links into actual item links, also localizes items that would otherwise appear in another language  
+*  **Postal** - Improved mailbox interface  
+*  **Crafty** - Improved crafting interface  
+*  **URLCopy** - Copy URLs from chat  
+*  **Classic Snowfall** - On press casting for all classes  
 
 ## Recommended Addons
 * [HealComm](https://github.com/Aviana/HealComm/releases) Visual representation of incoming heals. Note: Required for all healers
@@ -55,14 +55,13 @@ Create a macro with "/pfcast SPELLNAME".
 Download DPSMate here https://github.com/Geigerkind/DPSMate/releases and add what modes you want and enable like any other addon.  (Currently using b95) 	
 
 **How can I resize frames when pfUI is unlocked?**  
-Hold shift and hover over the frame you wish to modify and then mouse wheel up to increase scale, and down to decrease scale
+Hold shift and hover over the frame you wish to modify and then mouse wheel up to increase scale, and down to decrease scale.
 
 **How can I move my Raid frames and keep them interlocked?**  
-Hold shift and select a raid frame in the middle and drag, the entire frames will interlock to it's new location
+Hold shift and select a raid frame in the middle and drag, the entire frames will interlock to it's new location.
 
 **How can I make my own profile?**  
-Enter pfUI config and create a new profile, rename it and modify how you like then make sure to save it after. This is handy to have if you have a healer and DPS toon.
-
+Enter pfUI config and create a new profile, rename it and modify to your taste & save. This is handy to have if you have a healer and DPS toon.
 	
 ## Credits
 
