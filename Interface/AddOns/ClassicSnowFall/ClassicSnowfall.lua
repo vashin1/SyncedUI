@@ -1,20 +1,8 @@
-ClassicSnowfall = AceLibrary("AceAddon-2.0"):new(
-    "AceHook-2.0", 
-	"AceEvent-2.0"
-)
-local print = function(msg) if msg then DEFAULT_CHAT_FRAME:AddMessage(msg) end end
 local bongos = IsAddOnLoaded("Bongos_ActionBar")
 
-function ClassicSnowfall:OnEnable()
-	SLASH_CS1 = "/csselfcast"
-    SlashCmdList["CS"] = ClassicSnowfall.ToggleSelfCast;
-	self:Hook("ActionButtonDown","ActionButtonDown")
-	self:Hook("ActionButtonUp","ActionButtonUp")
-	self:Hook("MultiActionButtonDown","MultiActionButtonDown")
-	self:Hook("MultiActionButtonUp","MultiActionButtonUp")
-end
+local print = function(msg) if msg then DEFAULT_CHAT_FRAME:AddMessage(msg) end end
 
-function ClassicSnowfall:SelfCast()
+function ClassicSnowfallSelfCast()
 		if (CS_SELF_ENABLED) then
 			return IsAltKeyDown();
 		else
@@ -22,7 +10,7 @@ function ClassicSnowfall:SelfCast()
 		end
 end
 
-function ClassicSnowfall:ToggleSelfCast()
+function ClassicSnowfallToggleSelfCast()
 	if (CS_SELF_ENABLED) then
 		CS_SELF_ENABLED = false
 		print("Classic Snowfall ALT SelfCast now disabled.")
@@ -32,16 +20,18 @@ function ClassicSnowfall:ToggleSelfCast()
 	end
 end
 
+SLASH_CS1 = "/csselfcast"
+SlashCmdList["CS"] = ClassicSnowfallToggleSelfCast;
 
-function ClassicSnowfall:ActionButtonDown(id)
-	local button,pagedID;
-	print(onSelf);
+
+function ActionButtonDown(id)
+	local button,pagedID
 	if bongos == nil then
 		if ( BonusActionBarFrame:IsShown() ) then
 			local button = getglobal("BonusActionButton"..id);
 			if ( button:GetButtonState() == "NORMAL" ) then
 				button:SetButtonState("PUSHED");
-				UseAction(ActionButton_GetPagedID(button), 0, self:SelfCast());
+				UseAction(ActionButton_GetPagedID(button), 0, ClassicSnowfallSelfCast());
 			end
 			return;
 		end
@@ -50,7 +40,7 @@ function ClassicSnowfall:ActionButtonDown(id)
 		
 		if (button:GetButtonState() == "NORMAL" ) then
 			button:SetButtonState("PUSHED");
-			UseAction(ActionButton_GetPagedID(button), 0, self:SelfCast());
+			UseAction(ActionButton_GetPagedID(button), 0, ClassicSnowfallSelfCast());
 		end
 	else
 		button = getglobal("BActionButton"..id)
@@ -62,7 +52,7 @@ function ClassicSnowfall:ActionButtonDown(id)
 	end
 end
 
-function ClassicSnowfall:ActionButtonUp(id, onSelf)
+function ActionButtonUp(id, onSelf)
 	local button
 	if bongos == nil then
 		if ( BonusActionBarFrame:IsShown() ) then
@@ -105,17 +95,15 @@ function ClassicSnowfall:ActionButtonUp(id, onSelf)
 	end
 end
 
-function ClassicSnowfall:MultiActionButtonDown(bar, id)
-	local button;
-	button = getglobal(bar.."Button"..id);
-
+function MultiActionButtonDown(bar, id)
+	local button = getglobal(bar.."Button"..id);
 	if ( button:GetButtonState() == "NORMAL" ) then
 		button:SetButtonState("PUSHED");
-		UseAction(ActionButton_GetPagedID(button), 0, self:SelfCast());
+		UseAction(ActionButton_GetPagedID(button), 0, ClassicSnowfallSelfCast());
 	end
 end
 
-function ClassicSnowfall:MultiActionButtonUp(bar, id, onSelf)
+function MultiActionButtonUp(bar, id, onSelf)
 	local button = getglobal(bar.."Button"..id);
 	if ( button:GetButtonState() == "PUSHED" ) then
 		button:SetButtonState("NORMAL");

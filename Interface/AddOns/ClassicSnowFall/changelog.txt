@@ -1,5 +1,5 @@
 0.4
-Added alt self cast option
+Alt self cast support added.
 
 0.3
 All bongos bugs quashed.
