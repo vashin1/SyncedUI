@@ -52,7 +52,7 @@
 Create a macro with "/pfcast SPELLNAME".
 
 **How can I get more modes for DPSMate?**  
-Download DPSMate here https://github.com/Geigerkind/DPSMate/releases and add what modes you want and enable like any other addon.  (Currently using b97) 	
+Download DPSMate here https://github.com/Geigerkind/DPSMate/releases and add what modes you want and enable like any other addon.  (Currently using b101) 	
 
 **How can I resize frames when pfUI is unlocked?**  
 Hold shift and hover over the frame you wish to modify and then mouse wheel up to increase scale, and down to decrease scale.
