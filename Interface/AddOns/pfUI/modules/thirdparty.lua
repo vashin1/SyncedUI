@@ -428,7 +428,7 @@ pfUI:RegisterModule("thirdparty", function ()
       local b = _G[button]
       if not b then return end
       SkinButton(b)
-      b:SetScale(.9)
+      b:SetScale(.8)
 
       -- remove red background on some buttons
       for i,v in ipairs({b:GetRegions()}) do
