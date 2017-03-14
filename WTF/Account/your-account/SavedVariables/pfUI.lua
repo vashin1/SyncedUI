@@ -371,7 +371,7 @@ pfUI_profiles = {
 			["hidewbuff"] = "0",
 			["hidebuff"] = "0",
 			["offscreen"] = "0",
-			["font_combat"] = "Expressway-Slim",
+			["font_combat"] = "Expressway",
 		},
 	},
 }
