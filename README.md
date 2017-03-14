@@ -48,8 +48,11 @@
 
 ## FAQ
 
+**Can I use Clique with pfUI?**  
+A pfUI compatible version of Clique can be found [Here](https://github.com/shagu/Clique/releases). If you want to keep your current version of Clique, you'll have to apply this [Patch](https://github.com/shagu/Clique/commit/a5ee56c3f803afbdda07bae9cd330e0d4a75d75a).
+
 **How can I enable mouseover cast?**  
-Create a macro with "/pfcast SPELLNAME".
+Create a macro with "/pfcast SPELLNAME". If you also want to see the cooldown, You might want to add "/run if nil then CastSpellByName("SPELLNAME") end" on top of the macro.
 
 **How can I get more modes for DPSMate?**  
 Download DPSMate here https://github.com/Geigerkind/DPSMate/releases and add what modes you want and enable like any other addon.  (Currently using b101) 	
