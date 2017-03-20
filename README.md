@@ -55,7 +55,7 @@ A pfUI compatible version of Clique can be found [Here](https://github.com/shagu
 Create a macro with "/pfcast SPELLNAME". If you also want to see the cooldown, You might want to add "/run if nil then CastSpellByName("SPELLNAME") end" on top of the macro.
 
 **How can I get more modes for DPSMate?**  
-Download DPSMate here https://github.com/Geigerkind/DPSMate/releases and add what modes you want and enable like any other addon.  (Currently using b103) 	
+Download DPSMate here https://github.com/Geigerkind/DPSMate/releases and add what modes you want and enable like any other addon.  (Currently using b106) 	
 
 **How can I resize frames when pfUI is unlocked?**  
 Hold shift and hover over the frame you wish to modify and then mouse wheel up to increase scale, and down to decrease scale.
