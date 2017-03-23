@@ -1,4 +1,4 @@
-# postal - WoW 1.12 addOn
+# Postal - WoW 1.12 addOn
 
 An extension to the Blizzard mail interface which
 - **Automatically opens mail**

@@ -1,7 +1,7 @@
 ﻿## Interface: 11200
-## Title: postal
+## Title: Postal
 ## Notes: Mailbox automation
 ## Author: shirsig
-## SavedVariablesPerCharacter: postal_To
-## SavedVariables: postal_Characters
-postal.xml
+## SavedVariablesPerCharacter: Postal_To
+## SavedVariables: Postal_Characters
+Postal.xml
