@@ -8,6 +8,7 @@
 
 ## Included Addons
 *  **pfUI custom fork** - A complete rewrite of the stock UI  
+*  **HealComm** - Visual representation of incoming heals  
 *  **KTM 17.35** - Threat meter     
 *  **DPSMate** - Advanced combat analysis  
 *  **Bigwigs** - Boss timers  
@@ -21,7 +22,6 @@
 *  **Classic Snowfall** - On press casting for all classes  
 
 ## Recommended Addons
-* [HealComm](https://github.com/Aviana/HealComm/releases) Visual representation of incoming heals. Note: Required for all healers
 * [Bonus Scanner](http://www.vanilla-addons.com/dls/bonusscanner/) Scans your equipment for cumulative item bonuses and sums them up for use with Healcomm
 * [WIM (continued)](https://github.com/shirsig/WIM) Give whispers an instant messenger feel.
 * [Clean_Up](https://github.com/shirsig/Clean_Up) Automatically stacks and sorts your items.
