@@ -16,6 +16,7 @@
 *  **Linkmend** - Converts clink item links into actual item links, also localizes items that would otherwise appear in another language  
 *  **Postal** - Improved mailbox interface  
 *  **Crafty** - Improved crafting interface  
+*  **Extended Quest Log** - Improved quest log    
 *  **URLCopy** - Copy URLs from chat  
 *  **Classic Snowfall** - On press casting for all classes  
 
