@@ -35,7 +35,8 @@
 3. Rename the "your-account" folder to your account name in all caps.
 4. Rename the "Kronos" folder to the realm your currently playing on.
 5. Rename the "your-character" folder to your characters name, make a copy and rename for any alts on that account.
-6. Start WoW and configure Video, Sound, Interface, Keybinds and Macro's.  Note: You can use pfUI to hover bind your bars.
+6. Delete the WDB Folder  
+7. Start WoW and configure Video, Sound, Interface, Keybinds and Macro's.  Note: You can use pfUI to hover bind your bars.  
 
 ## Addon Commands
 
