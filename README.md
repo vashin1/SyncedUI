@@ -1,8 +1,6 @@
 
 ## Screenshots
-![Screenshot](http://i.imgur.com/YieZJsk.jpg)
-
-![Moving Frames](http://i.imgur.com/LVEsKsw.jpg)
+![Screenshot](http://i.imgur.com/8i8cHKp.jpg)
 
 ![Modular](http://i.imgur.com/jcNkVYZ.jpg)
 
