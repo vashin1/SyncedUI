@@ -1,6 +1,0 @@
-## Interface: 11200
-## Title: URL Copy
-## Author: Leuchtturm (Azshara EU)
-## Notes: Copy URL's in-game
-## SavedVariables: URLCopy
-URLCopy.xml
