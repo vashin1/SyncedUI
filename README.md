@@ -16,7 +16,6 @@
 *  **Postal** - Improved mailbox interface  
 *  **Crafty** - Improved crafting interface  
 *  **Extended Quest Log** - Improved quest log    
-*  **URLCopy** - Copy URLs from chat  
 *  **Classic Snowfall** - On press casting for all classes  
 
 ## Recommended Addons
