@@ -12,6 +12,7 @@
 *  **Bigwigs** - Boss timers  
 *  **Mik's Scrolling Battle Text** - Scrolling combat text  
 *  **VCB** - Consolidated buff frames  
+*  **Cooline** - Track your cooldowns neatly 
 *  **Linkmend** - Converts clink item links into actual item links, also localizes items that would otherwise appear in another language  
 *  **Postal** - Improved mailbox interface  
 *  **Crafty** - Improved crafting interface  
