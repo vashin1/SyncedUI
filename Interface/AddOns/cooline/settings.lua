@@ -14,7 +14,7 @@ cooline_theme = {
 	fontcolor = { 1, 1, 1, 0.8 },
 	spellcolor = { 0.8, 0.4, 0, 1 },
 	nospellcolor = { 0, 0, 0, 1 },
-	inactivealpha = 1.0,
+	inactivealpha = 0.0,
 	activealpha = 1.0,
 	treshold = 3.0,
 }
