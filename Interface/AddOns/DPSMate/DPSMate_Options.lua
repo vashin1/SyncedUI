@@ -754,20 +754,6 @@ DPSMate.Options.PLAYER_ENTERING_WORLD = function()
 			end
 		end
 	end
-
-	SetCVar("CombatLogPeriodicSpells", 1);
-		
-	
-	SetCVar("CombatLogRangeParty", 200);
-	SetCVar("CombatLogRangePartyPet", 200);
-	SetCVar("CombatLogRangeFriendlyPlayers", 200);
-	SetCVar("CombatLogRangeFriendlyPlayersPets", 200);
-	SetCVar("CombatLogRangeHostilePlayers", 200);
-	SetCVar("CombatLogRangeHostilePlayersPets", 200);
-	
-
-	SetCVar("CombatLogRangeCreature", 200);
-	SetCVar("CombatDeathLogRange", 200);
 end
 
 function DPSMate.Options:ShowResetPopUp()
@@ -998,7 +984,6 @@ function DPSMate.Options:PopUpAccept(bool, bypass)
 				val["options"][2]["total"] = true
 			end
 		end
-		DPSMate.DB:DamageDone(UnitName("player"), "Init", 0, 0, 0, 0, 0, 0, 0, 0, 0) -- Hackfix to fix the hunter issue where the player is not shown if pet damage is merged
 		DPSMate.Options:InitializeSegments()
 		DPSMate:SetStatusBarValue()
 	end

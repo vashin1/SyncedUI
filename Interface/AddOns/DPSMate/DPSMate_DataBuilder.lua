@@ -1164,22 +1164,22 @@ function DPSMate.DB:DamageDone(Duser, Dname, Dhit, Dcrit, Dmiss, Dparry, Ddodge,
 			if Dhit == 1 then
 				if (Damount < path[2] or path[2] == 0) then path[2] = Damount end
 				if Damount > path[3] then path[3] = Damount end
-				path[4] = path[4] + Damount
+				path[4] = (path[4]*path[1]+Damount)/(path[1]+1)
 				path[1] = path[1] + 1
 			elseif Dcrit == 1 then
 				if (Damount < path[6] or path[6] == 0) then path[6] = Damount end
 				if Damount > path[7] then path[7] = Damount end
-				path[8] = path[8] + Damount
+				path[8] = (path[8]*path[5]+Damount)/(path[5]+1)
 				path[5] = path[5] + 1
 			elseif Dglance == 1 then
 				if (Damount < path[15] or path[15] == 0) then path[15] = Damount end
 				if Damount > path[16] then path[16] = Damount end
-				path[17] =  path[17] + Damount
+				path[17] = (path[17]*path[14]+Damount)/(path[14]+1)
 				path[14] = path[14] + 1
 			else
 				if (Damount < path[19] or path[19] == 0) then path[19] = Damount end
 				if Damount > path[20] then path[20] = Damount end
-				path[21] =  path[21] + Damount
+				path[21] = (path[21]*path[18]+Damount)/(path[18]+1)
 				path[18] = path[18] + 1
 			end
 			gen["i"] = gen["i"] + Damount
@@ -1242,22 +1242,22 @@ function DPSMate.DB:DamageTaken(Duser, Dname, Dhit, Dcrit, Dmiss, Dparry, Ddodge
 			if Dhit == 1 then
 				if (Damount < path[2] or path[2] == 0) then path[2] = Damount end
 				if Damount > path[3] then path[3] = Damount end
-				path[4] = path[4]+Damount
+				path[4] = (path[4]*path[1]+Damount)/(path[1]+1)
 				path[1] = path[1] + 1
 			elseif Dcrit == 1 then
 				if (Damount < path[6] or path[6] == 0) then path[6] = Damount end
 				if Damount > path[7] then path[7] = Damount end
-				path[8] = path[8]+Damount
+				path[8] = (path[8]*path[5]+Damount)/(path[5]+1)
 				path[5] = path[5] + 1
 			elseif Dcrush == 1 then
 				if (Damount < path[16] or path[16] == 0) then path[16] = Damount end
 				if Damount > path[17] then path[17] = Damount end
-				path[18] = path[18]+Damount
+				path[18] = (path[18]*path[15]+Damount)/(path[15]+1)
 				path[15] = path[15] + 1
 			else
 				if (Damount < path[21] or path[21] == 0) then path[21] = Damount end
 				if Damount > path[22] then path[22] = Damount end
-				path[23] = path[23]+Damount
+				path[23] = (path[23]*path[20]+Damount)/(path[20]+1)
 				path[20] = path[20] + 1
 			end
 			gen["i"] = gen["i"] + Damount
@@ -1340,22 +1340,22 @@ function DPSMate.DB:EnemyDamage(mode, arr, Duser, Dname, Dhit, Dcrit, Dmiss, Dpa
 			if Dhit == 1 then
 				if (Damount < path[2] or path[2] == 0) then path[2] = Damount end
 				if Damount > path[3] then path[3] = Damount end
-				path[4] = path[4] + Damount
+				path[4] = (path[4]*path[1]+Damount)/(path[1]+1)
 				path[1] = path[1] + 1
 			elseif Dcrit == 1 then
 				if (Damount < path[6] or path[6] == 0) then path[6] = Damount end
 				if Damount > path[7] then path[7] = Damount end
-				path[8] = path[8] + Damount
+				path[8] = (path[8]*path[5]+Damount)/(path[5]+1)
 				path[5] = path[5] + 1
 			elseif Dcrush == 1 then
 				if (Damount < path[19] or path[19] == 0) then path[19] = Damount end
 				if Damount > path[20] then path[20] = Damount end
-				path[21] = path[21] + Damount
+				path[21] = (path[21]*path[18]+Damount)/(path[18]+1)
 				path[18] = path[18] + 1
 			else
 				if (Damount < path[15] or path[15] == 0) then path[15] = Damount end
 				if Damount > path[16] then path[16] = Damount end
-				path[17] = path[17] + Damount
+				path[17] = (path[17]*path[14]+Damount)/(path[14]+1)
 				path[14] = path[14] + 1
 			end
 			gen[Duser]["i"] = gen[Duser]["i"] + Damount
@@ -1400,7 +1400,7 @@ function DPSMate.DB:Healing(mode, arr, Duser, Dname, Dhit, Dcrit, Damount)
 			path[1] = path[1]+Damount
 			gen["i"] = gen["i"]+Damount
 			if Dhit==1 then
-				path[4] = path[4] + Damount 
+				path[4] = (path[4]*path[2]+Damount)/(path[2]+1) 
 				if Damount<path[6] or path[6]==0 then
 					path[6] = Damount; 
 				end
@@ -1409,7 +1409,7 @@ function DPSMate.DB:Healing(mode, arr, Duser, Dname, Dhit, Dcrit, Damount)
 				end
 				path[2] = path[2]+1
 			else 
-				path[5] = path[5] + Damount 
+				path[5] = (path[5]*path[3]+Damount)/(path[3]+1)
 				if Damount<path[8] or path[8]==0 then
 					path[8] = Damount; 
 				end
@@ -1455,7 +1455,7 @@ function DPSMate.DB:HealingTaken(mode, arr, Duser, Dname, Dhit, Dcrit, Damount, 
 		if Damount > 0 then 
 			path[1] = path[1]+Damount
 			if Dhit==1 then
-				path[4] = path[4] + Damount 
+				path[4] = (path[4]*path[2]+Damount)/(path[2]+1)
 				if Damount<path[6] or path[6]==0 then
 					path[6] = Damount; 
 				end
@@ -1464,7 +1464,7 @@ function DPSMate.DB:HealingTaken(mode, arr, Duser, Dname, Dhit, Dcrit, Damount, 
 				end
 				path[2] = path[2]+1
 			else
-				path[5] = path[5] + Damount 
+				path[5] = (path[5]*path[3]+Damount)/(path[3]+1)
 				if Damount<path[8] or path[8]==0 then
 					path[8] = Damount; 
 				end
@@ -1912,7 +1912,7 @@ function DPSMate.DB:UnregisterDeath(target)
 			DPSMateDeaths[cat][target][1]["i"][2]=GameTime_GT()
 			if cat==1 and DPSMate.Parser.TargetParty[DPSMate:GetUserById(target)] then 
 				p = DPSMateDeaths[cat][target][1][1]
-				DPSMate:Broadcast(4, DPSMate:GetUserById(target), DPSMate:GetUserById(p[1]), DPSMate:GetAbilityById(p[2]), p[3]) 
+				DPSMate:Broadcast(4, target, DPSMate:GetUserById(p[1]), DPSMate:GetAbilityById(p[2]), p[3]) 
 			end
 		end
 	end
