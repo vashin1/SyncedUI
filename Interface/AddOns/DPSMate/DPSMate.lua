@@ -1,6 +1,6 @@
 -- Global Variables
 DPSMate = {}
-DPSMate.VERSION = 114
+DPSMate.VERSION = 117
 DPSMate.LOCALE = GetLocale()
 DPSMate.SYNCVERSION = DPSMate.VERSION..DPSMate.LOCALE
 DPSMate.Parser = CreateFrame("Frame", nil, UIParent)
@@ -307,6 +307,13 @@ function DPSMate:InitializeFrames()
 	DPSMate_Logout:SetToplevel(true)
 	DPSMate_Report:SetToplevel(true)
 	DPSMate_ConfigMenu:SetToplevel(true)
+end
+
+function DPSMate:ProbZero(val)
+	if (val==0) then
+		return 1;
+	end
+	return val;
 end
 
 function DPSMate:TMax(t)
