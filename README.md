@@ -18,6 +18,7 @@
 *  **Crafty** - Improved crafting interface  
 *  **Extended Quest Log** - Improved quest log    
 *  **Classic Snowfall** - On press casting for all classes  
+*  **BG Enemyframes** - 1.12.1 addon to display enemy players on BGs  
 
 ## Recommended Addons
 * [Bonus Scanner](http://www.vanilla-addons.com/dls/bonusscanner/) Scans your equipment for cumulative item bonuses and sums them up for use with Healcomm
@@ -45,6 +46,7 @@
 	/dpsmate    Configure damage meter
 	/bigwigs    Configure boss mods
 	/msbt       Configure scrolling battle text
+	/efs        Configure Enemyframes
 
 ## FAQ
 
@@ -55,7 +57,7 @@ A pfUI compatible version of Clique can be found [Here](https://github.com/shagu
 Create a macro with "/pfcast SPELLNAME". If you also want to see the cooldown, You might want to add "/run if nil then CastSpellByName("SPELLNAME") end" on top of the macro.
 
 **How can I get more modes for DPSMate?**  
-Download DPSMate here https://github.com/Geigerkind/DPSMate/releases and add what modes you want and enable like any other addon.  (Currently using b114) 	
+Download DPSMate here https://github.com/Geigerkind/DPSMate/releases and add what modes you want and enable like any other addon.  (Currently using b117) 	
 
 **How can I resize frames when pfUI is unlocked?**  
 Hold shift and hover over the frame you wish to modify and then mouse wheel up to increase scale, and down to decrease scale.
