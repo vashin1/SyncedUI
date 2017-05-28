@@ -984,7 +984,6 @@ function DPSMate.Options:PopUpAccept(bool, bypass)
 				val["options"][2]["total"] = true
 			end
 		end
-		DPSMate.DB:DamageDone(UnitName("player"), "Init", 0, 0, 0, 0, 0, 0, 0, 0, 0) -- Hackfix to fix the hunter issue where the player is not shown if pet damage is merged
 		DPSMate.Options:InitializeSegments()
 		DPSMate:SetStatusBarValue()
 	end
