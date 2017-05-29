@@ -67,7 +67,6 @@ Enter pfUI config and create a new profile, rename it and modify to your taste &
 ## Credits
 
 Shagu - https://github.com/shagu/pfUI  
-Shino - DPSMate  
 Renew - KTM Theme    
 Athene - MSBT  
 Shirsig - Linkmend, Postal, Crafty  
