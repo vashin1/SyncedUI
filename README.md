@@ -8,7 +8,7 @@
 *  **pfUI custom fork** - A complete rewrite of the stock UI  
 *  **HealComm** - Visual representation of incoming heals  
 *  **KTM 17.35** - Threat meter     
-*  **DPSMate** - Advanced combat analysis  
+*  **SW Stats** - Combat analysis  
 *  **Bigwigs** - Boss timers  
 *  **Mik's Scrolling Battle Text** - Scrolling combat text  
 *  **VCB** - Consolidated buff frames  
@@ -17,8 +17,7 @@
 *  **Postal** - Improved mailbox interface  
 *  **Crafty** - Improved crafting interface  
 *  **Extended Quest Log** - Improved quest log    
-*  **Classic Snowfall** - On press casting for all classes  
-*  **BG Enemyframes** - 1.12.1 addon to display enemy players on BGs  
+*  **Classic Snowfall** - On press casting for all classes   
 
 ## Recommended Addons
 * [Bonus Scanner](http://www.vanilla-addons.com/dls/bonusscanner/) Scans your equipment for cumulative item bonuses and sums them up for use with Healcomm
@@ -55,9 +54,6 @@ A pfUI compatible version of Clique can be found [Here](https://github.com/shagu
 
 **How can I enable mouseover cast?**  
 Create a macro with "/pfcast SPELLNAME". If you also want to see the cooldown, You might want to add "/run if nil then CastSpellByName("SPELLNAME") end" on top of the macro.
-
-**How can I get more modes for DPSMate?**  
-Download DPSMate here https://github.com/Geigerkind/DPSMate/releases and add what modes you want and enable like any other addon.  (Currently using b117) 	
 
 **How can I resize frames when pfUI is unlocked?**  
 Hold shift and hover over the frame you wish to modify and then mouse wheel up to increase scale, and down to decrease scale.
