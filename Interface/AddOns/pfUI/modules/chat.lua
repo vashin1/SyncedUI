@@ -18,8 +18,6 @@ pfUI:RegisterModule("chat", function ()
     default_border = C.appearance.border.chat
   end
 
-  _G.CHAT_FONT_HEIGHTS = { 8, 10, 12, 14, 16, 18, 20 }
-
   pfUI.chat = CreateFrame("Frame",nil,UIParent)
 
   pfUI.chat.left = CreateFrame("Frame", "pfChatLeft", UIParent)
