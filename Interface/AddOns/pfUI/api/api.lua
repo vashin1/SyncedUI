@@ -1,6 +1,7 @@
 pfUI.api = { }
 pfUI.api._G = getfenv(0)
 local _G = getfenv(0)
+
 -- [ strsplit ]
 -- Splits a string using a delimiter.
 -- 'delimiter'  [string]        characters that will be interpreted as delimiter
@@ -12,6 +13,48 @@ function pfUI.api.strsplit(delimiter, subject)
   local pattern = string.format("([^%s]+)", delimiter)
   string.gsub(subject, pattern, function(c) fields[table.getn(fields)+1] = c end)
   return unpack(fields)
+end
+
+-- [ UnitInRange ]
+-- Returns whether a party/raid member is nearby. It uses spells with a distance of around 40 yards.
+-- unit         [string]        A unit to query (string, unitID)
+-- return:      [bool]          "1" if in range otherwise "nil"
+local RangeCache = {}
+function pfUI.api.UnitInRange(unit)
+    if not UnitExists(unit) or not UnitIsVisible(unit) then
+      return nil
+    end
+
+    if CheckInteractDistance(unit, 4) then
+      return 1
+    else if not pfUI.rangecheck or not pfUI.rangecheck.slot then
+      return nil
+    else
+      -- Extended Range Check
+      if not RangeCache[unit] or RangeCache[unit].time + pfUI.rangecheck.interval < GetTime() then
+        RangeCache[unit] = {}
+        RangeCache[unit].time  = GetTime()
+
+        if not UnitIsUnit("target", unit) then
+          pfScanActive = true
+          TargetUnit(unit)
+        end
+
+        if IsActionInRange(pfUI.rangecheck.slot) == 1 then
+          RangeCache[unit].range = 1
+        else
+          RangeCache[unit].range = nil
+        end
+
+        if pfScanActive then
+          TargetLastTarget()
+          pfScanActive = false
+        end
+      end
+
+      return RangeCache[unit].range
+    end
+  end
 end
 
 -- [ strvertical ]
@@ -280,6 +323,9 @@ end
 -- 'legacy'     [bool]          use legacy backdrop instead of creating frames.
 -- 'transp'     [bool]          force default transparency of 0.8.
 function pfUI.api.CreateBackdrop(f, inset, legacy, transp)
+  -- exit if now frame was given
+  if not f then return end
+
   -- use default inset if nothing is given
   local border = inset
   if not border then
