@@ -44,8 +44,7 @@
     /vcb config Configure buff frames
 	/dpsmate    Configure damage meter
 	/bigwigs    Configure boss mods
-	/msbt       Configure scrolling battle text
-	/efs        Configure Enemyframes
+	/msbt       Configure scrolling battle text  
 
 ## FAQ
 
