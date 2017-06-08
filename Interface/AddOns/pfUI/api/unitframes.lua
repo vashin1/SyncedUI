@@ -89,8 +89,8 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
   f.power.bar:SetAllPoints(f.power)
   f.power.bar:SetMinMaxValues(0, 100)
 
-  f.leftText = f:CreateFontString("Status", "OVERLAY", "GameFontNormal")
-  f.leftText:SetFont(pfUI.font_square, C.global.font_size, "OUTLINE")
+  f.leftText = f:CreateFontString("Status", "OVERLAY", "GameFontNormalSmall")
+  f.leftText:SetFont(pfUI.font_unit, C.global.font_unit_size, "OUTLINE")
   f.leftText:SetJustifyH("LEFT")
   f.leftText:SetFontObject(GameFontWhite)
   f.leftText:SetParent(f.hp.bar)
@@ -98,8 +98,8 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
   f.leftText:SetPoint("TOPLEFT",f.hp.bar, "TOPLEFT", 2*default_border, 1)
   f.leftText:SetPoint("BOTTOMRIGHT",f.hp.bar, "BOTTOMRIGHT", -2*default_border, 0)
 
-  f.rightText = f:CreateFontString("Status", "OVERLAY", "GameFontNormal")
-  f.rightText:SetFont(pfUI.font_square, C.global.font_size, "OUTLINE")
+  f.rightText = f:CreateFontString("Status", "OVERLAY", "GameFontNormalSmall")
+  f.rightText:SetFont(pfUI.font_unit, C.global.font_unit_size, "OUTLINE")
   f.rightText:SetJustifyH("RIGHT")
   f.rightText:SetFontObject(GameFontWhite)
   f.rightText:SetParent(f.hp.bar)
@@ -107,8 +107,8 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
   f.rightText:SetPoint("TOPLEFT",f.hp.bar, "TOPLEFT", 2*default_border, 1)
   f.rightText:SetPoint("BOTTOMRIGHT",f.hp.bar, "BOTTOMRIGHT", -2*default_border, 0)
 
-  f.centerText = f:CreateFontString("Status", "OVERLAY", "GameFontNormal")
-  f.centerText:SetFont(pfUI.font_square, C.global.font_size, "OUTLINE")
+  f.centerText = f:CreateFontString("Status", "OVERLAY", "GameFontNormalSmall")
+  f.centerText:SetFont(pfUI.font_unit, C.global.font_unit_size, "OUTLINE")
   f.centerText:SetJustifyH("CENTER")
   f.centerText:SetFontObject(GameFontWhite)
   f.centerText:SetParent(f.hp.bar)
@@ -346,14 +346,14 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
       f.buffs[i]:SetID(i)
 
       f.buffs[i].stacks = f.buffs[i]:CreateFontString(nil, "OVERLAY", f.buffs[i])
-      f.buffs[i].stacks:SetFont(pfUI.font_square, C.global.font_size, "OUTLINE")
+      f.buffs[i].stacks:SetFont(pfUI.font_unit, C.global.font_unit_size, "OUTLINE")
       f.buffs[i].stacks:SetPoint("BOTTOMRIGHT", f.buffs[i], 2, -2)
       f.buffs[i].stacks:SetJustifyH("LEFT")
       f.buffs[i].stacks:SetShadowColor(0, 0, 0)
       f.buffs[i].stacks:SetShadowOffset(0.8, -0.8)
       f.buffs[i].stacks:SetTextColor(1,1,.5)
       f.buffs[i].cd = f.buffs[i]:CreateFontString(nil, "OVERLAY", f.buffs[i])
-      f.buffs[i].cd:SetFont(pfUI.font_square, C.global.font_size, "OUTLINE")
+      f.buffs[i].cd:SetFont(pfUI.font_unit, C.global.font_unit_size, "OUTLINE")
       f.buffs[i].cd:SetPoint("CENTER", f.buffs[i], 0, 0)
       f.buffs[i].cd:SetJustifyH("LEFT")
       f.buffs[i].cd:SetShadowColor(0, 0, 0)
@@ -434,14 +434,14 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
       f.debuffs[i] = CreateFrame("Button", "pfUI" .. f.fname .. "Debuff" .. i, f)
       f.debuffs[i]:SetID(i)
       f.debuffs[i].stacks = f.debuffs[i]:CreateFontString(nil, "OVERLAY", f.debuffs[i])
-      f.debuffs[i].stacks:SetFont(pfUI.font_square, C.global.font_size, "OUTLINE")
+      f.debuffs[i].stacks:SetFont(pfUI.font_unit, C.global.font_unit_size, "OUTLINE")
       f.debuffs[i].stacks:SetPoint("BOTTOMRIGHT", f.debuffs[i], 2, -2)
       f.debuffs[i].stacks:SetJustifyH("LEFT")
       f.debuffs[i].stacks:SetShadowColor(0, 0, 0)
       f.debuffs[i].stacks:SetShadowOffset(0.8, -0.8)
       f.debuffs[i].stacks:SetTextColor(1,1,.5)
       f.debuffs[i].cd = f.debuffs[i]:CreateFontString(nil, "OVERLAY", f.debuffs[i])
-      f.debuffs[i].cd:SetFont(pfUI.font_square, C.global.font_size, "OUTLINE")
+      f.debuffs[i].cd:SetFont(pfUI.font_unit, C.global.font_unit_size, "OUTLINE")
       f.debuffs[i].cd:SetPoint("CENTER", f.debuffs[i], 0, 0)
       f.debuffs[i].cd:SetJustifyH("LEFT")
       f.debuffs[i].cd:SetShadowColor(0, 0, 0)
@@ -1218,7 +1218,7 @@ function pfUI.uf:GetStatusValue(unit, pos)
     level = unit:GetColor("level") .. level
     name = unit:GetColor("unit") .. name
 
-    return level .. " " .. name
+    return level .. "  " .. name
 
   elseif config == "name" then
     return unit:GetColor("unit") .. UnitName(unitstr)
@@ -1231,15 +1231,15 @@ function pfUI.uf:GetStatusValue(unit, pos)
   elseif config == "health" then
     if unit.label == "target" and MobHealth3 then
       local hp, hpmax = MobHealth3:GetUnitHealth(unit.label)
-      return unit:GetColor("health") .. hp
+      return unit:GetColor("health") .. pfUI.api.Abbreviate(hp)
     end
-    return unit:GetColor("health") .. UnitHealth(unitstr)
+    return unit:GetColor("health") .. pfUI.api.Abbreviate(UnitHealth(unitstr))
   elseif config == "healthmax" then
     if unit.label == "target" and MobHealth3 then
       local hp, hpmax = MobHealth3:GetUnitHealth(unit.label)
-      return unit:GetColor("health") .. hpmax
+      return unit:GetColor("health") .. pfUI.api.Abbreviate(hpmax)
     end
-    return unit:GetColor("health") .. UnitHealthMax(unitstr)
+    return unit:GetColor("health") .. pfUI.api.Abbreviate(UnitHealthMax(unitstr))
   elseif config == "healthperc" then
     return unit:GetColor("health") .. ceil(UnitHealth(unitstr) / UnitHealthMax(unitstr) * 100)
   elseif config == "healthmiss" then
@@ -1247,38 +1247,39 @@ function pfUI.uf:GetStatusValue(unit, pos)
     if health == 0 then
       return ""
     else
-      return unit:GetColor("health") .. health
+      return unit:GetColor("health") .. pfUI.api.Abbreviate(health)
     end
   elseif config == "healthdyn" then
     if UnitHealth(unitstr) ~= UnitHealthMax(unitstr) then
       if unit.label == "target" and MobHealth3 then
         local hp, hpmax = MobHealth3:GetUnitHealth(unit.label)
-        return unit:GetColor("health") .. hp .. " - " .. ceil(hp / hpmax * 100) .. "%"
+        return unit:GetColor("health") .. pfUI.api.Abbreviate(hp) .. " - " .. ceil(hp / hpmax * 100) .. "%"
       end
-      return unit:GetColor("health") .. UnitHealth(unitstr) .. " - " .. ceil(UnitHealth(unitstr) / UnitHealthMax(unitstr) * 100) .. "%"
+      return unit:GetColor("health") .. pfUI.api.Abbreviate(UnitHealth(unitstr)) .. " - " .. ceil(UnitHealth(unitstr) / UnitHealthMax(unitstr) * 100) .. "%"
     else
-      return unit:GetColor("health") .. UnitHealth(unitstr)
+      return unit:GetColor("health") .. pfUI.api.Abbreviate(UnitHealth(unitstr))
     end
 
   -- mana/power/focus
   elseif config == "power" then
-    return unit:GetColor("power") .. UnitMana(unitstr)
+    return unit:GetColor("power") .. pfUI.api.Abbreviate(UnitMana(unitstr))
   elseif config == "powermax" then
-    return unit:GetColor("power") .. UnitManaMax(unitstr)
+    return unit:GetColor("power") .. pfUI.api.Abbreviate(UnitManaMax(unitstr))
   elseif config == "powerperc" then
-    return unit:GetColor("power") .. ceil(UnitMana(unitstr) / UnitManaMax(unitstr) * 100)
+    local perc = UnitManaMax(unitstr) > 0 and ceil(UnitMana(unitstr) / UnitManaMax(unitstr) * 100) or 0
+    return unit:GetColor("power") .. perc
   elseif config == "powermiss" then
     local power = ceil(UnitMana(unitstr) - UnitManaMax(unitstr))
     if power == 0 then
       return ""
     else
-      return unit:GetColor("power") .. power
+      return unit:GetColor("power") .. pfUI.api.Abbreviate(power)
     end
   elseif config == "powerdyn" then
     if UnitMana(unitstr) ~= UnitManaMax(unitstr) then
-      return unit:GetColor("power") .. UnitMana(unitstr) .. " - " .. ceil(UnitMana(unitstr) / UnitManaMax(unitstr) * 100) .. "%"
+      return unit:GetColor("power") .. pfUI.api.Abbreviate(UnitMana(unitstr)) .. " - " .. ceil(UnitMana(unitstr) / UnitManaMax(unitstr) * 100) .. "%"
     else
-      return unit:GetColor("power") .. UnitMana(unitstr)
+      return unit:GetColor("power") .. pfUI.api.Abbreviate(UnitMana(unitstr))
     end
   else
     return ""
@@ -1286,9 +1287,12 @@ function pfUI.uf:GetStatusValue(unit, pos)
 end
 
 function pfUI.uf.GetColor(self, preset)
+  local config = self.config
+
   local unitstr = self.label .. self.id
   local r, g, b = 1, 1, 1
-  if preset == "unit" then
+
+  if preset == "unit" and config["classcolor"] == "1" then
     if UnitIsPlayer(unitstr) then
       local _, class = UnitClass(unitstr)
       if RAID_CLASS_COLORS[class] then
@@ -1300,18 +1304,18 @@ function pfUI.uf.GetColor(self, preset)
       end
     end
 
-  elseif preset == "class" then
+  elseif preset == "class" and config["classcolor"] == "1" then
     local _, class = UnitClass(unitstr)
     r = RAID_CLASS_COLORS[class].r
     g = RAID_CLASS_COLORS[class].g
     b = RAID_CLASS_COLORS[class].b
 
-  elseif preset == "reaction" then
+  elseif preset == "reaction" and config["classcolor"] == "1" then
     r = UnitReactionColor[UnitReaction(unitstr, "player")].r
     g = UnitReactionColor[UnitReaction(unitstr, "player")].g
     b = UnitReactionColor[UnitReaction(unitstr, "player")].b
 
-  elseif preset == "health" then
+  elseif preset == "health" and config["healthcolor"] == "1" then
     local perc = UnitHealth(unitstr) / UnitHealthMax(unitstr)
     local r1, g1, b1, r2, g2, b2
     if perc <= 0.5 then
@@ -1327,12 +1331,12 @@ function pfUI.uf.GetColor(self, preset)
     g = g1 + (g2 - g1)*perc
     b = b1 + (b2 - b1)*perc
 
-  elseif preset == "power" then
+  elseif preset == "power" and config["powercolor"] == "1" then
     r = ManaBarColor[UnitPowerType(unitstr)].r
     g = ManaBarColor[UnitPowerType(unitstr)].g
     b = ManaBarColor[UnitPowerType(unitstr)].b
 
-  elseif preset == "level" then
+  elseif preset == "level" and config["levelcolor"] == "1" then
     r = GetDifficultyColor(UnitLevel(unitstr)).r
     g = GetDifficultyColor(UnitLevel(unitstr)).g
     b = GetDifficultyColor(UnitLevel(unitstr)).b

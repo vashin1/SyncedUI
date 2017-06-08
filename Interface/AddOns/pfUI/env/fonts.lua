@@ -4,18 +4,18 @@ if GetLocale() == "zhCN" then
 elseif GetLocale() == "koKR" then
   STANDARD_TEXT_FONT = "Fonts\\2002.TTF"
 else
-  STANDARD_TEXT_FONT = "Interface\\AddOns\\pfUI\\fonts\\Expressway.ttf"
+  STANDARD_TEXT_FONT = "Interface\\AddOns\\pfUI\\fonts\\Myriad-Pro.ttf"
 end
 
 function pfUI.environment:UpdateFonts()
   if pfUI_config and pfUI_config.global and pfUI_config.global.font_default then
-    pfUI.font_default = "Interface\\AddOns\\pfUI\\fonts\\" .. pfUI_config.global.font_default .. ".ttf"
-    pfUI.font_combat =  "Interface\\AddOns\\pfUI\\fonts\\" .. pfUI_config.global.font_combat .. ".ttf"
-    pfUI.font_square = "Interface\\AddOns\\pfUI\\fonts\\" .. pfUI_config.global.font_square .. ".ttf"
+    pfUI.font_default = "Interface\\AddOns\\pfUI\\fonts\\" .. (pfUI_config.global.font_default or "Myriad-Pro") .. ".ttf"
+    pfUI.font_unit = "Interface\\AddOns\\pfUI\\fonts\\" .. (pfUI_config.global.font_unit or "BigNoodleTitling") .. ".ttf"
+    pfUI.font_combat = "Interface\\AddOns\\pfUI\\fonts\\" .. (pfUI_config.global.font_combat or "Continuum") .. ".ttf"
   else
-    pfUI.font_default = "Interface\\AddOns\\pfUI\\fonts\\Expressway.ttf"
-    pfUI.font_square = "Interface\\AddOns\\pfUI\\fonts\\Expressway.ttf"
-    pfUI.font_combat = "Interface\\AddOns\\pfUI\\fonts\\Expressway.ttf"
+    pfUI.font_default = "Interface\\AddOns\\pfUI\\fonts\\Myriad-Pro.ttf"
+    pfUI.font_unit = "Interface\\AddOns\\pfUI\\fonts\\BigNoodleTitling.ttf"
+    pfUI.font_combat = "Interface\\AddOns\\pfUI\\fonts\\Continuum.ttf"
   end
 
   -- force locale based fonts
@@ -23,11 +23,11 @@ function pfUI.environment:UpdateFonts()
     if GetLocale() == "zhCN" then
       pfUI.font_default = "Fonts\\FZXHLJW.TTF"
       pfUI.font_combat = "Fonts\\FZXHLJW.TTF"
-      pfUI.font_square = "Fonts\\FZXHLJW.TTF"
+      pfUI.font_unit = "Fonts\\FZXHLJW.TTF"
     elseif GetLocale() == "koKR" then
       pfUI.font_default = "Fonts\\2002.TTF"
       pfUI.font_combat = "Fonts\\2002.TTF"
-      pfUI.font_square = "Fonts\\2002.TTF"
+      pfUI.font_unit = "Fonts\\2002.TTF"
     end
   end
 
@@ -39,7 +39,7 @@ function pfUI.environment:UpdateFonts()
   SystemFont:SetFont(pfUI.font_default, 15)
   GameFontNormal:SetFont(pfUI.font_default, 12)
   GameFontBlack:SetFont(pfUI.font_default, 12)
-  GameFontNormalSmall:SetFont(pfUI.font_default, 11)
+  GameFontNormalSmall:SetFont(pfUI.font_default, 12)
   GameFontNormalLarge:SetFont(pfUI.font_default, 16)
   GameFontNormalHuge:SetFont(pfUI.font_default, 20)
   NumberFontNormal:SetFont(pfUI.font_default, 14, "OUTLINE")
@@ -53,17 +53,17 @@ function pfUI.environment:UpdateFonts()
   MailTextFontNormal:SetFont(pfUI.font_default, 15)
   SubSpellFont:SetFont(pfUI.font_default, 12)
   DialogButtonNormalText:SetFont(pfUI.font_default, 16)
-  ZoneTextFont:SetFont(pfUI.font_default, 34, "OUTLINE")
+  ZoneTextFont:SetFont(pfUI.font_default, 48, "OUTLINE")
   SubZoneTextFont:SetFont(pfUI.font_default, 24, "OUTLINE")
   TextStatusBarTextSmall:SetFont(pfUI.font_default, 12, "NORMAL")
   GameTooltipText:SetFont(pfUI.font_default, 12)
   GameTooltipTextSmall:SetFont(pfUI.font_default, 12)
-  GameTooltipHeaderText:SetFont(pfUI.font_default, 13)
+  GameTooltipHeaderText:SetFont(pfUI.font_default, 14)
   WorldMapTextFont:SetFont(pfUI.font_default, 102, "THICK")
   InvoiceTextFontNormal:SetFont(pfUI.font_default, 12)
   InvoiceTextFontSmall:SetFont(pfUI.font_default, 12)
-  ChatFontNormal:SetFont(pfUI.font_default, 12, "OUTLINE")
-  CombatTextFont:SetFont(pfUI.font_combat, 22)
+  ChatFontNormal:SetFont(pfUI.font_default, 12, "NORMAL")
+  CombatTextFont:SetFont(pfUI.font_combat, 25)
 end
 
 -- run environment update

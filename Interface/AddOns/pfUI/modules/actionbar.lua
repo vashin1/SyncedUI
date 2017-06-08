@@ -461,7 +461,7 @@ pfUI:RegisterModule("actionbar", function ()
 
     local hotkey = _G["ShapeshiftButton"..i..'HotKey']
     hotkey:SetAllPoints(button)
-    hotkey:SetFont(pfUI.font_square, C.global.font_size -2, "OUTLINE")
+    hotkey:SetFont(pfUI.font_unit, C.global.font_unit_size -2, "OUTLINE")
     hotkey:SetJustifyH("RIGHT")
     hotkey:SetJustifyV("TOP")
   end
@@ -519,7 +519,7 @@ pfUI:RegisterModule("actionbar", function ()
       local hotkey = _G[actionbutton..i..'HotKey']
       if C.bars.showkeybind == "1" then
         hotkey:SetAllPoints(button)
-        hotkey:SetFont(pfUI.font_square, C.global.font_size -2, "OUTLINE")
+        hotkey:SetFont(pfUI.font_unit, C.global.font_unit_size -2, "OUTLINE")
         hotkey:SetJustifyH("RIGHT")
         hotkey:SetJustifyV("TOP")
       else
@@ -529,7 +529,7 @@ pfUI:RegisterModule("actionbar", function ()
       local name = _G[actionbutton..i..'Name']
       if C.bars.showmacro == "1" then
         name:SetAllPoints(button)
-        name:SetFont(pfUI.font_square, C.global.font_size -2, "OUTLINE")
+        name:SetFont(pfUI.font_unit, C.global.font_unit_size -2, "OUTLINE")
         name:SetJustifyH("CENTER")
         name:SetJustifyV("BOTTOM")
       else
