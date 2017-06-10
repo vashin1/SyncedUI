@@ -1,6 +1,6 @@
 --[[
 Name: HealComm-1.0
-Revision: $Rev: 11610 $
+Revision: $Rev: 11620 $
 Author(s): aviana
 Website: https://github.com/Aviana
 Description: A library to provide communication of heals and resurrections.
@@ -8,7 +8,7 @@ Dependencies: AceLibrary, AceEvent-2.0, RosterLib-2.0
 ]]
 
 local MAJOR_VERSION = "HealComm-1.0"
-local MINOR_VERSION = "$Revision: 11610 $"
+local MINOR_VERSION = "$Revision: 11620 $"
 
 if not AceLibrary then error(MAJOR_VERSION .. " requires AceLibrary") end
 if not AceLibrary:IsNewVersion(MAJOR_VERSION, MINOR_VERSION) then return end
@@ -146,9 +146,26 @@ elseif GetLocale() == "zhCN" then
 			return table.BZ[key]
 		end
 	end})
+	L["Curse of the Deadwood"] = "死木诅咒"
+	L["Veil of Shadow"] = "暗影之雾"
+	L["Gehennas' Curse"] = "基赫纳斯的诅咒"
+	L["Mortal Wound"] = "重伤"
+	L["Necrotic Poison"] = "死灵之毒"
+	L["Necrotic Aura"] = "死灵光环"
+	L["The Furious Storm"] = "狂野风暴"
+	L["Holy Power"] = "神圣能量"
+	L["Prayer Beads Blessing"] = "祈祷之珠"
+	L["Chromatic Infusion"] = "多彩能量"
+	L["Ascendance"] = "优越"
+	L["Ephemeral Power"] = "短暂强力"
+	L["Unstable Power"] = "能量无常"
+	L["Healing of the Ages"] = "远古治疗	"
+	L["Essence of Sapphiron"] = "萨菲隆的精华"
+	L["The Eye of the Dead"] = "亡者之眼"
+	L["Crusader's Wrath"] = "十字军之怒"
+	L["Nature Aligned"] = "自然之盟"
 	L["Libram of Divinity"] = "神性圣契"
 	L["Libram of Light"] = "光明圣契"
-	L["Necrotic Aura"] = "死灵光环"  -- 这个技能不知道是否存在
 	L["Set: Increases the duration of your Rejuvenation spell by 3 sec."] = "套装：使你的回春术的持续时间延长3秒。" -- T2
 	L["Set: Increases the duration of your Renew spell by 3 sec."] = "套装：使你的恢复术的持续时间延长3秒。" -- T2.5
 	L["Totem of Life"] = "生命图腾"
@@ -1506,7 +1523,7 @@ function HealComm:CastSpellByName(spellName, onSelf)
 		self.CurrentSpellName = spellName
 		self.CurrentSpellRank = rank
 		
-		if not SpellIsTargeting() and GetCVar("AutoSelfCast") == "1" then
+		if not SpellIsTargeting() then
 			if UnitIsVisible("target") and UnitIsConnected("target") and UnitCanAssist("player", "target") and onSelf ~= 1 then
 				if UnitIsPlayer("target") then
 					self:ProcessSpellCast("target")
