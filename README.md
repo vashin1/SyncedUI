@@ -28,11 +28,11 @@
 * [Atlas](https://github.com/Cabro/Atlas/) The best version of Atlas, Atlas Loot, and Atlas Quest your going to find for the 1.12 client.
 
 ## Installation
-1. Backup your current Interface & WTF folders to a safe place.
-2. Unpack the ZIP & replace your Interface and WTF folders with the ones provided in the ZIP.
-3. Rename the "your-account" folder to your account name in all caps.
-4. Rename the "Kronos" folder to the realm your currently playing on.
-5. Rename the "your-character" folder to your characters name, make a copy and rename for any alts on that account.
+1. Backup your current Interface & WTF folders to a safe place.  
+2. Unpack the ZIP & replace your Interface and WTF folders with the ones provided.  
+3. Rename the "your-account" folder to your account name in all caps.  
+4. Rename the "Kronos" folder to the realm your currently playing on.  
+5. Rename the "your-character" folder to your characters name, make a copy and rename for any alts on that account.  
 6. Delete the WDB Folder  
 7. Start WoW and configure Video, Sound, Interface, Keybinds and Macro's.  Note: You can use pfUI to hover bind your bars.  
 
