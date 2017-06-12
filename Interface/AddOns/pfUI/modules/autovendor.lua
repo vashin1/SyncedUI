@@ -1,7 +1,6 @@
 pfUI:RegisterModule("autovendor", function ()
-  local scanlist = {}
-
-  local function RepairAllItems()
+  pfUI.autovendor = CreateFrame("Frame", "pfMoneyUpdate", nil)
+  pfUI.autovendor.RepairAllItems = function()
     local cost, possible = GetRepairAllCost()
     if cost > 0 and possible then
       DEFAULT_CHAT_FRAME:AddMessage("Your items have been repaired for " .. CreateGoldString(cost))
@@ -9,145 +8,87 @@ pfUI:RegisterModule("autovendor", function ()
     end
   end
 
-  local function ScanGreyItems()
-    scanlist = {}
+  pfUI.autovendor.SellAllGrey = function()
+    local price = 0
+    local count = 0
+
     for bag = 0, 4, 1 do
       for slot = 1, GetContainerNumSlots(bag), 1 do
         local name = GetContainerItemLink(bag,slot)
         if name and string.find(name,"ff9d9d9d") then
-          table.insert(scanlist, { bag, slot })
+
+          -- get value
+          local _, icount = GetContainerItemInfo(bag, slot)
+          local _, _, id = string.find(GetContainerItemLink(bag, slot), "item:(%d+):%d+:%d+:%d+")
+          if pfSellData[tonumber(id)] then
+            local _, _, sell, buy = strfind(pfSellData[tonumber(id)], "(.*),(.*)")
+            price = price + ( sell * ( icount or 1 ) )
+            count = count + 1
+          end
+          UseContainerItem(bag,slot)
         end
       end
     end
-  end
 
-  local function GetNextGreyItem()
-    if scanlist[1] then
-      local bag, slot = scanlist[1][1], scanlist[1][2]
-      table.remove(scanlist, 1)
-
-      return bag, slot
-    else
-      return nil, nil
+    if count > 0 then
+      DEFAULT_CHAT_FRAME:AddMessage("Your vendor trash has been sold and you earned " .. CreateGoldString(price))
     end
   end
 
-  local autovendor = CreateFrame("Frame", "pfMoneyUpdate", nil)
-  autovendor:Hide()
-
-  autovendor:SetScript("OnShow", function()
-    ScanGreyItems()
-    this.count = 0
-    this.price = 0
-  end)
-
-  autovendor:SetScript("OnUpdate", function()
-    local bag, slot = GetNextGreyItem()
-
-    if not bag or not slot then
-      this:Hide()
-      return
-    end
-
-    local name = GetContainerItemLink(bag,slot)
-
-    -- double check to only sell grey
-    if name and string.find(name,"ff9d9d9d") then
-      -- get value
-      local _, icount = GetContainerItemInfo(bag, slot)
-      local _, _, id = string.find(GetContainerItemLink(bag, slot), "item:(%d+):%d+:%d+:%d+")
-      if pfSellData[tonumber(id)] then
-        local _, _, sell, buy = strfind(pfSellData[tonumber(id)], "(.*),(.*)")
-        this.price = this.price + ( sell * ( icount or 1 ) )
-        this.count = this.count + 1
-      end
-      UseContainerItem(bag, slot)
-    end
-  end)
-
-  autovendor:SetScript("OnHide", function()
-    if this.count > 0 then
-      DEFAULT_CHAT_FRAME:AddMessage("Your vendor trash has been sold and you earned " .. CreateGoldString(this.price))
-    end
-  end)
-
-  autovendor:RegisterEvent("MERCHANT_SHOW")
-  autovendor:RegisterEvent("MERCHANT_UPDATE")
-  autovendor:SetScript("OnEvent", function()
-    autovendor.button:Update()
-
+  pfUI.autovendor:RegisterEvent("MERCHANT_SHOW")
+  pfUI.autovendor:SetScript("OnEvent", function()
     if event == "MERCHANT_SHOW" then
       if C["global"]["autorepair"] == "1" then
-        RepairAllItems()
+        pfUI.autovendor:RepairAllItems()
       end
 
       if C["global"]["autosell"] == "1" then
-        autovendor:Show()
+        pfUI.autovendor:SellAllGrey()
       end
 
       MerchantRepairText:SetText("")
       if MerchantRepairItemButton:IsShown() then
-        autovendor.button:ClearAllPoints()
-        autovendor.button:SetPoint("RIGHT", MerchantRepairItemButton, "LEFT", -2, 0)
+        pfUI.autovendor.button:ClearAllPoints()
+        pfUI.autovendor.button:SetPoint("RIGHT", MerchantRepairItemButton, "LEFT", -2, 0)
       else
-        autovendor.button:ClearAllPoints()
-        autovendor.button:SetPoint("BOTTOMRIGHT", MerchantFrame, "BOTTOMLEFT", 172, 91)
+        pfUI.autovendor.button:ClearAllPoints()
+        pfUI.autovendor.button:SetPoint("BOTTOMRIGHT", MerchantFrame, "BOTTOMLEFT", 172, 91)
       end
     end
   end)
 
-  -- Setup Autosell button
-  autovendor.button = CreateFrame("Button", "pfMerchantautovendor.buttonButton", MerchantFrame)
-  autovendor.button:SetWidth(36)
-  autovendor.button:SetHeight(36)
-  autovendor.button.icon = autovendor.button:CreateTexture("BORDER")
-  autovendor.button.icon:SetAllPoints(autovendor.button)
-  autovendor.button.icon:SetTexture("Interface\\Icons\\Spell_Shadow_SacrificialShield")
-  autovendor.button.icon:SetVertexColor(1,.8,.4)
-  autovendor.button:SetNormalTexture("")
-  autovendor.button:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress")
-  autovendor.button:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square")
-  autovendor.button:SetScript("OnEnter", function()
+  -- show button
+  pfUI.autovendor.button = CreateFrame("Button", "pfMerchantpfUI.autovendor.buttonButton", MerchantFrame)
+  pfUI.autovendor.button:SetWidth(36)
+  pfUI.autovendor.button:SetHeight(36)
+  pfUI.autovendor.button.icon = pfUI.autovendor.button:CreateTexture("BORDER")
+  pfUI.autovendor.button.icon:SetAllPoints(pfUI.autovendor.button)
+  pfUI.autovendor.button.icon:SetTexture("Interface\\Icons\\Spell_Shadow_SacrificialShield")
+  pfUI.autovendor.button.icon:SetVertexColor(1,.8,.4)
+  pfUI.autovendor.button:SetNormalTexture("")
+  pfUI.autovendor.button:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress")
+  pfUI.autovendor.button:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square")
+  pfUI.autovendor.button:SetScript("OnEnter", function()
     GameTooltip:SetOwner(this, "ANCHOR_RIGHT");
     GameTooltip:SetText("Sell Grey Items");
     GameTooltip:Show();
   end)
 
-  autovendor.button:SetScript("OnLeave", function()
+  pfUI.autovendor.button:SetScript("OnLeave", function()
     GameTooltip:Hide();
   end)
 
-  autovendor.button:SetScript("OnClick", function()
-    autovendor:Show()
+  pfUI.autovendor.button:SetScript("OnClick", function()
+    pfUI.autovendor:SellAllGrey()
   end)
 
-  autovendor.button.Update = function()
-    if not autovendor:IsVisible() then
-
-      ScanGreyItems()
-
-      if scanlist[1] then
-        autovendor.button:Enable()
-        autovendor.button.icon:SetVertexColor(1,.8,.4)
-      else
-        autovendor.button:Disable()
-        autovendor.button.icon:SetVertexColor(.5,.5,.5)
-      end
-
-    else
-      autovendor.button:Disable()
-      autovendor.button.icon:SetVertexColor(.5,.5,.5)
-    end
-  end
-
-  -- Hook MerchantFrame_Update
   if not pfMerchantFrame_Update then
     local pfMerchantFrame_Update = MerchantFrame_Update
     function _G.MerchantFrame_Update()
       if MerchantFrame.selectedTab == 1 then
-        autovendor.button:Show()
+        pfUI.autovendor.button:Show()
       else
-        autovendor.button:Hide()
+        pfUI.autovendor.button:Hide()
       end
       pfMerchantFrame_Update()
     end
