@@ -216,12 +216,12 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
         pfUI.uf:RefreshUnit(this, "all")
       end
 
-      if UnitIsConnected(this.label .. this.id) or ( pfUI.gitter and pfUI.gitter:IsShown()) then
+      if UnitIsConnected(this.label .. this.id) or ( pfUI.unlock and pfUI.unlock:IsShown()) then
         if not this.cache then return end
         if not this.cache.hp or not this.cache.power then return end
 
         if this.config.faderange == "1" then
-          if pfUI.api.UnitInRange(this.label .. this.id, 4) or (pfUI.gitter and pfUI.gitter:IsShown()) then
+          if pfUI.api.UnitInRange(this.label .. this.id, 4) or (pfUI.unlock and pfUI.unlock:IsShown()) then
             if this:GetAlpha() ~= 1 then
               this:SetAlpha(1)
               if this.config.portrait == "bar" then
@@ -559,7 +559,7 @@ function pfUI.uf:RefreshUnit(unit, component)
     unit.lastUnit = UnitName(unit.label .. unit.id)
   end
 
-  if not ( pfUI.gitter and pfUI.gitter:IsShown() ) then
+  if not ( pfUI.unlock and pfUI.unlock:IsShown() ) then
     if UnitName(unit.label .. unit.id) or unit.unitname then
       if pfUI_config["unitframes"]["group"]["hide_in_raid"] == "1" and strsub(unit.label,0,5) == "party" and UnitInRaid("player") then
         unit:Hide()
@@ -717,40 +717,45 @@ function pfUI.uf:RefreshUnit(unit, component)
 
   -- portrait
   if unit.portrait and ( component == "all" or component == "portrait" ) then
-    if not UnitIsVisible(unit.label .. unit.id) or not UnitIsConnected(unit.label .. unit.id) then
-      if unit.config.portrait == "bar" then
-        unit.portrait.tex:Hide()
-        unit.portrait.model:Hide()
-      elseif pfUI_config.unitframes.portraittexture == "1" then
-        unit.portrait.tex:Show()
-        unit.portrait.model:Hide()
-        SetPortraitTexture(unit.portrait.tex, unit.label .. unit.id)
-      else
-        unit.portrait.tex:Hide()
-        unit.portrait.model:Show()
-        unit.portrait.model:SetModelScale(4.25)
-        unit.portrait.model:SetPosition(0, 0, -1)
-        unit.portrait.model:SetModel("Interface\\Buttons\\talktomequestionmark.mdx")
-      end
+    if pfUI_config.unitframes.always2dportrait == "1" then
+      unit.portrait.tex:Show()
+      unit.portrait.model:Hide()
+      SetPortraitTexture(unit.portrait.tex, unit.label .. unit.id)
     else
-      if unit.config.portrait == "bar" then
-        unit.portrait:SetAlpha(pfUI_config.unitframes.portraitalpha)
-      end
-      unit.portrait.tex:Hide()
-      unit.portrait.model:Show()
-
-      if unit.tick then
-        unit.portrait.model.next:SetUnit(unit.label .. unit.id)
-        if unit.portrait.model.lastUnit ~= UnitName(unit.label .. unit.id) or unit.portrait.model:GetModel() ~= unit.portrait.model.next:GetModel() then
-          unit.portrait.model:SetUnit(unit.label .. unit.id)
-          unit.portrait.model.lastUnit = UnitName(unit.label .. unit.id)
-          unit.portrait.model:SetCamera(0)
+      if not UnitIsVisible(unit.label .. unit.id) or not UnitIsConnected(unit.label .. unit.id) then
+        if unit.config.portrait == "bar" then
+          unit.portrait.tex:Hide()
+          unit.portrait.model:Hide()
+        elseif pfUI_config.unitframes.portraittexture == "1" then
+          unit.portrait.tex:Show()
+          unit.portrait.model:Hide()
+          SetPortraitTexture(unit.portrait.tex, unit.label .. unit.id)
+        else
+          unit.portrait.tex:Hide()
+          unit.portrait.model:Show()
+          unit.portrait.model:SetModelScale(4.25)
+          unit.portrait.model:SetPosition(0, 0, -1)
+          unit.portrait.model:SetModel("Interface\\Buttons\\talktomequestionmark.mdx")
         end
       else
-        unit.portrait.model:SetUnit(unit.label .. unit.id)
-        unit.portrait.model:SetCamera(0)
-      end
+        if unit.config.portrait == "bar" then
+          unit.portrait:SetAlpha(pfUI_config.unitframes.portraitalpha)
+        end
+        unit.portrait.tex:Hide()
+        unit.portrait.model:Show()
 
+        if unit.tick then
+          unit.portrait.model.next:SetUnit(unit.label .. unit.id)
+          if unit.portrait.model.lastUnit ~= UnitName(unit.label .. unit.id) or unit.portrait.model:GetModel() ~= unit.portrait.model.next:GetModel() then
+            unit.portrait.model:SetUnit(unit.label .. unit.id)
+            unit.portrait.model.lastUnit = UnitName(unit.label .. unit.id)
+            unit.portrait.model:SetCamera(0)
+          end
+        else
+          unit.portrait.model:SetUnit(unit.label .. unit.id)
+          unit.portrait.model:SetCamera(0)
+        end
+      end
     end
   end
 
