@@ -1,0 +1,2 @@
+
+BigWigsCommonAurasDB = nil
