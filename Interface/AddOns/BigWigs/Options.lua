@@ -132,7 +132,7 @@ L:RegisterTranslations("deDE", function() return {
 	["All running modules have been disabled."] = "Alle laufenden Module wurden beendet.",
 	["%s reset."] = "%s zur\195\188ckgesetzt.",
 	["%s disabled."] = "%s beendet.",
-	["%s icon is now %s."] = "%s icon is now %s.",
+	["%s icon is now %s."] = true,
 	["You need to be an assistant or raid leader to use this function."] = "Du musst Schlachtzugsleiter oder Assistent sein, um diese Funktion zu benutzen.",
 } end)
 

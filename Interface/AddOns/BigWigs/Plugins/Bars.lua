@@ -9,7 +9,6 @@ assert( BigWigs, "BigWigs not found!")
 local L = AceLibrary("AceLocale-2.2"):new("BigWigsBars")
 local paint = AceLibrary("PaintChips-2.0")
 local minscale, maxscale = 0.25, 2
-local candybar = AceLibrary("CandyBar-2.0")
 
 local surface = AceLibrary("Surface-1.0")
 
@@ -277,12 +276,6 @@ function BigWigsBars:OnEnable()
 	self:RegisterEvent("BigWigs_HideAnchors")
 	self:RegisterEvent("BigWigs_StartBar")
 	self:RegisterEvent("BigWigs_StopBar")
-	self:RegisterEvent("BigWigs_StartCounterBar")
-	self:RegisterEvent("BigWigs_StopCounterBar")
-	self:RegisterEvent("BigWigs_SetCounterBar")
-	self:RegisterEvent("BigWigs_StartHPBar")
-	self:RegisterEvent("BigWigs_StopHPBar")
-	self:RegisterEvent("BigWigs_SetHPBar")
 	if not self:IsEventRegistered("Surface_Registered") then 
 	        self:RegisterEvent("Surface_Registered", function()
 			self.consoleOptions.args[L["Texture"]].validate = surface:List()
@@ -334,58 +327,6 @@ end
 function BigWigsBars:BigWigs_StopBar(module, text)
 	if not text then return end
 	module:UnregisterCandyBar("BigWigsBar "..text)
-end
-
-function BigWigsBars:BigWigs_StartCounterBar(module, text, max, icon, bar, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)
-	if not text then return end
-	local id = "BigWigsBar "..text
-	BigWigsBars:BigWigs_StartBar(module, text, max, icon, bar, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)
-	module:PauseCandyBar(id)
-	module:SetCandyBarTimeFormat(id, function(t) return string.format("%d", t) end)
-end
-
-function BigWigsBars:BigWigs_StopCounterBar(module, text)
-	if not text then return end
-	BigWigsBars:BigWigs_StopBar(module, text)
-end
-
-
-function BigWigsBars:BigWigs_SetCounterBar(module, text, value)
-	if (not text) or (value == nil) or (value < 0) then return end
-	local id = "BigWigsBar "..text
-	local bar = candybar.var.handlers[id]
-	if not bar then return end
-	bar.elapsed = value
-	candybar:Update(id)
-	if bar.time <= value then
-		BigWigsBars:BigWigs_StopBar(module, text)
-	end
-end
-
-function BigWigsBars:BigWigs_StartHPBar(module, text, max, bar, icon, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)
-	if not text then return end
-	local id = "BigWigsBar "..text
-	BigWigsBars:BigWigs_StartBar(module, text, max, bar, icon, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)
-	module:PauseCandyBar(id)
-	module:SetCandyBarTimeFormat(id, function(t) local timetext if t == 100 then timetext = "100" elseif t == 0 then timetext = "0%%" else timetext = string.format("%d", t) end return timetext end)
-end
-
-function BigWigsBars:BigWigs_StopHPBar(module, text)
-	if not text then return end
-	BigWigsBars:BigWigs_StopBar(module, text)
-end
-
-
-function BigWigsBars:BigWigs_SetHPBar(module, text, value)
-	if (not text) or (value == nil) or (value < 0) then return end
-	local id = "BigWigsBar "..text
-	local bar = candybar.var.handlers[id]
-	if not bar then return end
-	bar.elapsed = value
-	candybar:Update(id)
-	if bar.time <= value then
-		BigWigsBars:BigWigs_StopBar(module, text)
-	end
 end
 
 ------------------------------

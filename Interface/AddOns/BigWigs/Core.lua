@@ -355,7 +355,7 @@ BigWigs.cmdtable = {type = "group", handler = BigWigs, args = {
 }}
 BigWigs:RegisterChatCommand({"/bw", "/BigWigs"}, BigWigs.cmdtable)
 BigWigs.debugFrame = ChatFrame5
-BigWigs.revision = tonumber(string.sub("$Revision: 18326 $", 12, -3))
+BigWigs.revision = tonumber(string.sub("$Revision: 18329 $", 12, -3))
 
 --------------------------------
 --      Module Prototype      --
@@ -752,7 +752,7 @@ end
 
 function BigWigs:BigWigs_TargetSeen(mobname, unit)
 	for name,module in self:IterateModules() do
-		if module:IsBossModule() and self:ZoneIsTrigger(module, GetRealZoneText()) and self:MobIsTrigger(module, mobname) and (not module.VerifyEnable or module:VerifyEnable(unit)) then
+		if module:IsBossModule() and self:ZoneIsTrigger(module, GetRealZoneText()) and self:MobIsTrigger(module, mobname)	and (not module.VerifyEnable or module:VerifyEnable(unit)) then
 			self:EnableModule(name)
 		end
 	end
@@ -810,35 +810,38 @@ function BigWigs:AddLoDMenu( zonename )
 				args = {}
 			}
 		end
-		-- if zone == L["Other"] then
-			-- local zones = BigWigsLoD:GetZones()
-			-- zones = zones[L["Other"]]
-			-- self.cmdtable.args[L["boss"]].args[zone].args[L["Load"]] = {
-				-- type = "execute",
-				-- name = L["Load All"],
-				-- desc = string.format( L["Load all %s modules."], zonename ),
-				-- order = 1,
-				-- func = function()
-						-- for z, v in pairs( zones ) do
-							-- BigWigsLoD:LoadZone( z )
-							-- if self.cmdtable.args[L["boss"]].args[z] and self.cmdtable.args[L["boss"]].args[z].args[L["Load"]] then
-								-- self.cmdtable.args[L["boss"]].args[z].args[L["Load"]] = nil
-							-- end
-						-- end
-						-- self.cmdtable.args[L["boss"]].args[zone] = nil
-					-- end
-			-- }
-		-- else
-			-- self.cmdtable.args[L["boss"]].args[zone].args[L["Load"]] = {
-				-- type = "execute",
-				-- name = L["Load All"],
-				-- desc = string.format( L["Load all %s modules."], zonename ),
-				-- order = 1,
-				-- func = function()
-						-- BigWigsLoD:LoadZone( zonename )
-						-- self.cmdtable.args[L["boss"]].args[zone].args[L["Load"]] = nil
-					-- end
-			-- }
-		-- end
+		if zone == L["Other"] then
+			local zones = BigWigsLoD:GetZones()
+			zones = zones[L["Other"]]
+			self.cmdtable.args[L["boss"]].args[zone].args[L["Load"]] = {
+				type = "execute",
+				name = L["Load All"],
+				desc = string.format( L["Load all %s modules."], zonename ),
+				order = 1,
+				func = function()
+						for z, v in pairs( zones ) do
+							BigWigsLoD:LoadZone( z )
+							if self.cmdtable.args[L["boss"]].args[z] and self.cmdtable.args[L["boss"]].args[z].args[L["Load"]] then
+								self.cmdtable.args[L["boss"]].args[z].args[L["Load"]] = nil
+							end
+						end
+						self.cmdtable.args[L["boss"]].args[zone] = nil
+					end
+			}
+		else
+			self.cmdtable.args[L["boss"]].args[zone].args[L["Load"]] = {
+				type = "execute",
+				name = L["Load All"],
+				desc = string.format( L["Load all %s modules."], zonename ),
+				order = 1,
+				func = function()
+						BigWigsLoD:LoadZone( zonename )
+						self.cmdtable.args[L["boss"]].args[zone].args[L["Load"]] = nil
+					end
+			}
+		end
 	end
 end
+
+
+

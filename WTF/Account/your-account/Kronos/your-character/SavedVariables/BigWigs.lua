@@ -1,2 +1,0 @@
-
-BigWigsDBPerChar = nil

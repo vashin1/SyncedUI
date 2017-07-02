@@ -1,4 +1,4 @@
-
+﻿
 ------------------------------
 --      Are you local?      --
 ------------------------------
@@ -53,18 +53,14 @@ end
 function BigWigsTargetMonitor:ZONE_CHANGED_NEW_AREA()
 	if enablezones[GetRealZoneText()] then
 		self.monitoring = true
-	--~~ self:TriggerEvent("BigWigs_Message", L["Target monitoring enabled"], "LtBlue", true, false)
+--~~ 		self:TriggerEvent("BigWigs_Message", L["Target monitoring enabled"], "LtBlue", true, false)
 		self:RegisterEvent("PLAYER_TARGET_CHANGED")
 		self:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 	elseif self.monitoring then
 		self.monitoring = nil
-	--~~ self:TriggerEvent("BigWigs_Message", L["Target monitoring disabled"], "LtBlue", true, false)
-		if self:IsEventRegistered("PLAYER_TARGET_CHANGED") then
-			self:UnregisterEvent("PLAYER_TARGET_CHANGED")
-		end
-		if self:IsEventRegistered("UPDATE_MOUSEOVER_UNIT") then
-			self:UnregisterEvent("UPDATE_MOUSEOVER_UNIT")
-		end
+--~~ 		self:TriggerEvent("BigWigs_Message", L["Target monitoring disabled"], "LtBlue", true, false)
+		self:UnregisterEvent("PLAYER_TARGET_CHANGED")
+		self:UnregisterEvent("UPDATE_MOUSEOVER_UNIT")
 	end
 end
 

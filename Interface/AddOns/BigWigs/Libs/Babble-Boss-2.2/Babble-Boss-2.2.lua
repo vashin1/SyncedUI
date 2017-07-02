@@ -1,4 +1,4 @@
---[[
+﻿--[[
 Name: Babble-Boss-2.2
 Revision: $Rev: 18031 $
 Author(s): ckknight (ckknight@gmail.com)
@@ -28,6 +28,7 @@ local BabbleBoss = AceLibrary("AceLocale-2.2"):new(MAJOR_VERSION)
 
 BabbleBoss:RegisterTranslations("enUS", function()
 	return {
+		["Anubisath Warder"] = true, --new
 		["Stoneskin Gargoyle"] = true,
 		["Avalanchion"] = true,
 		["The Windreaver"] = true,
@@ -238,52 +239,168 @@ BabbleBoss:RegisterTranslations("enUS", function()
 		["Wolf Master Nandos"] = true,
 		["Rend Blackhand"] = true,
 		["Kurinnaxx"] = true,
+
+		-- OUTLANDS
+		-- XXX: These are subject to change and may not be correct.
+		["Doom Lord Kazzak"] = true,
+		-- Karazhan
+		["Prince Malchazzar"] = true,
+		["Attumen the Huntsman"] = true,
+		["Midnight"] = true,
+		["Hyakiss the Lurker"] = true,
+		["Rokad the Ravager"] = true,
+		["Shadikith the Glider"] = true,
+		["Moroes"] = true,
+		["Maiden of Virtue"] = true,
+		["Dorothee"] = true,
+		["Tito"] = true,
+		["Tinhead"] = true,
+		["Strawman"] = true,
+		["Roar"] = true,
+		["The Crone"] = true,
+		["Romulo"] = true,
+		["Julianne"] = true,
+		["The Big Bad Wolf"] = true,
+		["The Curator"] = true,
+		["Shade of Aran"] = true,
+		["Terestian Illhoof"] = true,
+		["Netherspite"] = true,
+		["Nightbane"] = true,
+		["King Llane Piece"] = true,
+		["Warchief Blackhand Piece"] = true,
+		-- Caverns of Time
+		--   Durnholde Keep
+		["Lieutenant Drake"] = true,
+		["Captain Skarloc"] = true,
+		["Epoch Hunter"] = true,
+		--   The Black Morass
+		["Medivh"] = true,
+		["Chrono Lord Deja"] = true,
+		["Temporus"] = true,
+		["Aeonus"] = true,
+		--   XX
+		["Archimonde"] = true,
+		-- Hellfire Ramparts
+		["Watchkeeper Gargolmar"] = true,
+		["Vazruden the Herald"] = true,
+		["Vazruden"] = true,
+		["Nazan"] = true,
+		["Omor the Unscarred"] = true,
+		-- The Blood Furnace
+		["The Maker"] = true,
+		["Broggok"] = true,
+		["Keli'dan the Breaker"] = true,
+		-- The Shattered Halls
+		["Kargath Bladefist"] = true,
+		["Grand Warlock Nethekurse"] = true,
+		["Warbringer O'mrogg"] = true,
+		-- Magtheridon's Lair
+		["Magtheridon"] = true,
+		-- The Slave Pens
+		["Mennu the Betrayer"] = true,
+		["Rokmar the Crackler"] = true,
+		["Quagmirran"] = true,
+		-- The Underbog
+		["Hungarfen"] = true,
+		["Ghaz'an"] = true,
+		["Overseer Tidewrath"] = true,
+		["Claw"] = true,
+		["Swamplord Musel'ek"] = true,
+		["The Black Stalker"] = true,
+		-- The Steamvault
+		["Hydromancer Thespia"] = true,
+		["Mekgineer Steamrigger"] = true,
+		["Warlord Kalithresh"] = true,
+		-- Serpentshrine Cavern
+		["Lady Vashj"] = true,
+		-- Mana Tombs
+		["Pandemonius"] = true,
+		["Tavarok"] = true,
+		["Nexus-Prince Shaffar"] = true,
+		-- Auchenai Crypts
+		["Shirrak the Dead Watcher"] = true,
+		["Exarch Maladaar"] = true,
+		-- Sethekk Halls
+		["Talon King Ikiss"] = true,
+		["Darkweaver Syth"] = true,
+		-- Shadow Labyrinth
+		["Ambassador Hellmaw"] = true,
+		["Blackheart the Inciter"] = true,
+		-- The Mechanar
+		["Gatekeeper Gyro-Kill"] = true,
+		["Nethermancer Sepethrea"] = true,
+		["Gatewatcher Iron-Hand"] = true,
+		["Mechano-Lord Capacitus"] = true,
+		["Pathaleon the Calculator"] = true,
+		-- The Botanica
+		["Commander Sarannis"] = true,
+		["High Botanist Freywinn"] = true,
+		["Thorngrin the Tender"] = true,
+		["Laj"] = true,
+		["Warp Splinter"] = true,
+		-- The Arcatraz
+		-- The Eye
+		["Prince Kael'thas Sunstrider"] = true,
+		-- Gruul's Lair
+		["Gruul"] = true,
+		-- Black Temple
+		["Illidan Stormrage"] = true,
+		-- Ring of Blood
+		["Brokentoe"] = true,
+		["Murkblood Twin"] = true,
+		["Murkblood Twins"] = true,
+		["The Blue Brothers"] = true,
+		["Rokdar the Sundered Lord"] = true,
+		["Skra'gath"] = true,
+		["Warmaul Champion"] = true,
+		["Mogor"] = true,
 	}
 end)
 
 BabbleBoss:RegisterTranslations("deDE", function()
 	return {
-		["Stoneskin Gargoyle"] = "Stoneskin Gargoyle",
+		["Anubisath Warder"] = true, --new
+		["Stoneskin Gargoyle"] = true,
 		["Avalanchion"] = "Avalanchion",
-		["The Windreaver"] = "The Windreaver",
+		["The Windreaver"] = "Der Windpl\195\188nderer",
 		["Baron Charr"] = "Baron Charr",
-		["Princess Tempestria"] = "Princess Tempestria",
-		["Grethok the Controller"] = "Grethok the Controller",
-		["Patchwerk"] = "Patchwerk",
+		["Princess Tempestria"] = "Prinzessin Tempestria",
+		["Grethok the Controller"] = "Grethok der Aufseher",
+		["Patchwerk"] = "Flickwerk",
 		["Grobbulus"] = "Grobbulus",
 		["Gluth"] = "Gluth",
 		["Thaddius"] = "Thaddius",
 		["Feugen"] = "Feugen",
 		["Stalagg"] = "Stalagg",
 		["Anub'Rekhan"] = "Anub'Rekhan",
-		["Grand Widow Faerlina"] = "Grand Widow Faerlina",
+		["Grand Widow Faerlina"] = "Großwitwe Faerlina",
 		["Maexxna"] = "Maexxna",
-		["Instructor Razuvious"] = "Instructor Razuvious",
-		["Deathknight Understudy"] = "Deathknight Understudy",
-		["Gothik the Harvester"] = "Gothik the Harvester",
-		["Highlord Mograine"] = "Highlord Mograine",
+		["Instructor Razuvious"] = "Instrukteur Razuvious",
+		["Deathknight Understudy"] = "Reservist der Todesritter",
+		["Gothik the Harvester"] = "Gothik der Seelenjäger",
+		["Highlord Mograine"] = "Hochlord Mograine",
 		["Thane Korth'azz"] = "Thane Korth'azz",
 		["Lady Blaumeux"] = "Lady Blaumeux",
-		["Sir Zeliek"] = "Sir Zeliek",
-		["The Four Horsemen"]= "The Four Horsemen",
-		["Noth the Plaguebringer"] = "Noth the Plaguebringer",
-		["Heigan the Unclean"] = "Heigan the Unclean",
+		["Sir Zeliek"] = "Sire Zeliek",
+		["The Four Horsemen"]= "Die Vier Reiter",
+		["Noth the Plaguebringer"] = "Noth der Seuchenfürst",
+		["Heigan the Unclean"] = "Heigan der Unreine",
 		["Loatheb"] = "Loatheb",
-		["Sapphiron"] = "Sapphiron",
+		["Sapphiron"] = "Saphiron",
 		["Kel'Thuzad"] = "Kel'Thuzad",
 		["Lord Victor Nefarius"] = "Lord Victor Nefarius",
 		["Nefarian"] = "Nefarian",
-		["Vaelastrasz the Corrupt"] = "Vaelastrasz the Corrupt",
-		["Razorgore the Untamed"] = "Razorgore the Untamed",
-		["Broodlord Lashlayer"] = "Broodlord Lashlayer",
+		["Vaelastrasz the Corrupt"] = "Vaelastrasz der Verdorbene",
+		["Razorgore the Untamed"] = "Razorgore der Ungezähmte",
+		["Broodlord Lashlayer"] = "Brutwächter Dreschbringer",
 		["Chromaggus"] = "Chromaggus",
-		["Ebonroc"] = "Ebonroc",
-		["Firemaw"] = "Firemaw",
-		["Flamegor"] = "Flamegor",
-		["Majordomo Executus"] = "Majordomo Executus",
+		["Ebonroc"] = "Schattenschwinge",
+		["Firemaw"] = "Feuerschwinge",
+		["Flamegor"] = "Flammenmaul",
+		["Majordomo Executus"] = "Majordomus Exekutus",
 		["Ragnaros"] = "Ragnaros",
 		["Baron Geddon"] = "Baron Geddon",
-		["Golemagg the Incinerator"] = "Golemagg the Incinerator",
+		["Golemagg the Incinerator"] = "Golemagg der Verbrenner",
 		["Garr"] = "Garr",
 		["Sulfuron Harbinger"] = "Sulfuron Harbinger",
 		["Shazzrah"] = "Shazzrah",
@@ -292,48 +409,48 @@ BabbleBoss:RegisterTranslations("deDE", function()
 		["Magmadar"] = "Magmadar",
 		["Onyxia"] = "Onyxia",
 		["Azuregos"] = "Azuregos",
-		["Emeriss"] = "Emeriss",
+		["Emeriss"] = "Smariss",
 		["Taerar"] = "Taerar",
 		["Lethon"] = "Lethon",
-		["Jin'do the Hexxer"] = "Jin'do the Hexxer",
-		["Bloodlord Mandokir"] = "Bloodlord Mandokir",
+		["Jin'do the Hexxer"] = "Jin'do der Verhexer",
+		["Bloodlord Mandokir"] = "Blutfürst Mandokir",
 		["Hakkar"] = "Hakkar",
 		["Lord Kazzak"] = "Lord Kazzak",
 		["Ysondre"] = "Ysondre",
-		["High Priestess Jeklik"] = "High Priestess Jeklik",
-		["High Priest Venoxis"] = "High Priest Venoxis",
-		["High Priest Thekal"] = "High Priest Thekal",
-		["High Priestess Arlokk"] = "High Priestess Arlokk",
-		["High Priestess Mar'li"] = "High Priestess Mar'li",
+		["High Priestess Jeklik"] = "Hohepriesterin Jeklik",
+		["High Priest Venoxis"] = "Hohepriester Venoxis",
+		["High Priest Thekal"] = "Hohepriester Thekal",
+		["High Priestess Arlokk"] = "Hohepriesterin Arlokk",
+		["High Priestess Mar'li"] = "Hohepriesterin Mar'li",
 		["Gahz'ranka"] = "Gahz'ranka",
 		["Gri'lek"] = "Gri'lek",
 		["Hazza'rah"] = "Hazza'rah",
 		["Renataki"] = "Renataki",
 		["Wushoolay"] = "Wushoolay",
-		["Ayamiss the Hunter"] = "Ayamiss the Hunter",
-		["Buru the Gorger"] = "Buru the Gorger",
+		["Ayamiss the Hunter"] = "Ayamiss der Jäger",
+		["Buru the Gorger"] = "Buru der Verschlinger",
 		["General Rajaxx"] = "General Rajaxx",
-		["Lieutenant General Andorov"] = "Lieutenant General Andorov",
+		["Lieutenant General Andorov"] = "Generallieutenant Andorov",
 		["Moam"] = "Moam",
-		["Anubisath Guardian"] = "Anubisath Guardian",
-		["Ossirian the Unscarred"] = "Ossirian the Unscarred",
+		["Anubisath Guardian"] = "Beschützer des Anubisath",
+		["Ossirian the Unscarred"] = "Ossirian der Narbenlose",
 		["Lord Kri"] = "Lord Kri",
-		["Princess Yauj"] = "Princess Yauj",
+		["Princess Yauj"] = "Prinzessin Yauj",
 		["Vem"] = "Vem",
-		["The Bug Family"] = "The Bug Family",
-		["Eye of C'Thun"] = "Eye of C'Thun",
+		["The Bug Family"] = "Die Käferfamilie",
+		["Eye of C'Thun"] = "Auge von C'Thun",
 		["C'Thun"] = "C'Thun",
-		["Anubisath Defender"] = "Anubisath Defender",
-		["Fankriss the Unyielding"] = "Fankriss the Unyielding",
-		["Princess Huhuran"] = "Princess Huhuran",
+		["Anubisath Defender"] = "Verteidiger des Anubisath",
+		["Fankriss the Unyielding"] = "Fankriss der Unnachgiebige",
+		["Princess Huhuran"] = "Prinzessin Huhuran",
 		["Ouro"] = "Ouro",
-		["Battleguard Sartura"] = "Battleguard Sartura",
-		["The Prophet Skeram"] = "The Prophet Skeram",
-		["Emperor Vek'lor"] = "Emperor Vek'lor",
-		["Emperor Vek'nilash"] = "Emperor Vek'nilash",
-		["The Twin Emperors"] = "The Twin Emperors",
+		["Battleguard Sartura"] = "Schlachtwache Sartura",
+		["The Prophet Skeram"] = "Der Prophet Skeram",
+		["Emperor Vek'lor"] = "Imperator Vek'lor",
+		["Emperor Vek'nilash"] = "Imperator Vek'nilash",
+		["The Twin Emperors"] = "Die Zwillings-Imperatoren",
 		["Viscidus"] = "Viscidus",
-		["Alzzin the Wildshaper"] = "Alzzin the Wildshaper",
+		["Alzzin the Wildshaper"] = "Alzzin der Wildformer",
 		["Ambassador Flamelash"] = "Botschafter Flamelash",
 		["Anger'rel"] = "Anger'rel",
 		["Archivist Galford"] = "Archivar Galford",
@@ -573,6 +690,7 @@ end)
 
 BabbleBoss:RegisterTranslations("frFR", function()
 	return {
+		["Anubisath Warder"] = true, --new
 		["Stoneskin Gargoyle"] = true,
 		["Avalanchion"] = "Avalanchion",
 		["The Windreaver"] = "Ouraganien",
@@ -901,6 +1019,7 @@ end)
 
 BabbleBoss:RegisterTranslations("zhCN", function()
 	return {
+		["Anubisath Warder"] = true, --new
 		["Stoneskin Gargoyle"] = true,
 		["Avalanchion"] = "阿瓦兰奇奥",
 		["The Windreaver"] = "烈风掠夺者",
@@ -1231,6 +1350,7 @@ end)
 
 BabbleBoss:RegisterTranslations("zhTW", function()
 	return {
+		["Anubisath Warder"] = true, --new
 		["Stoneskin Gargoyle"] = true,
 		["Avalanchion"] = "阿瓦蘭奇奧",
 		["The Windreaver"] = "烈風掠奪者",
@@ -1560,6 +1680,7 @@ end)
 
 BabbleBoss:RegisterTranslations("koKR", function()
 	return {
+		["Anubisath Warder"] = true, --new
 		["Stoneskin Gargoyle"] = true,
 		["Avalanchion"] = "아발란치온",
 		["The Windreaver"] = "칼날바람",
