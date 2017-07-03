@@ -1,5 +1,5 @@
 ## Interface: 11200
-## Title: KLHThreatMeter |cff33ffccpfUI edition
+## Title: KLHThreatMeter |cff33ffcc<Synced> edition
 ## Author: Kenco@Perenolde, edited by Sulfuras, pfUi mod by Renew
 ## Notes: A Threat Meter
 ## DefaultState: Enabled
