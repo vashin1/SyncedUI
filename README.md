@@ -5,7 +5,7 @@
 ![Modular](http://i.imgur.com/jcNkVYZ.jpg)
 
 ## Included Addons
-*  **pfUI custom fork** - A complete rewrite of the stock UI  
+*  **pfUI custom fork** - A complete rewrite of the stock UI with a few adjustments from me.  [Source](https://github.com/vashin1/pfUI)
 *  **HealComm** - Visual representation of incoming heals  
 *  **KTM 17.35** - Threat meter     
 *  **SW Stats** - Combat analysis  
