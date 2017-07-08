@@ -42,7 +42,7 @@
     /gm         Open the ticket Dialog
     /rl         Reload the whole UI
     /vcb config Configure buff frames
-	/dpsmate    Configure damage meter
+	/swstats    Configure damage meter
 	/bigwigs    Configure boss mods
 	/msbt       Configure scrolling battle text  
 
@@ -65,9 +65,8 @@ Enter pfUI config and create a new profile, rename it and modify to your taste &
 	
 ## Credits
 
-Shagu - https://github.com/shagu/pfUI  
-Shino - VCB  
-Renew - KTM Theme    
+Shagu - pfUI 
+Shino - VCB      
 Athene - MSBT  
 Shirsig - Linkmend, Postal, Crafty  
 
