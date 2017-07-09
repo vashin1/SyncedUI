@@ -30,8 +30,8 @@ W: 1820
 H: 1024
 Frame: KLHTM_Frame
 FrameLevel: 1
-X: 1539
-Y: -897
+X: 1507
+Y: -878
 Frame: VCB_BF_ConfigFrame
 FrameLevel: 1
 X: 610
