@@ -1,6 +1,6 @@
 
 ## Screenshots
-![Screenshot](http://i.imgur.com/8i8cHKp.jpg)
+![Screenshot](http://i.imgur.com/u5UH0AI.jpg)
 
 ![Modular](http://i.imgur.com/jcNkVYZ.jpg)
 
@@ -65,8 +65,8 @@ Enter pfUI config and create a new profile, rename it and modify to your taste &
 	
 ## Credits
 
-Shagu - pfUI 
-Shino - VCB, DPSMate  
+Shagu - pfUI  
+Shino - VCB & DPSMate  
 Athene - MSBT  
 Shirsig - Linkmend, Postal, Crafty  
 
