@@ -8,7 +8,7 @@
 *  **pfUI custom fork** - A complete rewrite of the stock UI with a few adjustments from me.  [Source](https://github.com/vashin1/pfUI)
 *  **HealComm** - Visual representation of incoming heals  
 *  **KTM 17.35** - Threat meter     
-*  **SW Stats** - Combat analysis  
+*  **DPSMate** - Combat analysis  
 *  **Bigwigs** - Boss timers  
 *  **Mik's Scrolling Battle Text** - Scrolling combat text  
 *  **VCB** - Consolidated buff frames  
@@ -28,7 +28,7 @@
 * [Atlas](https://github.com/Cabro/Atlas/) The best version of Atlas, Atlas Loot, and Atlas Quest your going to find for the 1.12 client.
 
 ## Installation
-1. Backup your current Interface & WTF folders to a safe place.  
+1. Backup your current Interface & WTF folders or make a new client (Recommended)   
 2. Unpack the ZIP & replace your Interface and WTF folders with the ones provided.  
 3. Rename the "your-account" folder to your account name in all caps.  
 4. Rename the "Kronos" folder to the realm your currently playing on.  
@@ -66,7 +66,7 @@ Enter pfUI config and create a new profile, rename it and modify to your taste &
 ## Credits
 
 Shagu - pfUI 
-Shino - VCB      
+Shino - VCB, DPSMate  
 Athene - MSBT  
 Shirsig - Linkmend, Postal, Crafty  
 
