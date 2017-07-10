@@ -1,8 +1,12 @@
 
 ## Screenshots
+![Screenshot](http://i.imgur.com/q6FOF9k.jpg)
+
 ![Screenshot](http://i.imgur.com/u5UH0AI.jpg)
 
-![Modular](http://i.imgur.com/jcNkVYZ.jpg)
+![Screenshot](http://i.imgur.com/tTLNO7z.jpg)
+
+![Modular](http://i.imgur.com/SP3vVib.jpg)
 
 ## Included Addons
 *  **pfUI custom fork** - A complete rewrite of the stock UI with a few adjustments from me.  [Source](https://github.com/vashin1/pfUI)
