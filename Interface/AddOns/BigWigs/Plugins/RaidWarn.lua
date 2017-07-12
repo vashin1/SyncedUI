@@ -19,6 +19,7 @@ L:RegisterTranslations("enUS", function() return {
 	["whisper"] = true,
 	["showwhispers"] = true,
 	["useraidchannel"] = true,
+	["sendsay"] = true,
 
 	["Broadcast over RaidWarning"] = true,
 	["Broadcast"] = true,
@@ -33,6 +34,9 @@ L:RegisterTranslations("enUS", function() return {
 
 	["Use Raidchannel"] = true,
 	["Toggle using the raid channel instead of the raid warning channel for boss messages."] = true,
+	
+	["Announce in /say"] = true,
+	["Toggle announcing certain things in /say."] = true,
 	
 	["Options for RaidWarning."] = true,
 } end )
@@ -158,6 +162,7 @@ BigWigsRaidWarn.defaultDB = {
 	broadcast = false,
 	useraidchannel = false,
 	showwhispers = true,
+	sendsay = true,
 }
 BigWigsRaidWarn.consoleCmd = L["raidwarn"]
 BigWigsRaidWarn.consoleOptions = {
@@ -193,6 +198,13 @@ BigWigsRaidWarn.consoleOptions = {
 			get = function() return BigWigsRaidWarn.db.profile.useraidchannel end,
 			set = function(v) BigWigsRaidWarn.db.profile.useraidchannel = v end,
 		},
+		[L["sendsay"]] = {
+			type = "toggle",
+			name = L["Announce in /say"],
+			desc = L["Toggle announcing certain things in /say."],
+			get = function() return BigWigsRaidWarn.db.profile.sendsay end,
+			set = function(v) BigWigsRaidWarn.db.profile.sendsay = v end,
+		},
 	}
 }
 
@@ -203,6 +215,7 @@ BigWigsRaidWarn.consoleOptions = {
 function BigWigsRaidWarn:OnEnable()
 	self:RegisterEvent("BigWigs_Message")
 	self:RegisterEvent("BigWigs_SendTell")
+	self:RegisterEvent("BigWigs_SendSay")
 
 	sentWhispers = {}
 
@@ -228,6 +241,11 @@ function BigWigsRaidWarn:BigWigs_SendTell(player, msg)
 	if not self.db.profile.whisper or not player or not msg or string.find(player,"%s") or not UnitIsInRaidByName(player) or ( not IsRaidLeader() and not IsRaidOfficer() ) then return end
 	sentWhispers[msg] = true
 	SendChatMessage(msg, "WHISPER", nil, player)
+end
+
+function BigWigsRaidWarn:BigWigs_SendSay(msg)
+	if not self.db.profile.sendsay or not msg then return end
+	SendChatMessage(msg)
 end
 
 function BigWigsRaidWarn:WhisperHandler(event)

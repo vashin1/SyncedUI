@@ -114,7 +114,7 @@ L:RegisterTranslations("deDE", function() return {
 	
 	knockback_message = "Knockback in 10",
 	knockback_warn = "Possible knockback soon!",
-	knockbackbartext = "Knockback!",
+	knockbackbartext = "First knockback",
 	knockback_cmd = "knockback",
 	knockback_name = "Knockback Alert",
 	knockback_desc = "Warn for knockback",

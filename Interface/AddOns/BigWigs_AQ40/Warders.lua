@@ -33,20 +33,22 @@ L:RegisterTranslations("enUS", function() return {
 	fear_desc = "Warn for Fear",
 	
 	firenova_trigger = "Fire Nova",
-	firenova_bar = "Next Fire Nova",
+	firenova_bar = "Fire Nova CD",
 	
 	root_trigger = "begins to cast Entangling Roots",
-	root_bar = "Next Entangling Roots",
+	root_bar = "Entangling Roots CD",
 	rootcast_bar = "Entangling Roots cast",
 	
-	dustcloud_trigger = "Dust Cloud",
-	dustcloud_bar = "Next Dust Cloud",
+	dustcloud_trigger = "afflicted by Dust Cloud",
+	dustcloudresist_trigger = "Dust Cloud was resisted",
+	dustcloud_bar = "Dust Cloud CD",
 	
-	silence_trigger = "Silence",
-	silence_bar = "Next Silence",
+	silence_trigger = "afflicted by Silence",
+	silenceresist_trigger = "Silence was resisted",
+	silence_bar = "Silence CD",
 	
 	fear_trigger = "begins to cast Fear",
-	fear_bar = "Next Fear",
+	fear_bar = "Fear CD",
 	fearcast_bar = "Fear cast",
 } end )
 
@@ -66,16 +68,19 @@ BigWigsWarders.revision = tonumber(string.sub("$Revision: 19999 $", 12, -3))
 
 function BigWigsWarders:OnEnable()
 	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE") --root_trigger, fear_trigger
-	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_PLAYER_DAMAGE", "Event") --firenova_trigger, dustcloud_trigger, silence_trigger
-	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_SELF_DAMAGE", "Event") --firenova_trigger, dusctcloud_trigger, silence_trigger
+	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_PLAYER_DAMAGE", "Event") --firenova_trigger
+	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_SELF_DAMAGE", "Event") --firenova_trigger
+	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_PARTY_DAMAGE", "Event") --silence_trigger, silenceresist_trigger, dustcloud_trigger, dustcloudresist_trigger
+	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_FRIENDLYPLAYER_DAMAGE", "Event") --silence_trigger, silenceresist_trigger, dustcloud_trigger, dustcloudresist_trigger
+	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE", "Event") --silence_trigger, silenceresist_trigger, dustcloud_trigger, dustcloudresist_trigger
 	self:RegisterEvent("CHAT_MSG_COMBAT_HOSTILE_DEATH")
 	
 	self:RegisterEvent("BigWigs_RecvSync")
-	self:TriggerEvent("BigWigs_ThrottleSync", "WarderFireNova", 2)
-	self:TriggerEvent("BigWigs_ThrottleSync", "WarderRoot", 5)
-	self:TriggerEvent("BigWigs_ThrottleSync", "WarderDustCloud", 5)
-	self:TriggerEvent("BigWigs_ThrottleSync", "WarderSilence", 5)
-	self:TriggerEvent("BigWigs_ThrottleSync", "WarderFear", 5)
+	self:TriggerEvent("BigWigs_ThrottleSync", "WarderFireNova1", 2)
+	self:TriggerEvent("BigWigs_ThrottleSync", "WarderRoot1", 4)
+	self:TriggerEvent("BigWigs_ThrottleSync", "WarderDustCloud1", 4)
+	self:TriggerEvent("BigWigs_ThrottleSync", "WarderSilence1", 4)
+	self:TriggerEvent("BigWigs_ThrottleSync", "WarderFear1", 4)
 end
 
 ------------------------------
@@ -88,41 +93,40 @@ function BigWigsWarders:CHAT_MSG_COMBAT_HOSTILE_DEATH(msg)
 	end
 end
 
-function BigWigsWarders:BigWigs_RecvSync(sync, rest, nick)
-	if sync == "WarderFireNova" and self.db.profile.firenova then
+function BigWigsWarders:BigWigs_RecvSync(sync, rest)
+	if sync == "WarderFireNova1" and self.db.profile.firenova then
 		self:FireNova()
-	elseif sync == "WarderRoot" and self.db.profile.root then
+	elseif sync == "WarderRoot1" and self.db.profile.root then
 		self:Root()
-	elseif sync == "WarderDustCloud" and self.db.profile.dustcloud then
+	elseif sync == "WarderDustCloud1" and self.db.profile.dustcloud then
 		self:DustCloud()
-	elseif sync == "WarderSilence" and self.db.profile.silence then
+	elseif sync == "WarderSilence1" and self.db.profile.silence then
 		self:Silence()
-	elseif sync == "WarderFear" and self.db.profile.fear then
+	elseif sync == "WarderFear1" and self.db.profile.fear then
 		self:Fear()
 	end
 end
 
 function BigWigsWarders:Event(msg)
 	if string.find(msg, L["firenova_trigger"]) then
-		self:TriggerEvent("BigWigs_SendSync", "WarderFireNova")
-	elseif string.find(msg, L["dustcloud_trigger"]) then
-		self:TriggerEvent("BigWigs_SendSync", "WarderDustCloud")
-	elseif string.find(msg, L["silence_trigger"]) then
-		self:TriggerEvent("BigWigs_SendSync", "WarderSilence")
+		self:TriggerEvent("BigWigs_SendSync", "WarderFireNova1")
+	elseif (string.find(msg, L["dustcloud_trigger"]) or string.find(msg, L["dustcloudresist_trigger"])) then
+		self:TriggerEvent("BigWigs_SendSync", "WarderDustCloud1")
+	elseif (string.find(msg, L["silence_trigger"]) or string.find(msg, L["silenceresist_trigger"])) then
+		self:TriggerEvent("BigWigs_SendSync", "WarderSilence1")
 	end
 end
 
 function BigWigsWarders:CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE(msg)
 	if string.find(msg, L["root_trigger"]) then
-		self:TriggerEvent("BigWigs_SendSync", "WarderRoot")
+		self:TriggerEvent("BigWigs_SendSync", "WarderRoot1")
 	elseif string.find(msg, L["fear_trigger"]) then
-		self:TriggerEvent("BigWigs_SendSync", "WarderFear")
+		self:TriggerEvent("BigWigs_SendSync", "WarderFear1")
 	end
 end
 
 function BigWigsWarders:FireNova()
-	self:TriggerEvent("BigWigs_StopBar", self, L["firenova_bar"])
-	self:TriggerEvent("BigWigs_StartBar", self, L["firenova_bar"], 4.3, "Interface\\Icons\\Spell_Fire_SealOfFire", true, "Orange")
+	self:TriggerEvent("BigWigs_StartBar", self, L["firenova_bar"], 4.0, "Interface\\Icons\\Spell_Fire_SealOfFire", true, "Orange")
 end
 
 function BigWigsWarders:Root()
@@ -132,12 +136,10 @@ function BigWigsWarders:Root()
 end
 
 function BigWigsWarders:DustCloud()
-	self:TriggerEvent("BigWigs_StopBar", self, L["dustcloud_bar"])
 	self:TriggerEvent("BigWigs_StartBar", self, L["dustcloud_bar"], 17, "Interface\\Icons\\Spell_Nature_Sleep", true, "Yellow")
 end
 
 function BigWigsWarders:Silence()
-	self:TriggerEvent("BigWigs_StopBar", self, L["silence_bar"])
 	self:TriggerEvent("BigWigs_StartBar", self, L["silence_bar"], 17, "Interface\\Icons\\Spell_Frost_IceShock", true, "Gray")
 end
 

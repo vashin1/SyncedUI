@@ -4,6 +4,7 @@
 
 local boss = AceLibrary("Babble-Boss-2.2")["Ossirian the Unscarred"]
 local L = AceLibrary("AceLocale-2.2"):new("BigWigs"..boss)
+local started
 
 ----------------------------
 --      Localization      --
@@ -15,7 +16,7 @@ L:RegisterTranslations("enUS", function() return {
 	pull_trigger = "Sands of the desert",
 	
 	warstomp_soon = "War Stomp soon!!!",
-	warstomp_bar = "Next War Stomp",
+	warstomp_bar = "War Stomp CD",
 	warstomp_trigger1 = "stomp",
 	warstomp_trigger2 = "Stomp",
 	warstomp_trigger3 = "Warstomp",
@@ -174,10 +175,12 @@ BigWigsOssirian.revision = tonumber(string.sub("$Revision: 17973 $", 12, -3))
 ------------------------------
 
 function BigWigsOssirian:OnEnable()
+	started = nil
 	self:RegisterEvent("CHAT_MSG_COMBAT_HOSTILE_DEATH", "GenericBossDeath")
+	self:RegisterEvent("PLAYER_REGEN_ENABLED", "CheckForWipe")
+	self:RegisterEvent("PLAYER_REGEN_DISABLED", "CheckForEngage")
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_CREATURE_BUFFS")
 	self:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_CREATURE_DAMAGE")
-	self:RegisterEvent("CHAT_MSG_MONSTER_YELL", "Event")		-- pull_trigger
 	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_SELF_DAMAGE", "Event")		-- warstomp_trigger
 	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_PARTY_DAMAGE", "Event")		-- warstomp_trigger
 	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE", "Event")	-- warstomp_trigger
@@ -187,13 +190,13 @@ function BigWigsOssirian:OnEnable()
 end
 
 function BigWigsOssirian:Event(msg)
-	if (string.find(msg, L["warstomp_trigger1"]) or string.find(msg, L["warstomp_trigger2"]) or string.find(msg, L["warstomp_trigger3"]) or string.find(msg, L["pull_trigger"])) then
+	if (string.find(msg, L["warstomp_trigger1"]) or string.find(msg, L["warstomp_trigger2"]) or string.find(msg, L["warstomp_trigger3"])) then
 		self:TriggerEvent("BigWigs_SendSync", "OssirianWarstomp")
 	end
 end
 
 function BigWigsOssirian:WarStomp()
-	self:TriggerEvent("BigWigs_StartBar", self, L["warstomp_bar"], 27, "Interface\\Icons\\Ability_WarStomp")
+	self:TriggerEvent("BigWigs_StartBar", self, L["warstomp_bar"], 28, "Interface\\Icons\\Ability_WarStomp")
 end
 
 function BigWigsOssirian:CHAT_MSG_SPELL_PERIODIC_CREATURE_BUFFS( msg )
@@ -210,6 +213,14 @@ function BigWigsOssirian:CHAT_MSG_SPELL_PERIODIC_CREATURE_DAMAGE( msg )
 end
 
 function BigWigsOssirian:BigWigs_RecvSync(sync, debuffKey)
+	if sync == self:GetEngageSync() and debuffKey == boss and not started then
+		started = true
+		if self:IsEventRegistered("PLAYER_REGEN_DISABLED") then
+			self:UnregisterEvent("PLAYER_REGEN_DISABLED")
+		end
+		self:TriggerEvent("BigWigs_StartBar", self, L["warstomp_bar"], 27, "Interface\\Icons\\Ability_WarSTomp")
+	end
+		
 	if sync == "OssirianWarstomp" then
 		self:WarStomp()
 	end
