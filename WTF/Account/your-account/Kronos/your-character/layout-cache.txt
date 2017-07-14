@@ -32,6 +32,12 @@ Frame: KLHTM_Frame
 FrameLevel: 1
 X: 1507
 Y: -878
+Frame: SW_BarFrame1
+FrameLevel: 150
+X: 1721
+Y: -891
+W: 203
+H: 190
 Frame: VCB_BF_ConfigFrame
 FrameLevel: 1
 X: 610
