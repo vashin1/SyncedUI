@@ -12,7 +12,7 @@
 *  **pfUI custom fork** - A complete rewrite of the stock UI with a few adjustments from me.  [Source](https://github.com/vashin1/pfUI)
 *  **HealComm** - Visual representation of incoming heals  
 *  **KTM 17.35** - Threat meter     
-*  **DPSMate** - Combat analysis  
+*  **SWStats** - Combat analysis  
 *  **Bigwigs** - Boss timers  
 *  **Mik's Scrolling Battle Text** - Scrolling combat text  
 *  **VCB** - Consolidated buff frames  
@@ -70,7 +70,7 @@ Enter pfUI config and create a new profile, rename it and modify to your taste &
 ## Credits
 
 Shagu - pfUI  
-Shino - VCB & DPSMate  
+Shino - VCB    
 Athene - MSBT  
 Shirsig - Linkmend, Postal, Crafty  
 
