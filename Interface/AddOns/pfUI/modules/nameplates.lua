@@ -45,7 +45,7 @@ pfUI:RegisterModule("nameplates", function ()
           if UnitIsPlayer("mouseover") then
             local _, class = UnitClass("mouseover")
             pfUI.nameplates.players[name] = {}
-            pfUI.nameplates.players[name]["mouseover"] = class
+            pfUI.nameplates.players[name]["class"] = class
           elseif UnitClassification("mouseover") then
             local elite = UnitClassification("mouseover")
             pfUI.nameplates.mobs[name] = elite
@@ -186,11 +186,10 @@ pfUI:RegisterModule("nameplates", function ()
       if not this.debuffs then this.debuffs = {} end
       for j=1, 16, 1 do
         if this.debuffs[j] == nil then
-          this.debuffs[j] = this:CreateTexture(nil, "BORDER")
-          this.debuffs[j]:SetTexture(0,0,0,0)
+          this.debuffs[j] = CreateFrame("Frame", nil, this.nameplate)
           this.debuffs[j]:ClearAllPoints()
-          this.debuffs[j]:SetWidth(12)
-          this.debuffs[j]:SetHeight(12)
+          this.debuffs[j]:SetWidth(18)
+          this.debuffs[j]:SetHeight(18)
           if j == 1 then
             this.debuffs[j]:SetPoint("TOPLEFT", this.healthbar, "BOTTOMLEFT", 0, -3)
           elseif j <= 8 then
@@ -198,6 +197,10 @@ pfUI:RegisterModule("nameplates", function ()
           elseif j > 8 then
             this.debuffs[j]:SetPoint("TOPLEFT", this.debuffs[1], "BOTTOMLEFT", (j-9) * 13, -1)
           end
+
+          this.debuffs[j].icon = this.debuffs[j]:CreateTexture(nil, "BORDER")
+          this.debuffs[j].icon:SetTexture(0,0,0,0)
+          this.debuffs[j].icon:SetAllPoints(this.debuffs[j])
         end
       end
     end
@@ -301,26 +304,27 @@ pfUI:RegisterModule("nameplates", function ()
 
     local healthbar = this.healthbar
     local border, glow, name, level, levelicon , raidicon = this.border, this.glow, this.name, this.level, this.levelicon , this.raidicon
+    local unitname = name:GetText()
 
     -- add scan entry if not existing
-    if this.needNameUpdate and name:GetText() ~= UNKNOWN then
-      if not pfUI.nameplates.targets[this.name:GetText()] then
-        table.insert(pfUI.nameplates.scanqueue, this.name:GetText())
+    if this.needNameUpdate and unitname ~= UNKNOWN then
+      if not pfUI.nameplates.targets[unitname] then
+        table.insert(pfUI.nameplates.scanqueue, unitname)
       end
       this.needNameUpdate = nil
     end
 
     -- hide non-player frames
     if C.nameplates.players == "1" and not this.needNameUpdate then
-      if pfUI.nameplates.targets[name:GetText()] == "OK" then
-        if not pfUI.nameplates.players[name:GetText()] then this:Hide() end
+      if pfUI.nameplates.targets[unitname] == "OK" then
+        if not pfUI.nameplates.players[unitname] then this:Hide() end
       end
     end
 
     -- hide critters
     if C.nameplates.critters == "1" and not this.needNameUpdate then
       local red, green, blue, _ = healthbar:GetStatusBarColor()
-      local name_val = name:GetText()
+      local name_val = unitname
       for i, critter_val in pairs(L["critters"]) do
         if red > 0.9 and green > 0.9 and blue < 0.2 and name_val == critter_val then
           this:Hide()
@@ -329,13 +333,13 @@ pfUI:RegisterModule("nameplates", function ()
     end
 
     -- level elite indicator
-    if this.needEliteUpdate and pfUI.nameplates.mobs[name:GetText()] then
+    if this.needEliteUpdate and pfUI.nameplates.mobs[unitname] then
       if level:GetText() ~= nil then
-        if pfUI.nameplates.mobs[name:GetText()] == "elite" then
+        if pfUI.nameplates.mobs[unitname] == "elite" then
           level:SetText(level:GetText() .. "+")
-        elseif pfUI.nameplates.mobs[name:GetText()] == "rareelite" then
+        elseif pfUI.nameplates.mobs[unitname] == "rareelite" then
           level:SetText(level:GetText() .. "R+")
-        elseif pfUI.nameplates.mobs[name:GetText()] == "rare" then
+        elseif pfUI.nameplates.mobs[unitname] == "rare" then
           level:SetText(level:GetText() .. "R")
         end
       end
@@ -377,30 +381,30 @@ pfUI:RegisterModule("nameplates", function ()
     end
 
     -- add class colors
-    if this.needClassColorUpdate and pfUI.nameplates.targets[name:GetText()] == "OK" then
+    if this.needClassColorUpdate and pfUI.nameplates.targets[unitname] == "OK" then
       -- show class names?
       if healthbar.reaction == 0 then
         if C.nameplates["enemyclassc"] == "1"
-        and pfUI.nameplates.players[name:GetText()]
-        and pfUI.nameplates.players[name:GetText()]["class"]
-        and RAID_CLASS_COLORS[pfUI.nameplates.players[name:GetText()]["class"]]
+        and pfUI.nameplates.players[unitname]
+        and pfUI.nameplates.players[unitname]["class"]
+        and RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]]
         then
           healthbar:SetStatusBarColor(
-            RAID_CLASS_COLORS[pfUI.nameplates.players[name:GetText()]["class"]].r,
-            RAID_CLASS_COLORS[pfUI.nameplates.players[name:GetText()]["class"]].g,
-            RAID_CLASS_COLORS[pfUI.nameplates.players[name:GetText()]["class"]].b,
+            RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]].r,
+            RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]].g,
+            RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]].b,
             0.9)
         end
       elseif healthbar.reaction == 2 then
         if C.nameplates["friendclassc"] == "1"
-        and pfUI.nameplates.players[name:GetText()]
-        and pfUI.nameplates.players[name:GetText()]["class"]
-        and RAID_CLASS_COLORS[pfUI.nameplates.players[name:GetText()]["class"]]
+        and pfUI.nameplates.players[unitname]
+        and pfUI.nameplates.players[unitname]["class"]
+        and RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]]
         then
           healthbar:SetStatusBarColor(
-            RAID_CLASS_COLORS[pfUI.nameplates.players[name:GetText()]["class"]].r,
-            RAID_CLASS_COLORS[pfUI.nameplates.players[name:GetText()]["class"]].g,
-            RAID_CLASS_COLORS[pfUI.nameplates.players[name:GetText()]["class"]].b,
+            RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]].r,
+            RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]].g,
+            RAID_CLASS_COLORS[pfUI.nameplates.players[unitname]["class"]].b,
             0.9)
         end
       end
@@ -418,16 +422,16 @@ pfUI:RegisterModule("nameplates", function ()
     end
 
     -- show castbar
-    if healthbar.castbar and pfUI.castbar and C.nameplates["showcastbar"] == "1" and pfUI.castbar.target.casterDB[name:GetText()] ~= nil and pfUI.castbar.target.casterDB[name:GetText()]["cast"] ~= nil then
-      if pfUI.castbar.target.casterDB[name:GetText()]["starttime"] + pfUI.castbar.target.casterDB[name:GetText()]["casttime"] <= GetTime() then
-        pfUI.castbar.target.casterDB[name:GetText()] = nil
+    if healthbar.castbar and pfUI.castbar and C.nameplates["showcastbar"] == "1" and pfUI.castbar.target.casterDB[unitname] ~= nil and pfUI.castbar.target.casterDB[unitname]["cast"] ~= nil then
+      if pfUI.castbar.target.casterDB[unitname]["starttime"] + pfUI.castbar.target.casterDB[unitname]["casttime"] <= GetTime() then
+        pfUI.castbar.target.casterDB[unitname] = nil
         healthbar.castbar:Hide()
       else
-        healthbar.castbar:SetMinMaxValues(0,  pfUI.castbar.target.casterDB[name:GetText()]["casttime"])
-        healthbar.castbar:SetValue(GetTime() -  pfUI.castbar.target.casterDB[name:GetText()]["starttime"])
-        healthbar.castbar.text:SetText(round( pfUI.castbar.target.casterDB[name:GetText()]["starttime"] +  pfUI.castbar.target.casterDB[name:GetText()]["casttime"] - GetTime(),1))
+        healthbar.castbar:SetMinMaxValues(0,  pfUI.castbar.target.casterDB[unitname]["casttime"])
+        healthbar.castbar:SetValue(GetTime() -  pfUI.castbar.target.casterDB[unitname]["starttime"])
+        healthbar.castbar.text:SetText(round( pfUI.castbar.target.casterDB[unitname]["starttime"] +  pfUI.castbar.target.casterDB[unitname]["casttime"] - GetTime(),1))
         if C.nameplates.spellname == "1" and healthbar.castbar.spell then
-          healthbar.castbar.spell:SetText(pfUI.castbar.target.casterDB[name:GetText()]["cast"])
+          healthbar.castbar.spell:SetText(pfUI.castbar.target.casterDB[unitname]["cast"])
         else
           healthbar.castbar.spell:SetText("")
         end
@@ -436,8 +440,8 @@ pfUI:RegisterModule("nameplates", function ()
           this.debuffs[1]:SetPoint("TOPLEFT", healthbar.castbar, "BOTTOMLEFT", 0, -3)
         end
 
-        if pfUI.castbar.target.casterDB[name:GetText()]["icon"] then
-          healthbar.castbar.icon:SetTexture("Interface\\Icons\\" ..  pfUI.castbar.target.casterDB[name:GetText()]["icon"])
+        if pfUI.castbar.target.casterDB[unitname]["icon"] then
+          healthbar.castbar.icon:SetTexture("Interface\\Icons\\" ..  pfUI.castbar.target.casterDB[unitname]["icon"])
           healthbar.castbar.icon:SetTexCoord(.1,.9,.1,.9)
         end
       end
@@ -454,17 +458,26 @@ pfUI:RegisterModule("nameplates", function ()
         local j = 1
         local k = 1
         for j, e in ipairs(pfUI.nameplates.debuffs) do
-          this.debuffs[j]:SetTexture(pfUI.nameplates.debuffs[j])
-          this.debuffs[j]:SetTexCoord(.078, .92, .079, .937)
-          this.debuffs[j]:SetAlpha(0.9)
+          local icon, name = unpack(pfUI.nameplates.debuffs[j])
+          this.debuffs[j]:Show()
+          this.debuffs[j].icon:SetTexture(icon)
+          this.debuffs[j].icon:SetTexCoord(.078, .92, .079, .937)
+
+          if pfUI.debuffs and pfUI.debuffs.active and name then
+            this.debuffs[j].cd = this.debuffs[j].cd or CreateFrame("Model", nil, this.debuffs[j], "CooldownFrameTemplate")
+            local start, duration, timeleft = pfUI.debuffs:GetDebuffInfo("target", name)
+            this.debuffs[j].cd:SetAlpha(0)
+            CooldownFrame_SetTimer(this.debuffs[j].cd, start, duration, 1)
+          end
+
           k = k + 1
         end
         for j = k, 16, 1 do
-          this.debuffs[j]:SetTexture(nil)
+          this.debuffs[j]:Hide()
         end
       elseif this.debuffs then
         for j = 1, 16, 1 do
-          this.debuffs[j]:SetTexture(nil)
+          this.debuffs[j]:Hide()
         end
       end
     end
@@ -478,16 +491,25 @@ pfUI:RegisterModule("nameplates", function ()
   end
 
   -- debuff detection
+  local pfNameplateDebuffNameScan = CreateFrame('GameTooltip', "pfNameplateDebuffNameScan", UIParent, "GameTooltipTemplate")
+  local function GetDebuffName(unit, index)
+    pfNameplateDebuffNameScan:SetOwner(UIParent, "ANCHOR_NONE")
+    pfNameplateDebuffNameScan:SetUnitDebuff(unit, index)
+    local text = getglobal("pfNameplateDebuffNameScanTextLeft1")
+    return ( text ) and text:GetText() or ""
+  end
+
   pfUI.nameplates:RegisterEvent("PLAYER_TARGET_CHANGED")
   pfUI.nameplates:RegisterEvent("UNIT_AURA")
   pfUI.nameplates:SetScript("OnEvent", function()
-    pfUI.nameplates.debuffs = {}
-    local i = 1
-    local debuff = UnitDebuff("target", i)
-    while debuff do
-      pfUI.nameplates.debuffs[i] = debuff
-      i = i + 1
-      debuff = UnitDebuff("target", i)
+    if not arg1 or arg1 == "target" then
+      pfUI.nameplates.debuffs = {}
+      for i = 1, 16 do
+        if not UnitDebuff("target", i) then return end
+        local debuff = UnitDebuff("target", i)
+        local effect = (pfUI.debuffs and pfUI.debuffs:GetDebuffName("target", i)) or ""
+        pfUI.nameplates.debuffs[i] = { debuff, effect }
+      end
     end
   end)
 
