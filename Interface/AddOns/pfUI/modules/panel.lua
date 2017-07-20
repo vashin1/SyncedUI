@@ -482,7 +482,7 @@ pfUI:RegisterModule("panel", function ()
 
 
   pfUI.panel.left = CreateFrame("Frame", "pfPanelLeft", UIParent)
-  pfUI.panel.left:SetFrameStrata("MEDIUM")
+  pfUI.panel.left:SetFrameStrata("HIGH")
   pfUI.panel.left:ClearAllPoints()
 
   if pfUI.chat then
