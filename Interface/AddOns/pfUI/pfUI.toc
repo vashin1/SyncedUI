@@ -1,5 +1,5 @@
 ## Interface: 11200
-## Title: |cff33ffccpf|cffffffffUI |cff33ffcc<Synced> edition
+## Title: |cff33ffccpf|cffffffffUI |cff33ffcc<SyncedUI>
 ## Author: Shagu
 ## Notes: A complete user interface replacement.
 ## Version: 3.1.2
