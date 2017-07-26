@@ -29,6 +29,7 @@ local BabbleBoss = AceLibrary("AceLocale-2.2"):new(MAJOR_VERSION)
 BabbleBoss:RegisterTranslations("enUS", function()
 	return {
 		["Anubisath Warder"] = true, --new
+		["Death Talon Wyrmguard"] = true, --new
 		["Stoneskin Gargoyle"] = true,
 		["Avalanchion"] = true,
 		["The Windreaver"] = true,
@@ -360,6 +361,7 @@ end)
 BabbleBoss:RegisterTranslations("deDE", function()
 	return {
 		["Anubisath Warder"] = true, --new
+		["Death Talon Wyrmguard"] = true, --new
 		["Stoneskin Gargoyle"] = true,
 		["Avalanchion"] = "Avalanchion",
 		["The Windreaver"] = "Der Windpl\195\188nderer",
@@ -691,6 +693,7 @@ end)
 BabbleBoss:RegisterTranslations("frFR", function()
 	return {
 		["Anubisath Warder"] = true, --new
+		["Death Talon Wyrmguard"] = true, --new
 		["Stoneskin Gargoyle"] = true,
 		["Avalanchion"] = "Avalanchion",
 		["The Windreaver"] = "Ouraganien",
@@ -1020,6 +1023,7 @@ end)
 BabbleBoss:RegisterTranslations("zhCN", function()
 	return {
 		["Anubisath Warder"] = true, --new
+		["Death Talon Wyrmguard"] = true, --new
 		["Stoneskin Gargoyle"] = true,
 		["Avalanchion"] = "阿瓦兰奇奥",
 		["The Windreaver"] = "烈风掠夺者",
@@ -1351,6 +1355,7 @@ end)
 BabbleBoss:RegisterTranslations("zhTW", function()
 	return {
 		["Anubisath Warder"] = true, --new
+		["Death Talon Wyrmguard"] = true, --new
 		["Stoneskin Gargoyle"] = true,
 		["Avalanchion"] = "阿瓦蘭奇奧",
 		["The Windreaver"] = "烈風掠奪者",
@@ -1681,6 +1686,7 @@ end)
 BabbleBoss:RegisterTranslations("koKR", function()
 	return {
 		["Anubisath Warder"] = true, --new
+		["Death Talon Wyrmguard"] = true, --new
 		["Stoneskin Gargoyle"] = true,
 		["Avalanchion"] = "아발란치온",
 		["The Windreaver"] = "칼날바람",

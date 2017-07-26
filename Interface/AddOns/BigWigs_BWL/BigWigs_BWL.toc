@@ -27,3 +27,4 @@ Nefarian.lua
 Vaelastrasz.lua
 Broodlord.lua
 Razorgore.lua
+Wyrmguards.lua

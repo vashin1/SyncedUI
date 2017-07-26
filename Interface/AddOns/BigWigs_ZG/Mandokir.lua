@@ -26,6 +26,8 @@ L:RegisterTranslations("enUS", function() return {
 	watchedyou_msg = "You are being watched! Stop everything!",
 	watched_msg = "%s is being watched!",
 	enrage_msg = "Ohgan down! Mandokir enraged!",	
+	
+	gaze_onme = "Gaze on ",
 
 	gazecast_bar = "Casting Threatening Gaze on: %s",
 	gazewatched_bar = "Watching: %s",
@@ -98,6 +100,7 @@ function BigWigsMandokir:CHAT_MSG_MONSTER_YELL(msg)
 			if name == UnitName("player")then
 				self:TriggerEvent("BigWigs_Message", L["watchedyou_msg"], "Personal", true, "Alarm")
 				self:TriggerEvent("BigWigs_Message", string.format(L["watched_msg"], name), "Urgent", nil, "Alert", true)
+				self:TriggerEvent("BigWigs_SendSay", L["gaze_onme"] .. UnitName("player") .. "!")
 			else
 				self:TriggerEvent("BigWigs_Message", string.format(L["watched_msg"], name), "Urgent", nil, "Alert")
 			end

@@ -12,11 +12,11 @@ local timeP1Tentacle = 90      -- tentacle timers for phase 1
 local timeP1TentacleStart = 45 -- delay for first tentacles from engage onwards
 local timeP1GlareStart = 50    -- delay for first dark glare from engage onwards
 local timeP1Glare = 90         -- interval for dark glare
-local timeP1GlareDuration = 30 -- duration of dark glare
-local timeP2Offset = 0         -- delay for all timers to restart after the Eye dies
+local timeP1GlareDuration = 40 -- duration of dark glare
+local timeP2Offset = 10         -- delay for all timers to restart after the Eye dies
 local timeP2Tentacle = 30      -- tentacle timers for phase 2
 local timeP2ETentacle = 60     -- Eye tentacle timers for phase 2
-local timeReschedule = 50      -- delay from the moment of weakening for timers to restart
+local timeReschedule = 30      -- delay from the moment of weakening for timers to restart
 local timeTarget = 10          -- delay for target change checking on Eye of C'Thun
 local timeWeakened = 45        -- duration of a weaken
 
@@ -236,18 +236,16 @@ function BigWigsCThun:CThunP2Start()
 		if self.db.profile.tentacle then
 			self:ScheduleEvent("bwcthuntentacle", "BigWigs_Message", timeP2Tentacle + timeP2Offset - 5, self.db.profile.rape and L["tentacle"] or L["norape"], "Urgent", true, "Alert")
 			self:TriggerEvent("BigWigs_StartBar", self, self.db.profile.rape and L["barTentacle"] or L["barNoRape"], timeP2Tentacle + timeP2Offset, "Interface\\Icons\\Spell_Nature_CallStorm")
-	        self:ScheduleEvent("BigWigs_StartBar", 41, self, L["barTentacle"], 30, "Interface\\Icons\\Spell_Nature_CallStorm")
-			self:ScheduleEvent("bwcthuntentacle2", "BigWigs_Message", 66, self.db.profile.rape and L["tentacle"] or L["norape"], "Urgent", true, "Alert")
 		end
 
 		if self.db.profile.giant then
-			self:TriggerEvent("BigWigs_StartBar", self, L["barGiant"], 45, "Interface\\Icons\\Ability_EyeOfTheOwl")
-			self:TriggerEvent("BigWigs_StartBar", self, L["barGiantC"], 15, "Interface\\Icons\\Spell_Nature_Earthquake")
+			self:TriggerEvent("BigWigs_StartBar", self, L["barGiant"], 40, "Interface\\Icons\\Ability_EyeOfTheOwl")
+			self:TriggerEvent("BigWigs_StartBar", self, L["barGiantC"], 10, "Interface\\Icons\\Spell_Nature_Earthquake")
 		end
 
 		self:ScheduleEvent("bwcthunstarttentacles", self.StartTentacleRape, timeP2ETentacle + timeP2Offset, self )
-	        self:ScheduleEvent("bwcthunstartgiant", self.StartGiantRape, 45, self )
-	        self:ScheduleEvent("bwcthunstartgiantc", self.StartGiantCRape, 15, self )
+	        self:ScheduleEvent("bwcthunstartgiant", self.StartGiantRape, 40, self )
+	        self:ScheduleEvent("bwcthunstartgiantc", self.StartGiantCRape, 10, self )
 		self:ScheduleRepeatingEvent("bwcthuntargetp2", self.CheckTargetP2, timeTarget, self )
 	end
 
@@ -280,13 +278,13 @@ function BigWigsCThun:CThunWeakened()
 
 	self:CancelScheduledEvent("bwcthuntentacles")
 	--self:ScheduleEvent("BigWigs_StartBar", 45, self, L["barTentacle"], 5, "Interface\\Icons\\Spell_Nature_CallStorm")
-	self:ScheduleEvent("BigWigs_StartBar", 45, self, L["barGiantC"], 10, "Interface\\Icons\\Spell_Nature_Earthquake")
-	self:ScheduleEvent("BigWigs_StartBar", 45, self, L["barGiant"], 40, "Interface\\Icons\\Ability_EyeOfTheOwl")
-	self:ScheduleEvent("BigWigs_StartBar", 50, self, L["barTentacle"], 20, "Interface\\Icons\\Spell_Nature_CallStorm")
-	self:ScheduleEvent("BigWigs_StartBar", 55, self, L["barGiantC"], 60, "Interface\\Icons\\Spell_Nature_Earthquake")
-	self:ScheduleEvent("bwcthunstarttentacles", self.StartTentacleRape, timeReschedule - 5, self )
-	self:ScheduleEvent("bwcthunstartgiant", self.StartGiantCRape, timeReschedule + 5, self )
-	self:ScheduleEvent("bwcthunstartgiantc", self.StartGiantRape, timeReschedule + 35, self )
+	self:ScheduleEvent("BigWigs_StartBar", timeWeakened - 5, self, L["barGiantC"], 5, "Interface\\Icons\\Spell_Nature_Earthquake")
+	self:ScheduleEvent("BigWigs_StartBar", timeWeakened, self, L["barGiant"], 30, "Interface\\Icons\\Ability_EyeOfTheOwl")
+	--self:ScheduleEvent("BigWigs_StartBar", 45, self, L["barTentacle"], 30, "Interface\\Icons\\Spell_Nature_CallStorm")
+	--self:ScheduleEvent("BigWigs_StartBar", 55, self, L["barGiantC"], 60, "Interface\\Icons\\Spell_Nature_Earthquake")
+	self:ScheduleEvent("bwcthunstarttentacles", self.StartTentacleRape, timeWeakened, self )
+	self:ScheduleEvent("bwcthunstartgiant", self.StartGiantCRape, timeWeakened, self )
+	self:ScheduleEvent("bwcthunstartgiantc", self.StartGiantRape, timeWeakened + 30, self )
 end
 
 -----------------------

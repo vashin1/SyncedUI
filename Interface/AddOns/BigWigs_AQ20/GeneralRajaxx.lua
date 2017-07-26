@@ -8,7 +8,7 @@ local L = AceLibrary("AceLocale-2.2"):new("BigWigs"..boss)
 local L2 = AceLibrary("AceLocale-2.2"):new("BigWigs")
 
 local rajdead
-
+local started
 
 ----------------------------
 --      Localization      --
@@ -41,6 +41,13 @@ L:RegisterTranslations("enUS", function() return {
 	warn7 = "Wave 7/8",
 	warn8 = "Incoming General Rajaxx",
 	warn9 = "Wave 1/8", -- trigger for starting the event by pulling the first wave instead of talking to andorov
+	
+	thundercrash_cmd = "thundercrash",
+	thundercrash_name = "Thundercrash Alert",
+	thundercrash_desc = "Warn for Thundercrash",
+	
+	thundercrash_trigger = "Thundercrash",
+	thundercrash_bar = "Thundercrash CD",
 
 } end )
 
@@ -179,7 +186,7 @@ L:RegisterTranslations("koKR", function() return {
 BigWigsGeneralRajaxx = BigWigs:NewModule(boss)
 BigWigsGeneralRajaxx.zonename = AceLibrary("Babble-Zone-2.2")["Ruins of Ahn'Qiraj"]
 BigWigsGeneralRajaxx.enabletrigger = { boss, andorov }
-BigWigsGeneralRajaxx.toggleoptions = {"wave", "bosskill"}
+BigWigsGeneralRajaxx.toggleoptions = {"wave", "thundercrash", "bosskill"}
 BigWigsGeneralRajaxx.revision = tonumber(string.sub("$Revision: 17293 $", 12, -3))
 
 ------------------------------
@@ -187,10 +194,45 @@ BigWigsGeneralRajaxx.revision = tonumber(string.sub("$Revision: 17293 $", 12, -3
 ------------------------------
 
 function BigWigsGeneralRajaxx:OnEnable()
+	started = nil
+	
 	self:RegisterEvent("CHAT_MSG_MONSTER_YELL")
 	self:RegisterEvent("CHAT_MSG_COMBAT_HOSTILE_DEATH")
+	self:RegisterEvent("PLAYER_REGEN_ENABLED", "CheckForWipe")
+	self:RegisterEvent("PLAYER_REGEN_DISABLED", "CheckForEngage")
+	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_PLAYER_DAMAGE", "Event") --thundercrash_trigger
+	self:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_SELF_DAMAGE", "Event") --thundercrash_trigger
+	
+	self:RegisterEvent("BigWigs_RecvSync")
+	self:TriggerEvent("BigWigs_ThrottleSync", "RajaxxThundercrash", 10)
+	
 	self.warnsets = {}
 	for i=1,9 do self.warnsets[L["trigger"..i]] = L["warn"..i] end
+end
+
+function BigWigsGeneralRajaxx:BigWigs_RecvSync(sync, rest, nick)
+	if sync == self:GetEngageSync() and rest and rest == boss and not started then
+		started = true
+		if self:IsEventRegistered("PLAYER_REGEN_DISABLED") then
+			self:UnregisterEvent("PLAYER_REGEN_DISABLED")
+		end
+		if self.db.profile.thundercrash then
+			self:TriggerEvent("BigWigs_StartBar", self, L["thundercrash_bar"], 14, "Interface\\Icons\\Spell_Nature_ThunderClap")
+		end
+	end
+	if sync == "RajaxxThundercrash" and self.db.profile.thundercrash then
+		self:Thundercrash()
+	end
+end
+
+function BigWigsGeneralRajaxx:Thundercrash()
+	self:TriggerEvent("BigWigs_StartBar", self, L["thundercrash_bar"], 15, "Interface\\Icons\\Spell_Nature_ThunderClap")
+end
+
+function BigWigsGeneralRajaxx:Event(msg)
+	if string.find(msg, L["thundercrash_trigger"]) then
+		self:TriggerEvent("BigWigs_SendSync", "RajaxxThundercrash")
+	end
 end
 
 function BigWigsGeneralRajaxx:VerifyEnable(unit)

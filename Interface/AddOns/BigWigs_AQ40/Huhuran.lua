@@ -40,7 +40,8 @@ L:RegisterTranslations("enUS", function() return {
 	stingwarn = "Wyvern Sting!",
 	stingdelaywarn = "Possible Wyvern Sting in ~3 seconds!",
 	bartext = "Wyvern Sting",
-	noxious_trigger = "afflicted by Noxious Poison",
+	noxious_trigger = "is afflicted by Noxious Poison",
+	noxiousself_trigger = "You are afflicted by Noxious Poison",
 	noxiousafflicted_bar = "Noxious Poison",
 	noxiouscd_bar = "Noxious Poison CD",
 
@@ -211,8 +212,6 @@ function BigWigsHuhuran:OnEnable()
 	berserkannounced = nil
 	started = nil
 
-	self:RegisterEvent("BigWigs_Message")
-
 	self:RegisterEvent("PLAYER_REGEN_ENABLED", "CheckForWipe")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "CheckForEngage")
 
@@ -227,7 +226,8 @@ function BigWigsHuhuran:OnEnable()
 	self:TriggerEvent("BigWigs_ThrottleSync", "HuhuranNoxiousSelfPriest", 0)
 	self:TriggerEvent("BigWigs_ThrottleSync", "HuhuranNoxiousSelfPaladin", 0)
 	self:TriggerEvent("BigWigs_ThrottleSync", "HuhuranNoxiousSelfDruid", 0)
-	--self:TriggerEvent("BigWigs_ThrottleSync", "HuhuranNoxious", 4)
+	self:TriggerEvent("BigWigs_ThrottleSync", "HuhuranNoxious", 5)
+	self:TriggerEvent("BigWigs_ThrottleSync", "HuhuranWyvernSting", 5)
 end
 
 ------------------------------
@@ -247,13 +247,13 @@ function BigWigsHuhuran:BigWigs_RecvSync(sync, rest, nick)
 			self:ScheduleEvent("bwhuhuranenragewarn2", "BigWigs_Message", 270, L["berserkwarn2"], "Urgent")
 			self:ScheduleEvent("bwhuhuranenragewarn3", "BigWigs_Message", 295, L["berserkwarn3"], "Important")
 		end
-		--if self.db.profile.wyvern then
-		--	self:TriggerEvent("BigWigs_StartBar", self, L["bartext"], 25, "Interface\\Icons\\INV_Spear_02")
-		--end
+		if self.db.profile.noxious then
+			self:TriggerEvent("BigWigs_StartBar", self, L["noxiouscd_bar"], 10, "Interface\\Icons\\spell_nature_corrosivebreath")
+		end
+		if self.db.profile.wyvern then
+			self:TriggerEvent("BigWigs_StartBar", self, L["wyvern_bar"], 20, "Interface\\Icons\\INV_Spear_02")
+		end
 	end
-	--if sync == "HuhuranNoxious" and self.db.profile.noxious then
-	--	self:NoxiousCD()
-	--end
 	if sync == "HuhuranNoxiousSelfPriest" and self.db.profile.noxious then
 		self:NoxiousPriest(nick)
 	end
@@ -262,6 +262,12 @@ function BigWigsHuhuran:BigWigs_RecvSync(sync, rest, nick)
 	end
 	if sync == "HuhuranNoxiousSelfDruid" and self.db.profile.noxious then
 		self:NoxiousDruid(nick)
+	end
+	if sync == "HuhuranNoxious" and self.db.profile.noxious then
+		self:NoxiousCD()
+	end
+	if sync == "HuhuranWyvernSting" and self.db.profile.wyvern then
+		self:WyvernStingCD()
 	end
 end
 
@@ -294,35 +300,30 @@ function BigWigsHuhuran:UNIT_HEALTH(arg1)
 	end
 end
 
-function BigWigsHuhuran:Event(arg1)
-	if self.db.profile.wyvern then
-		if prior and string.find(arg1, L["stingtrigger"]) then
-			self:TriggerEvent("BigWigs_Message", L["stingwarn"], "Urgent")
-			self:TriggerEvent("BigWigs_StartBar", self, L["bartext"], 25, "Interface\\Icons\\INV_Spear_02")
-			self:ScheduleEvent("BigWigs_Message", 22, L["stingdelaywarn"], "Urgent")
-			prior = true
+function BigWigsHuhuran:Event(msg)
+	if string.find(msg, L["stingtrigger"]) and self.db.profile.wyvern then
+		self:TriggerEvent("BigWigs_SendSync", "HuhuranWyvernSting")
+	elseif string.find(msg, L["noxiousself_trigger"]) and self.db.profile.noxious then
+		self:TriggerEvent("BigWigs_SendSync", "HuhuranNoxious")
+		local _, playerClass = UnitClass("player")
+		if playerClass == "PRIEST" then
+			self:TriggerEvent("BigWigs_SendSync", "HuhuranNoxiousSelfPriest")
+		elseif playerClass == "PALADIN" then
+			self:TriggerEvent("BigWigs_SendSync", "HuhuranNoxiousSelfPaladin")
+		elseif playerClass == "DRUID" then
+			self:TriggerEvent("BigWigs_SendSync", "HuhuranNoxiousSelfDruid")
 		end
+	elseif string.find(msg, L["noxious_trigger"]) and self.db.profile.noxious then
+		self:TriggerEvent("BigWigs_SendSync", "HuhuranNoxious")
 	end
-	--if self.db.profile.noxious then
-	--	if string.find(arg1, L["noxious_trigger"]) then
-	--		self:TriggerEvent("BigWigs_SendSync", "HuhuranNoxious")
-	--	end
-	--end
 end
 
-function BigWigsHuhuran:CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE(msg)
-	if self.db.profile.noxious then
-		if string.find(msg, L["noxious_trigger"]) then
-			local playerClass, englishClass = UnitClass("player")
-			if englishClass == "PRIEST" then
-				self:TriggerEvent("BigWigs_SendSync", "HuhuranNoxiousSelfPriest")
-			elseif englishClass == "PALADIN" then
-				self:TriggerEvent("BigWigs_SendSync", "HuhuranNoxiousSelfPaladin")
-			elseif englishClass == "DRUID" then
-				self:TriggerEvent("BigWigs_SendSync", "HuhuranNoxiousSelfDruid")
-			end
-		end
-	end
+function BigWigsHuhuran:NoxiousCD()
+	self:TriggerEvent("BigWigs_StartBar", self, 17, "Interface\\Icons\\spell_nature_corrosivebreath", true, "Green")
+end
+
+function BigWigsHuhuran:WyvernCD()
+	self:TriggerEvent("BigWigs_StartBar", self, 23, "Interface\\Icons\\INV_Spear_02", true, "Green")
 end
 
 function BigWigsHuhuran:NoxiousPriest(nick)
@@ -335,8 +336,4 @@ end
 
 function BigWigsHuhuran:NoxiousDruid(nick)
 	self:TriggerEvent("BigWigs_StartBar", self, nick, 8, "Interface\\Icons\\inv_misc_monsterclaw_04", true, "Orange")
-end
-
-function BigWigsHuhuran:BigWigs_Message(text)
-	if text == L["stingdelaywarn"] then prior = nil end
 end

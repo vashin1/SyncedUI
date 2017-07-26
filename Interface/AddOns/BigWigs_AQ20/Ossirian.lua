@@ -196,7 +196,7 @@ function BigWigsOssirian:Event(msg)
 end
 
 function BigWigsOssirian:WarStomp()
-	self:TriggerEvent("BigWigs_StartBar", self, L["warstomp_bar"], 28, "Interface\\Icons\\Ability_WarStomp")
+	self:TriggerEvent("BigWigs_StartBar", self, L["warstomp_bar"], 29.5, "Interface\\Icons\\Ability_WarStomp")
 end
 
 function BigWigsOssirian:CHAT_MSG_SPELL_PERIODIC_CREATURE_BUFFS( msg )
@@ -218,7 +218,7 @@ function BigWigsOssirian:BigWigs_RecvSync(sync, debuffKey)
 		if self:IsEventRegistered("PLAYER_REGEN_DISABLED") then
 			self:UnregisterEvent("PLAYER_REGEN_DISABLED")
 		end
-		self:TriggerEvent("BigWigs_StartBar", self, L["warstomp_bar"], 27, "Interface\\Icons\\Ability_WarSTomp")
+		self:TriggerEvent("BigWigs_StartBar", self, L["warstomp_bar"], 29.5, "Interface\\Icons\\Ability_WarSTomp")
 	end
 		
 	if sync == "OssirianWarstomp" then

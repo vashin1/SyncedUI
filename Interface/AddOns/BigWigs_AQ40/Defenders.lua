@@ -53,7 +53,7 @@ L:RegisterTranslations("enUS", function() return {
 	plagueyouwarn = "You have the plague!",
 	plagueyou = "You",
 	plagueare = "are",
-	plague_onme = "Plague on me!",
+	plague_onme = "Plague on ",
 	thunderclaptrigger = "^Anubisath Defender's Thunderclap hits ([^%s]+) for %d+%.",
 	thunderclapwarn = "Thunderclap!",
 } end )
@@ -345,7 +345,7 @@ function BigWigsDefenders:CheckPlague(msg)
 	local _,_, pplayer, ptype = string.find(msg, L["plaguetrigger"])
 	if pplayer then
 		if self.db.profile.plagueyou and pplayer == L["plagueyou"] then
-			self:TriggerEvent("BigWigs_SendSay", L["plague_onme"])
+			self:TriggerEvent("BigWigs_SendSay", L["plague_onme"] .. UnitName("player") .. "!")
 			self:TriggerEvent("BigWigs_Message", L["plagueyouwarn"], "Personal", true)
 			self:TriggerEvent("BigWigs_Message", UnitName("player") .. L["plaguewarn"], "Attention", nil, nil, true)
 		elseif self.db.profile.plagueother then

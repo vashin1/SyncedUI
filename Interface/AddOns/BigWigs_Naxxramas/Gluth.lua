@@ -140,7 +140,7 @@ end
 
 function BigWigsGluth:Decimate()
 	if self.db.profile.decimate then
-		self:TriggerEvent("BigWigs_StartBar", self, L["decimatebar"], 104, "Interface\\Icons\\INV_Shield_01")
+		self:TriggerEvent("BigWigs_StartBar", self, L["decimatebar"], 105, "Interface\\Icons\\INV_Shield_01")
 		self:ScheduleEvent("bwgluthdecimatewarn", "BigWigs_Message", 97, L["decimatesoonwarn"], "Urgent")
 	end
 	if self.db.profile.zombies then
@@ -160,7 +160,7 @@ function BigWigsGluth:BigWigs_RecvSync( sync, rest, nick )
 		if self.db.profile.decimate then
 			self:TriggerEvent("BigWigs_Message", L["startwarn"], "Attention")
 			self:Decimate()
-			self:ScheduleRepeatingEvent( "bwgluthdecimate", self.Decimate, 104, self )
+			self:ScheduleRepeatingEvent( "bwgluthdecimate", self.Decimate, 105, self )
 		end
 	if self.db.profile.zombies then
 	self.zomnum = 1
