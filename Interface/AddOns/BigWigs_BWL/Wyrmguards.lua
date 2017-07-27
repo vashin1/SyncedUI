@@ -71,7 +71,7 @@ function BigWigsWyrmguards:BigWigs_RecvSync(sync, rest, nick)
 end
 
 function BigWigsWyrmguards:CHAT_MSG_COMBAT_HOSTILE_DEATH(msg)
-	if string.find(msg, L["wyrmguarddeath_trigger"]) then
+	if msg == string.format(UNITDIESOTHER, boss) then
 		deathCount = deathCount + 1
 		if deathCount >= 3 then
 			self.core:ToggleModuleActive(self, false)
