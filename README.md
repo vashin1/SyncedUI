@@ -24,12 +24,13 @@
 *  **Classic Snowfall** - On press casting for all classes   
 
 ## Recommended Addons
-* [Bonus Scanner](http://www.vanilla-addons.com/dls/bonusscanner/) Scans your equipment for cumulative item bonuses and sums them up for use with Healcomm
-* [WIM (continued)](https://github.com/shirsig/WIM) Give whispers an instant messenger feel.
-* [Clean_Up](https://github.com/shirsig/Clean_Up) Automatically stacks and sorts your items.
-* [Decursive](https://drive.google.com/open?id=0B5QT3H5F-mBXNDRtbUloODJnWVU) Dispel & decurse automation.
-* [Cartographer](https://drive.google.com/open?id=0B5QT3H5F-mBXRHlUbGVrTW1ZUm8) Cartographer is a modular, lightweight, and efficient framework for manipulation of the world map with mining/herb support.
-* [Atlas](https://github.com/Cabro/Atlas/) The best version of Atlas, Atlas Loot, and Atlas Quest your going to find for the 1.12 client.
+* [Bonus Scanner](http://www.vanilla-addons.com/dls/bonusscanner/) Scans your equipment for cumulative item bonuses and sums them up for use with Healcomm  
+* [WIM (continued)](https://github.com/shirsig/WIM) Give whispers an instant messenger feel.  
+* [Clean_Up](https://github.com/shirsig/Clean_Up) Automatically stacks and sorts your items.  
+* [Decursive](https://drive.google.com/open?id=0B5QT3H5F-mBXNDRtbUloODJnWVU) Dispel & decurse automation.  
+* [Cartographer](https://drive.google.com/open?id=0B5QT3H5F-mBXRHlUbGVrTW1ZUm8) Cartographer is a modular, lightweight, and efficient framework for manipulation of the world map with mining/herb support.  
+* [Atlas](https://github.com/Cabro/Atlas/) The best version of Atlas, Atlas Loot, and Atlas Quest your going to find for the 1.12 client.  
+* [Questie](https://github.com/Dyaxler/QuestieDev) Quest helper for Vanilla. 
 
 ## Installation
 1. Backup your current Interface & WTF folders or make a new client (Recommended)   
