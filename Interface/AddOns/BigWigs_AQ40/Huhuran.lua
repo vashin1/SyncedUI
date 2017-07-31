@@ -39,6 +39,7 @@ L:RegisterTranslations("enUS", function() return {
 	stingtrigger = "afflicted by Wyvern Sting",
 	stingwarn = "Wyvern Sting!",
 	stingdelaywarn = "Possible Wyvern Sting in ~3 seconds!",
+	wyverncd_bar = "Wyvern Sting CD",
 	bartext = "Wyvern Sting",
 	noxious_trigger = "is afflicted by Noxious Poison",
 	noxiousself_trigger = "You are afflicted by Noxious Poison",
@@ -251,7 +252,7 @@ function BigWigsHuhuran:BigWigs_RecvSync(sync, rest, nick)
 			self:TriggerEvent("BigWigs_StartBar", self, L["noxiouscd_bar"], 10, "Interface\\Icons\\spell_nature_corrosivebreath")
 		end
 		if self.db.profile.wyvern then
-			self:TriggerEvent("BigWigs_StartBar", self, L["wyvern_bar"], 20, "Interface\\Icons\\INV_Spear_02")
+			self:TriggerEvent("BigWigs_StartBar", self, L["wyverncd_bar"], 20, "Interface\\Icons\\INV_Spear_02")
 		end
 	end
 	if sync == "HuhuranNoxiousSelfPriest" and self.db.profile.noxious then
@@ -267,7 +268,7 @@ function BigWigsHuhuran:BigWigs_RecvSync(sync, rest, nick)
 		self:NoxiousCD()
 	end
 	if sync == "HuhuranWyvernSting" and self.db.profile.wyvern then
-		self:WyvernStingCD()
+		self:WyvernCD()
 	end
 end
 
@@ -319,11 +320,11 @@ function BigWigsHuhuran:Event(msg)
 end
 
 function BigWigsHuhuran:NoxiousCD()
-	self:TriggerEvent("BigWigs_StartBar", self, 17, "Interface\\Icons\\spell_nature_corrosivebreath", true, "Green")
+	self:TriggerEvent("BigWigs_StartBar", self, L["noxiouscd_bar"], 17,  "Interface\\Icons\\spell_nature_corrosivebreath", true, "Green")
 end
 
 function BigWigsHuhuran:WyvernCD()
-	self:TriggerEvent("BigWigs_StartBar", self, 23, "Interface\\Icons\\INV_Spear_02", true, "Green")
+	self:TriggerEvent("BigWigs_StartBar", self, L["wyverncd_bar"], 23, "Interface\\Icons\\INV_Spear_02", true, "Green")
 end
 
 function BigWigsHuhuran:NoxiousPriest(nick)

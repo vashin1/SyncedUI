@@ -243,7 +243,7 @@ function BigWigsCThun:CThunP2Start()
 			self:TriggerEvent("BigWigs_StartBar", self, L["barGiantC"], 10, "Interface\\Icons\\Spell_Nature_Earthquake")
 		end
 
-		self:ScheduleEvent("bwcthunstarttentacles", self.StartTentacleRape, timeP2ETentacle + timeP2Offset, self )
+		self:ScheduleEvent("bwcthunstarttentacles", self.StartTentacleRape, timeP2Tentacle + timeP2Offset, self )
 	        self:ScheduleEvent("bwcthunstartgiant", self.StartGiantRape, 40, self )
 	        self:ScheduleEvent("bwcthunstartgiantc", self.StartGiantCRape, 10, self )
 		self:ScheduleRepeatingEvent("bwcthuntargetp2", self.CheckTargetP2, timeTarget, self )
