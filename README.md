@@ -1,3 +1,5 @@
+SyncedUI is a compilation created using pfUI (https://github.com/shagu/pfUI) and other addons to form a complete and fully fuctional interface for 1.12 WoW. Special thanks to Shagu, Shino, Athene and Shirsig.  
+
 
 ## Screenshots
 ![Screenshot](http://i.imgur.com/q6FOF9k.jpg)
