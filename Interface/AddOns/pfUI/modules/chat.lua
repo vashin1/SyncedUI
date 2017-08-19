@@ -312,19 +312,29 @@ pfUI:RegisterModule("chat", function ()
         frame:SetFading(false)
       end
 
-      if i == 3 and C.chat.right.enable == "1" then
+      if i == 1 then
+        -- General
+        tab:SetParent(pfUI.chat.left.panelTop)
+        frame:SetParent(pfUI.chat.left)
+        frame.isDocked = true
+        frame:SetPoint("TOPLEFT", pfUI.chat.left ,"TOPLEFT", default_border, -panelheight)
+        frame:SetPoint("BOTTOMRIGHT", pfUI.chat.left ,"BOTTOMRIGHT", -default_border, panelheight)
+      elseif i == 2 then
+        -- Combat Log
+        if C.chat.global.combathide == "1" then
+          FCF_UnDockFrame(frame)
+          FCF_Close(frame)
+        elseif not frame.isDocked and not frame:IsVisible() then
+          FCF_DockFrame(frame)
+        end
+      elseif i == 3 and C.chat.right.enable == "1" then
+        -- Loot & Spam
         tab:SetParent(pfUI.chat.right.panelTop)
         frame:SetParent(pfUI.chat.right)
         frame:ClearAllPoints()
         frame:SetPoint("TOPLEFT", pfUI.chat.right ,"TOPLEFT", default_border, -panelheight)
         frame:SetPoint("BOTTOMRIGHT", pfUI.chat.right ,"BOTTOMRIGHT", -default_border, panelheight)
         frame:Show()
-      else
-        tab:SetParent(pfUI.chat.left.panelTop)
-        frame:SetParent(pfUI.chat.left)
-        frame:ClearAllPoints()
-        frame:SetPoint("TOPLEFT", pfUI.chat.left ,"TOPLEFT", default_border, -panelheight)
-        frame:SetPoint("BOTTOMRIGHT", pfUI.chat.left ,"BOTTOMRIGHT", -default_border, panelheight)
       end
 
       -- hide textures
@@ -423,7 +433,7 @@ pfUI:RegisterModule("chat", function ()
     if C.chat.right.enable == "1" then
       -- set position of Loot & Spam
       FCF_SetLocked(ChatFrame3, 1)
-      FCF_SetWindowName(ChatFrame3, "Loot & Spam")
+      FCF_SetWindowName(ChatFrame3, T["Loot & Spam"])
       FCF_SetWindowColor(ChatFrame3, 0, 0, 0)
       FCF_SetWindowAlpha(ChatFrame3, 0)
       FCF_SetChatWindowFontSize(ChatFrame3, 12)

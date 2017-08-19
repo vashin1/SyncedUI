@@ -580,7 +580,7 @@ pfUI:RegisterModule("gui", function ()
     --"esMX:Spanish (Latin American)",
     "frFR:French",
     "koKR:Korean",
-    -- "ruRU:Russian",
+    "ruRU:Russian",
     "zhCN:Chinese (simplified; China)",
     "zhTW:Chinese (traditional; Taiwan)",
     -- http://wowprogramming.com/docs/api/GetLocale
@@ -1492,6 +1492,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(this, T["Right Chat Width"], C.chat.right, "width")
       CreateConfig(this, T["Right Chat Height"], C.chat.right, "height")
       CreateConfig(this, T["Enable Right Chat Window"], C.chat.right, "alwaysshow", "checkbox")
+      CreateConfig(this, T["Hide Combat Log"], C.chat.global, "combathide", "checkbox")
       CreateConfig(this, T["Enable Chat Dock Background"], C.chat.global, "tabdock", "checkbox")
       CreateConfig(this, T["Only Show Chat Dock On Mouseover"], C.chat.global, "tabmouse", "checkbox")
       CreateConfig(this, T["Enable Custom Colors"], C.chat.global, "custombg", "checkbox")
