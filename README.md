@@ -37,7 +37,7 @@ SyncedUI is a compilation created using pfUI (https://github.com/shagu/pfUI) and
 ## Installation
 1. Backup your current Interface & WTF folders or make a new client (Recommended)   
 2. Unpack the ZIP & replace your Interface and WTF folders with the ones provided.  
-3. Rename the "your-account" folder to your account name in all caps.  
+3. Navigate to /WTF, find and rename the "your-account" folder to your account name in all caps.  
 4. Rename the "Kronos" folder to the realm your currently playing on.  
 5. Rename the "your-character" folder to your characters name, make a copy and rename for any alts on that account.  
 6. Delete the WDB Folder  
