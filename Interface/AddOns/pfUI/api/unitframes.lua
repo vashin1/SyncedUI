@@ -38,6 +38,22 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
 
   local f = CreateFrame("Button", "pf" .. fname, UIParent)
 
+  -- show self in group
+  if unit == "party" and id == "0" then
+    unit = "player"
+    id = ""
+  end
+
+  if unit == "partypet" and id == "0" then
+    unit = "pet"
+    id = ""
+  end
+
+  if unit == "party0target" then
+    unit = "target"
+    id = ""
+  end
+
   if not pfValidUnits[unit .. id] then
     f.unitname = unit
     f.RegisterEvent = function() return end
@@ -231,7 +247,7 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
           local scan = UnitName(unit) or ""
           if this.unitname == strlower(scan) then
             this.label = unit
-            this.portrait.model.lastUnit = nil
+            if this.portrait then this.portrait.model.lastUnit = nil end
             this.instantRefresh = true
             pfUI.uf:RefreshUnit(this, "all")
             return
@@ -539,17 +555,35 @@ function pfUI.uf:RefreshUnit(unit, component)
     unit.lastUnit = UnitName(unit.label .. unit.id)
   end
 
+  -- hide and return early on unused frames
   if not ( pfUI.unlock and pfUI.unlock:IsShown() ) then
-    if UnitName(unit.label .. unit.id) or unit.unitname then
+    -- check existing units or focus frames
+    if unit.unitname then
+      unit:Show()
+    elseif UnitName(unit.label .. unit.id) then
+      -- hide group while in raid and option is set
       if pfUI_config["unitframes"]["group"]["hide_in_raid"] == "1" and strsub(unit.label,0,5) == "party" and UnitInRaid("player") then
         unit:Hide()
+        return
+
+      -- hide existing but too far away pet
       elseif strsub(unit.label,0,8) == "partypet" and not UnitIsVisible(unit.label .. unit.id) then
         unit:Hide()
-      else
-        unit:Show()
+        return
+
+      -- hide self in group if solo or hide in raid is set
+      elseif unit.fname == "Group0" or unit.fname == "PartyPet0" or unit.fname == "Party0Target" then
+        if ( GetNumPartyMembers() <= 0 ) or ( pfUI_config["unitframes"]["group"]["hide_in_raid"] == "1" and UnitInRaid("player") ) then
+          unit:Hide()
+          return
+        end
       end
+
+      unit:Show()
     else
+      -- hide unused frame
       unit:Hide()
+      return
     end
   end
 
