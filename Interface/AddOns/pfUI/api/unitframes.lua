@@ -434,6 +434,13 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
       f.buffs[i]:SetWidth(f.config.buffsize)
       f.buffs[i]:SetHeight(f.config.buffsize)
 
+      if f:GetName() == "pfPlayer" then
+        f.buffs[i]:SetScript("OnUpdate", function()
+          local timeleft = GetPlayerBuffTimeLeft(GetPlayerBuff(this:GetID()-1,"HELPFUL"))
+          CooldownFrame_SetTimer(this.cd, GetTime(), timeleft, 1)
+        end)
+      end
+
       f.buffs[i]:SetScript("OnEnter", function()
         if not this:GetParent().label then return end
 
@@ -550,10 +557,10 @@ function pfUI.uf:RefreshUnit(unit, component)
 
   -- show groupframes as raid
   if pfUI_config["unitframes"]["raidforgroup"] == "1" then
-    if GetNumPartyMembers() > 0 and strsub(unit:GetName(),0,6) == "pfRaid" then
+    if strsub(unit:GetName(),0,6) == "pfRaid" then
       local id = tonumber(strsub(unit:GetName(),7,8))
 
-      if not UnitInRaid("player") then
+      if not UnitInRaid("player") and GetNumPartyMembers() > 0 then
         if id == 1 then
           unit.id = ""
           unit.label = "player"
@@ -672,11 +679,6 @@ function pfUI.uf:RefreshUnit(unit, component)
 
       if texture then
         unit.buffs[i]:Show()
-
-        if unit:GetName() == "pfPlayer" then
-          local timeleft = GetPlayerBuffTimeLeft(GetPlayerBuff(unit.buffs[i]:GetID()-1,"HELPFUL"))
-          CooldownFrame_SetTimer(unit.buffs[i].cd, GetTime(), timeleft, 1)
-        end
 
         if stacks > 1 then
           unit.buffs[i].stacks:SetText(stacks)
