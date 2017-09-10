@@ -4,11 +4,8 @@ SyncedUI is a compilation created using pfUI (https://github.com/shagu/pfUI) and
 
 
 ## Screenshots
-![Screenshot](http://i.imgur.com/q6FOF9k.jpg)
 
 ![Screenshot](http://i.imgur.com/u5UH0AI.jpg)
-
-![Screenshot](http://i.imgur.com/tTLNO7z.jpg)
 
 ![Modular](http://i.imgur.com/SP3vVib.jpg)
 
