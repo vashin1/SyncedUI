@@ -129,25 +129,25 @@ end
 function BigWigsWarders:Root()
 	self:TriggerEvent("BigWigs_StopBar", self, L["root_bar"])
 	self:TriggerEvent("BigWigs_StartBar", self, L["rootcast_bar"], 1.5, "Interface\\Icons\\Spell_Nature_StrangleVines", true, "Green")
-	self:ScheduleEvent("BigWigs_StartBar", 1.5, self, L["root_bar"], 7.9, "Interface\\Icons\\Spell_Nature_StrangleVines", true, "Green")
+	self:ScheduleEvent("BigWigs_StartBar", 1.5, self, L["root_bar"], 6, "Interface\\Icons\\Spell_Nature_StrangleVines", true, "Green")
 end
 
 function BigWigsWarders:DustCloud()
 	self:TriggerEvent("BigWigs_StopBar", self, L["dustcloud_bar"])
 	self:TriggerEvent("BigWigs_StartBar", self, L["dustcloudcast_bar"], 1.5, "Interface\\Icons\\Spell_Nature_Sleep", true, "Yellow")
-	self:ScheduleEvent("BigWigs_StartBar", 1.5, self, L["dustcloud_bar"], 13.8, "Interface\\Icons\\Spell_Nature_Sleep", true, "Yellow")
+	self:ScheduleEvent("BigWigs_StartBar", 1.5, self, L["dustcloud_bar"], 13, "Interface\\Icons\\Spell_Nature_Sleep", true, "Yellow")
 end
 
 function BigWigsWarders:Silence()
 	self:TriggerEvent("BigWigs_StopBar", self, L["silence_bar"])
 	self:TriggerEvent("BigWigs_StartBar", self, L["silencecast_bar"], 1.5, "Interface\\Icons\\Spell_Frost_IceShock", true, "Gray")
-	self:ScheduleEvent("BigWigs_StartBar", 1.5, self, L["silence_bar"], 15.7, "Interface\\Icons\\Spell_Frost_IceShock", true, "Gray")
+	self:ScheduleEvent("BigWigs_StartBar", 1.5, self, L["silence_bar"], 13, "Interface\\Icons\\Spell_Frost_IceShock", true, "Gray")
 end
 
 function BigWigsWarders:Fear()
 	self:TriggerEvent("BigWigs_StopBar", self, L["fear_bar"])
 	self:TriggerEvent("BigWigs_StartBar", self, L["fearcast_bar"], 1.5, "Interface\\Icons\\Spell_Shadow_Possession", true, "Red")
-	self:ScheduleEvent("BigWigs_StartBar", 1.5, self, L["fear_bar"], 16.4, "Interface\\Icons\\Spell_Shadow_Possession", true, "White")
+	self:ScheduleEvent("BigWigs_StartBar", 1.5, self, L["fear_bar"], 13, "Interface\\Icons\\Spell_Shadow_Possession", true, "White")
 end
 
 

@@ -320,11 +320,11 @@ function BigWigsHuhuran:Event(msg)
 end
 
 function BigWigsHuhuran:NoxiousCD()
-	self:TriggerEvent("BigWigs_StartBar", self, L["noxiouscd_bar"], 17,  "Interface\\Icons\\spell_nature_corrosivebreath", true, "Green")
+	self:TriggerEvent("BigWigs_StartBar", self, L["noxiouscd_bar"], 15.5,  "Interface\\Icons\\spell_nature_corrosivebreath", true, "Green")
 end
 
 function BigWigsHuhuran:WyvernCD()
-	self:TriggerEvent("BigWigs_StartBar", self, L["wyverncd_bar"], 23, "Interface\\Icons\\INV_Spear_02", true, "Green")
+	self:TriggerEvent("BigWigs_StartBar", self, L["wyverncd_bar"], 19, "Interface\\Icons\\INV_Spear_02", true, "Green")
 end
 
 function BigWigsHuhuran:NoxiousPriest(nick)

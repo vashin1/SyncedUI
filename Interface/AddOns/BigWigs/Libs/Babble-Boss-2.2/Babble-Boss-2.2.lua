@@ -28,6 +28,7 @@ local BabbleBoss = AceLibrary("AceLocale-2.2"):new(MAJOR_VERSION)
 
 BabbleBoss:RegisterTranslations("enUS", function()
 	return {
+		["Living Monstrosity"] = true, --new
 		["Anubisath Warder"] = true, --new
 		["Death Talon Wyrmguard"] = true, --new
 		["Stoneskin Gargoyle"] = true,
@@ -360,6 +361,7 @@ end)
 
 BabbleBoss:RegisterTranslations("deDE", function()
 	return {
+		["Living Monstrosity"] = true, --new
 		["Anubisath Warder"] = true, --new
 		["Death Talon Wyrmguard"] = true, --new
 		["Stoneskin Gargoyle"] = true,
@@ -692,6 +694,7 @@ end)
 
 BabbleBoss:RegisterTranslations("frFR", function()
 	return {
+		["Living Monstrosity"] = true, --new
 		["Anubisath Warder"] = true, --new
 		["Death Talon Wyrmguard"] = true, --new
 		["Stoneskin Gargoyle"] = true,
@@ -1022,6 +1025,7 @@ end)
 
 BabbleBoss:RegisterTranslations("zhCN", function()
 	return {
+		["Living Monstrosity"] = true, --new
 		["Anubisath Warder"] = true, --new
 		["Death Talon Wyrmguard"] = true, --new
 		["Stoneskin Gargoyle"] = true,
@@ -1354,6 +1358,7 @@ end)
 
 BabbleBoss:RegisterTranslations("zhTW", function()
 	return {
+		["Living Monstrosity"] = true, --new
 		["Anubisath Warder"] = true, --new
 		["Death Talon Wyrmguard"] = true, --new
 		["Stoneskin Gargoyle"] = true,
@@ -1685,6 +1690,7 @@ end)
 
 BabbleBoss:RegisterTranslations("koKR", function()
 	return {
+		["Living Monstrosity"] = true, --new
 		["Anubisath Warder"] = true, --new
 		["Death Talon Wyrmguard"] = true, --new
 		["Stoneskin Gargoyle"] = true,

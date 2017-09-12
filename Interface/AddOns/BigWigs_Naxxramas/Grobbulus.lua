@@ -49,6 +49,7 @@ L:RegisterTranslations("enUS", function() return {
 	bomb_message_you = "You are injected!",
 	bomb_message_other = "%s is injected!",
 	bomb_bar = "%s injected",
+	bomb_onme = "Injection on ",
 
 	cloud_trigger = "Grobbulus casts Poison Cloud.",
 	cloud_warn = "Poison Cloud next in ~15 seconds!",
@@ -111,6 +112,7 @@ function BigWigsGrobbulus:BigWigs_RecvSync( sync, rest, nick )
 			self:TriggerEvent("BigWigs_Message", L["bomb_message_you"], "Personal", true, "Alarm")
 			self:TriggerEvent("BigWigs_Message", string.format(L["bomb_message_other"], player), "Attention", nil, nil, true)
 			self:TriggerEvent("BigWigs_StartBar", self, string.format(L["bomb_bar"], player), 10,"Interface\\Icons\\Spell_Shadow_CallofBone")
+			self:TriggerEvent("BigWigs_SendSay", L["bomb_onme"] .. UnitName("player") .. "!")
 		elseif self.db.profile.otherinjected then
 			self:TriggerEvent("BigWigs_Message", string.format(L["bomb_message_other"], player), "Attention")
 			self:TriggerEvent("BigWigs_SendTell", player, L["bomb_message_you"])

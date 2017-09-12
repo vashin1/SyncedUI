@@ -97,6 +97,7 @@ L:RegisterTranslations("enUS", function() return {
 	detonate_bar = "Detonate Mana - %s",
 	detonate_possible_bar = "Detonate Mana",
 	detonate_warning = "%s has Detonate Mana!",
+	detonate_onme = "Detonate Mana on ",
 
 	you = "You",
 	are = "are",
@@ -213,6 +214,9 @@ end
 
 function BigWigsKelThuzad:BigWigs_RecvSync(sync, rest, nick)
 	if sync == "KelDetonate" and rest and self.db.profile.detonate then
+		if rest == UnitName("player") then
+			self:TriggerEvent("BigWigs_SendSay", L["detonate_onme"] .. UnitName("player") .. "!")
+		end
 		self:TriggerEvent("BigWigs_Message", string.format(L["detonate_warning"], rest), "Attention")
 		if self.db.profile.detonateicon then self:TriggerEvent("BigWigs_SetRaidIcon", rest ) end
 		self:TriggerEvent("BigWigs_StartBar", self, string.format(L["detonate_bar"], rest), 5, "Interface\\Icons\\Spell_Nature_WispSplode")

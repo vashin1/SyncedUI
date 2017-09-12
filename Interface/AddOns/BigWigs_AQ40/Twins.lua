@@ -32,7 +32,8 @@ L:RegisterTranslations("enUS", function() return {
 	heal_name = "Heal Alert",
 	heal_desc = "Warn for Twins Healing",
 
-	porttrigger = "gains Twin Teleport.",
+	porttrigger1 = "casts Twin Teleport",
+	porttrigger2 = "gains Twin Teleport",
 	portwarn = "Teleport!",
 	portdelaywarn = "Teleport in 5 seconds!",
 	portdelaywarn10 = "Teleport in 10 seconds!",
@@ -55,6 +56,10 @@ L:RegisterTranslations("enUS", function() return {
 	warn6 = "Enrage in 30 seconds",
 	warn7 = "Enrage in 10 seconds",
 	firewarn = "Run from Blizzard!",
+	
+	ktm_cmd = "ktm",
+	ktm_name = "KTM reset",
+	ktm_desc = "Reset KTM when twins teleport",
 } end )
 
 ----------------------------------
@@ -64,7 +69,7 @@ L:RegisterTranslations("enUS", function() return {
 BigWigsTwins = BigWigs:NewModule(boss)
 BigWigsTwins.zonename = AceLibrary("Babble-Zone-2.2")["Ahn'Qiraj"]
 BigWigsTwins.enabletrigger = {veklor, veknilash}
-BigWigsTwins.toggleoptions = {"bug", "teleport", "enrage", "heal", "bosskill"}
+BigWigsTwins.toggleoptions = {"bug", "teleport", "enrage", "heal", "ktm", "bosskill"}
 BigWigsTwins.revision = tonumber(string.sub("$Revision: 16970 $", 12, -3))
 
 ------------------------------
@@ -82,7 +87,7 @@ function BigWigsTwins:OnEnable()
 	self:RegisterEvent("PLAYER_REGEN_ENABLED", "CheckForWipe")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "CheckForEngage")
 	self:RegisterEvent("BigWigs_RecvSync")
-	self:TriggerEvent("BigWigs_ThrottleSync", "TwinsTeleport", 10)
+	self:TriggerEvent("BigWigs_ThrottleSync", "TwinsTeleport2", 10)
 end
 
 ------------------------------
@@ -136,7 +141,10 @@ function BigWigsTwins:BigWigs_RecvSync(sync, rest, nick)
 			self:ScheduleEvent("bwtwinswarn6", "BigWigs_Message", 870, L["warn6"], "Important")
 			self:ScheduleEvent("bwtwinswarn7", "BigWigs_Message", 890, L["warn7"], "Important")
 		end
-	elseif sync == "TwinsTeleport" and self.db.profile.teleport then
+	elseif sync == "TwinsTeleport2" and self.db.profile.teleport then
+		if IsAddOnLoaded("KLHThreatMeter") and self.db.profile.ktm and (IsRaidLeader() or IsRaidOfficer()) then
+			klhtm.net.clearraidthreat()
+		end
 		self:TriggerEvent("BigWigs_Message", L["portwarn"], "Attention")
 		self:ScheduleEvent("BigWigs_Message", 20, L["portdelaywarn10"], "Urgent")
 		self:ScheduleEvent("BigWigs_Message", 25, L["portdelaywarn"], "Urgent")
@@ -153,14 +161,18 @@ function BigWigsTwins:Telebar()
 end	
 
 function BigWigsTwins:CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE(msg)
-	if (string.find(msg, L["porttrigger"])) then
-		self:TriggerEvent("BigWigs_SendSync", "TwinsTeleport")
+	if string.find(msg, L["porttrigger1"]) then
+		self:TriggerEvent("BigWigs_SendSync", "TwinsTeleport2")
+	elseif string.find(msg, L["porttrigger2"]) then
+		self:TriggerEvent("BigWigs_SendSync", "TwinsTeleport2")
 	end
 end
 
 function BigWigsTwins:CHAT_MSG_SPELL_PERIODIC_CREATURE_BUFFS(msg)
 	if (string.find(msg, L["explodebugtrigger"]) and self.db.profile.bug) then
 		self:TriggerEvent("BigWigs_Message", L["explodebugwarn"], "Personal", true)
+	elseif string.find(msg, L["porttrigger2"]) then
+		self:TriggerEvent("BigWigs_SendSync", "TwinsTeleport2")
 	end
 end
 

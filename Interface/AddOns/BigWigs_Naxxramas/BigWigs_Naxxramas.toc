@@ -34,3 +34,4 @@ Loatheb.lua
 Horsemen.lua
 Sapphiron.lua
 Kelthuzad.lua
+LivingMonstrosity.lua

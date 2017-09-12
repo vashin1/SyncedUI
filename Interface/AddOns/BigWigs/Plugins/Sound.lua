@@ -14,6 +14,17 @@ local sounds = {
 	Alert = "Interface\\AddOns\\BigWigs\\Sounds\\Alert.mp3",
 	Alarm = "Interface\\AddOns\\BigWigs\\Sounds\\Alarm.mp3",
 	Victory = "Interface\\AddOns\\BigWigs\\Sounds\\Victory.mp3",
+	
+	OneCorsica = "Interface\\AddOns\\BigWigs\\Sounds\\Corsica\\1.ogg",
+	TwoCorsica = "Interface\\AddOns\\BigWigs\\Sounds\\Corsica\\2.ogg",
+	ThreeCorsica = "Interface\\AddOns\\BigWigs\\Sounds\\Corsica\\3.ogg",
+	FourCorsica = "Interface\\AddOns\\BigWigs\\Sounds\\Corsica\\4.ogg",
+	FiveCorsica = "Interface\\AddOns\\BigWigs\\Sounds\\Corsica\\5.ogg",
+	SixCorsica = "Interface\\AddOns\\BigWigs\\Sounds\\Corsica\\6.ogg",
+	SevenCorsica = "Interface\\AddOns\\BigWigs\\Sounds\\Corsica\\7.ogg",
+	EightCorsica = "Interface\\AddOns\\BigWigs\\Sounds\\Corsica\\8.ogg",
+	NineCorsica = "Interface\\AddOns\\BigWigs\\Sounds\\Corsica\\9.ogg",
+	TenCorsica = "Interface\\AddOns\\BigWigs\\Sounds\\Corsica\\10.ogg",
 }
 
 
@@ -32,6 +43,10 @@ L:RegisterTranslations("enUS", function() return {
 	["default"] = true,
 	["Default only"] = true,
 	["Use only the default sound."] = true,
+	
+	["bosscountdownvoice"] = true,
+	["Countdown Voice"] = true,
+	["Play countdown sounds for important boss timers"] = true,
 } end)
 
 L:RegisterTranslations("koKR", function() return {
@@ -101,6 +116,7 @@ BigWigsSound = BigWigs:NewModule(L["Sounds"])
 BigWigsSound.defaults = {
 	defaultonly = false,
 	sound = true,
+	countdown = true,
 }
 BigWigsSound.consoleCmd = L["sounds"]
 BigWigsSound.consoleOptions = {
@@ -125,6 +141,13 @@ BigWigsSound.consoleOptions = {
 			get = function() return BigWigsSound.db.profile.defaultonly end,
 			set = function(v) BigWigsSound.db.profile.defaultonly = v end,
 		},
+		[L["bosscountdownvoice"]] = {
+			type = "toggle",
+			name = L["Countdown Voice"],
+			desc = L["Play countdown sounds for important boss timers"],
+			get = function() return BigWigsSound.db.profile.countdown end,
+			set = function(v) BigWigsSound.db.profile.countdown = v end,
+		},
 	}
 }
 
@@ -135,6 +158,7 @@ BigWigsSound.consoleOptions = {
 function BigWigsSound:OnEnable()
 	self:RegisterEvent("BigWigs_Message")
 	self:RegisterEvent("BigWigs_Sound")
+	self:RegisterEvent("BigWigs_CountdownSound")
 end
 
 function BigWigsSound:BigWigs_Message(text, color, noraidsay, sound, broadcastonly)
@@ -147,4 +171,17 @@ end
 function BigWigsSound:BigWigs_Sound( sound )
 	if sounds[sound] and not self.db.profile.defaultonly then PlaySoundFile(sounds[sound])
 	else PlaySound("RaidWarning") end
+end
+
+	--[[BigWigs_CountdownSound should only be used for big ability timers, so players can choose to disable
+		those if the sounds clutter sound channel too much.
+		
+		BigWigs_Sound is still used for PullTimer's countdown, as I feel that is vital enough not to be
+		disable-able unless the player wants to disable all BigWig sounds.
+	--]]
+	
+function BigWigsSound:BigWigs_CountdownSound( sound )
+	if sounds[sound] and self.db.profile.countdown then
+		PlaySoundFile(sounds[sound])
+	end
 end

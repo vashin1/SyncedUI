@@ -60,6 +60,7 @@ Plugins\RaidIcon.lua
 Plugins\Range.lua
 Plugins\Version.lua
 Plugins\Test.lua
+Plugins\PullTimer.lua
 
 Extras\CustomBar.lua
 Extras\Tranq.lua
