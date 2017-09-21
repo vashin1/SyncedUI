@@ -71,11 +71,6 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
   f.config = config or pfUI_config.unitframes.fallback
   f.tick = tick
 
-  if f.config.visible ~= "1" then
-    f:Hide()
-    return f
-  end
-
   f:SetFrameStrata("BACKGROUND")
 
   f.hp = CreateFrame("Frame",nil, f)
@@ -165,6 +160,11 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
   f.powerCenterText:ClearAllPoints()
   f.powerCenterText:SetPoint("TOPLEFT",f.power.bar, "TOPLEFT", 2*default_border, 1)
   f.powerCenterText:SetPoint("BOTTOMRIGHT",f.power.bar, "BOTTOMRIGHT", -2*default_border, 0)
+
+  if f.config.visible ~= "1" then
+    f:Hide()
+    return f
+  end
 
   f:RegisterForClicks('LeftButtonUp', 'RightButtonUp',
     'MiddleButtonUp', 'Button4Up', 'Button5Up')
@@ -304,6 +304,11 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
           -- instant refresh on unit change (e.g. target)
           this.cache.hp = UnitHealth(this.label .. this.id)
           this.cache.hpmax = UnitHealthMax(this.label .. this.id)
+
+          if this.config.invert_healthbar == "1" then
+            this.cache.hp = this.cache.hpmax - this.cache.hp
+          end
+
           this.cache.hpdisplay = this.cache.hp
           this.hp.bar:SetMinMaxValues(0, this.cache.hpmax)
           this.hp.bar:SetValue(this.cache.hp)
@@ -315,12 +320,15 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
 
           this.lastUnit = UnitName(this.label .. this.id)
         else
+          -- smoothen animation based on framerate
+          local fpsmod = GetFramerate() / 30
+
           -- health animation active
           if this.cache.hpanimation then
             if this.cache.hpdisplay < this.cache.hp then
-              this.cache.hpdisplay = this.cache.hpdisplay + ceil(hpDiff / pfUI_config.unitframes.animation_speed)
+              this.cache.hpdisplay = this.cache.hpdisplay + ceil(hpDiff / (pfUI_config.unitframes.animation_speed * fpsmod))
             elseif this.cache.hpdisplay > this.cache.hp then
-              this.cache.hpdisplay = this.cache.hpdisplay - ceil(hpDiff / pfUI_config.unitframes.animation_speed)
+              this.cache.hpdisplay = this.cache.hpdisplay - ceil(hpDiff / (pfUI_config.unitframes.animation_speed * fpsmod))
             else
               this.cache.hpdisplay = this.cache.hp
               this.cache.hpanimation = nil
@@ -333,9 +341,9 @@ function pfUI.uf:CreateUnitFrame(unit, id, config, tick)
           -- power animation active
           if this.cache.poweranimation then
             if this.cache.powerdisplay < this.cache.power then
-              this.cache.powerdisplay = this.cache.powerdisplay + ceil(powerDiff / pfUI_config.unitframes.animation_speed)
+              this.cache.powerdisplay = this.cache.powerdisplay + ceil(powerDiff / (pfUI_config.unitframes.animation_speed * fpsmod))
             elseif this.cache.powerdisplay > this.cache.power then
-              this.cache.powerdisplay = this.cache.powerdisplay - ceil(powerDiff / pfUI_config.unitframes.animation_speed)
+              this.cache.powerdisplay = this.cache.powerdisplay - ceil(powerDiff / (pfUI_config.unitframes.animation_speed * fpsmod))
             else
               this.cache.powerdisplay = this.cache.power
               this.cache.poweranimation = nil
@@ -1409,9 +1417,9 @@ function pfUI.uf.GetColor(self, preset)
 
   elseif preset == "class" and config["classcolor"] == "1" then
     local _, class = UnitClass(unitstr)
-    r = RAID_CLASS_COLORS[class].r
-    g = RAID_CLASS_COLORS[class].g
-    b = RAID_CLASS_COLORS[class].b
+    if RAID_CLASS_COLORS[class] then
+      r, g, b = RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b
+    end
 
   elseif preset == "reaction" and config["classcolor"] == "1" then
     r = UnitReactionColor[UnitReaction(unitstr, "player")].r
