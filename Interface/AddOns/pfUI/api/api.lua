@@ -1,6 +1,7 @@
 pfUI.api = { }
+
 local _G = getfenv(0)
-local T, C, L = pfUI.env.T, pfUI.env.C, pfUI.env.L
+local T, C, L = pfUI:LoadEnvironment()
 
 -- [ strsplit ]
 -- Splits a string using a delimiter.
@@ -121,6 +122,29 @@ function pfUI.api.GetItemCount(itemName)
   end
 
   return count
+end
+
+-- [ GetBagFamily ]
+-- Returns information about the type of a bag such as Soul Bags or Quivers.
+-- Available bagtypes are "BAG", "KEYRING", "SOULBAG", "QUIVER" and "SPECIAL"
+-- 'bag'        [int]        the bag id
+-- returns:     [string]     the type of the bag, e.g "QUIVER"
+function pfUI.api.GetBagFamily(bag)
+  if bag == -2 then return "KEYRING" end
+  if bag == 0 then return "BAG" end
+
+  local _, _, id = strfind(GetInventoryItemLink("player", ContainerIDToInventoryID(bag)) or "", "item:(%d+)")
+  if id then
+    local _, _, _, _, itemType, subType = GetItemInfo(id)
+    local bagsubtype = L["bagtypes"][subType]
+
+    if bagsubtype == "DEFAULT" then return "BAG" end
+    if bagsubtype == "SOULBAG" then return "SOULBAG" end
+    if bagsubtype == "QUIVER" then return "QUIVER" end
+    if bagsubtype == nil then return "SPECIAL" end
+  end
+
+  return nil
 end
 
 -- [ Abbreviate ]
