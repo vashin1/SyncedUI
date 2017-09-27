@@ -1,7 +1,7 @@
 pfUI.api = { }
 
-local _G = getfenv(0)
-local T, C, L = pfUI:LoadEnvironment()
+-- load pfUI environment
+setfenv(1, pfUI:GetEnvironment())
 
 -- [ strsplit ]
 -- Splits a string using a delimiter.
@@ -83,6 +83,26 @@ function pfUI.api.round(input, places)
     for i = 1, places do pow = pow * 10 end
     return floor(input * pow + 0.5) / pow
   end
+end
+
+-- [ SanitizePattern ]
+-- Sanitizes and convert patterns into gfind compatible ones.
+-- 'pattern'    [string]         unformatted pattern
+-- returns:     [string]         simplified gfind compatible pattern
+function SanitizePattern(pattern)
+  -- escape brackets
+  pattern = gsub(pattern, "%(", "%%(")
+  pattern = gsub(pattern, "%)", "%%)")
+
+  -- remove bad capture indexes
+  pattern = gsub(pattern, "%d%$s","s") -- %1$s to %s
+  pattern = gsub(pattern, "%ds","s") -- %2s to %s
+
+  -- add capture to all findings
+  pattern = gsub(pattern, "%%s", "(.+)")
+  pattern = gsub(pattern, "%%d", "(%%d+)")
+
+  return pattern
 end
 
 -- [ GetItemLinkByName ]
@@ -459,6 +479,7 @@ end
 function pfUI.api.SkinButton(button, cr, cg, cb)
   local b = getglobal(button)
   if not b then b = button end
+  if not b then return end
   if not cr or not cg or not cb then
     _, class = UnitClass("player")
     local color = RAID_CLASS_COLORS[class]

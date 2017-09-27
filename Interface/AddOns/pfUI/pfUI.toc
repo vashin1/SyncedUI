@@ -31,6 +31,7 @@ env\translations_ruRU.lua
 # api
 api\api.lua
 api\config.lua
+api\ui-widgets.lua
 api\unitframes.lua
 
 # environment
@@ -81,3 +82,4 @@ modules\debuffs.lua
 modules\uf_tukui.lua
 modules\custom.lua
 modules\gm.lua
+modules\mirrortimers.lua
