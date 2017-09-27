@@ -6,9 +6,9 @@ Special thanks to Shagu, Shino, Athene and Shirsig.
 
 ## Screenshots
 
-![Screenshot](http://i.imgur.com/u5UH0AI.jpg)
+![Screenshot](https://i.imgur.com/IOOtJqZ.jpg)
 
-![Modular](http://i.imgur.com/SP3vVib.jpg)
+![Modular](https://i.imgur.com/VviqvTc.jpg)
 
 ## Included Addons
 *  **pfUI custom fork** - A complete rewrite of the stock UI with a few adjustments from me.  [Source](https://github.com/vashin1/pfUI)
