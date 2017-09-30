@@ -46,12 +46,11 @@ Special thanks to Shagu, Shino, Athene and Shirsig.
 
 ## Addon Commands
 
-    /pfui       Open the configuration GUI
-    /gm         Open the ticket Dialog
-    /rl         Reload the whole UI
-    /vcb config Configure buff frames
-	/swstats    Configure damage meter
-	/bigwigs    Configure boss mods
+    /pfui       Open the configuration GUI  
+    /gm         Open the ticket Dialog  
+    /rl         Reload the whole UI  
+    /vcb config Configure buff frames  
+	/swstats    Configure damage meter  
 	/msbt       Configure scrolling battle text  
 
 ## FAQ
