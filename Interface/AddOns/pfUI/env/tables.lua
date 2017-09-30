@@ -1,20 +1,3 @@
--- this table is added in later expansions
-CLASS_SORT_ORDER = CLASS_SORT_ORDER or {
-  "WARRIOR",
-  "DEATHKNIGHT",
-  "PALADIN",
-  "MONK",
-  "PRIEST",
-  "SHAMAN",
-  "DRUID",
-  "ROGUE",
-  "MAGE",
-  "WARLOCK",
-  "HUNTER",
-  "DEMONHUNTER",
-  "UNKNOWN",
-}
-
 -- barlength = {[formfactor]={cols, rows}}
 pfGridmath = {
   [1] = {{1,1}},
