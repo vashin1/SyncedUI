@@ -31,10 +31,10 @@ SW_Settings = {
 			[3] = 0.43,
 			[4] = 1,
 		},
-		["SHAMAN"] = {
-			[1] = 0.14,
-			[2] = 0.35,
-			[3] = 1,
+		["ROGUE"] = {
+			[1] = 1,
+			[2] = 0.96,
+			[3] = 0.41,
 			[4] = 1,
 		},
 		["MAGE"] = {
@@ -85,22 +85,10 @@ SW_Settings = {
 			[3] = 0.79,
 			[4] = 1,
 		},
-		["ROGUE"] = {
-			[1] = 1,
-			[2] = 0.96,
-			[3] = 0.41,
-			[4] = 1,
-		},
-		["PALADIN"] = {
-			[1] = 0.96,
-			[2] = 0.55,
-			[3] = 0.73,
-			[4] = 1,
-		},
-		["TitleBars"] = {
-			[1] = 0,
-			[2] = 0,
-			[3] = 0,
+		["SHAMAN"] = {
+			[1] = 0.14,
+			[2] = 0.35,
+			[3] = 1,
 			[4] = 1,
 		},
 		["Backdrops"] = {
@@ -109,7 +97,22 @@ SW_Settings = {
 			[3] = 1,
 			[4] = 0,
 		},
+		["TitleBars"] = {
+			[1] = 0,
+			[2] = 0,
+			[3] = 0,
+			[4] = 1,
+		},
+		["PALADIN"] = {
+			[1] = 0.96,
+			[2] = 0.55,
+			[3] = 0.73,
+			[4] = 1,
+		},
 	},
+	["LAST_V_RUN"] = "2.0 Beta.7",
+	["SW_TL_AutoDelete"] = true,
+	["SW_IconPosR"] = 80,
 	["InfoSettings"] = {
 		[1] = {
 			["CF"] = 1,
@@ -127,8 +130,8 @@ SW_Settings = {
 				[3] = 0,
 				[4] = 1,
 			},
-			["SF"] = "SW_Filter_Group",
-			["COLC"] = 1,
+			["BFS"] = 12,
+			["BT"] = 13,
 			["PF"] = "SW_PF_Inactive",
 			["ShowRank"] = 1,
 			["ShowNumber"] = 1,
@@ -138,46 +141,42 @@ SW_Settings = {
 				[3] = 1,
 				[4] = 1,
 			},
-			["BFS"] = 12,
-			["BT"] = 13,
-			["BH"] = 11,
+			["SF"] = "SW_Filter_Group",
+			["COLC"] = 1,
 			["IN"] = 1,
+			["BH"] = 11,
 		},
 	},
 	["OPT_ShowTLB"] = 1,
-	["SW_IconPosR"] = 80,
-	["SW_TL_AutoDelete"] = true,
-	["LAST_V_RUN"] = "2.0 Beta.7",
 }
 SW_RPS = {
 	["lastFightSecs"] = 0,
 	["allowLastFightUpdate"] = false,
 	["isRunning"] = false,
 	["startTimer"] = {
-		["uTS"] = 2.890000000000327,
-		["msO"] = -0.1099999999996726,
 		["epochTS"] = 1498023490,
+		["msO"] = -0.1099999999996726,
+		["uTS"] = -8820774.109999895,
 	},
 	["uglyTruthStarted"] = false,
 	["lastFightDmg"] = 0,
 	["baseTimer"] = {
-		["uTS"] = 2.890000000000327,
-		["msO"] = -0.1099999999996726,
 		["epochTS"] = 1498023490,
+		["msO"] = -0.1099999999996726,
+		["uTS"] = -8820774.109999895,
 	},
 	["totalSecs"] = 0,
-	["maxDPS"] = 0,
-	["startDmg"] = 0,
 	["currentSecs"] = 0,
+	["startDmg"] = 0,
+	["maxDPS"] = 0,
 }
 SW_StrTable = {
 	[1] = "Marelle",
-	[2] = "Vashin",
 }
 SW_DataCollection = {
 	["settings"] = {
 		["smallestSelect"] = 0,
-		["isInGroup"] = true,
+		["isInGroup"] = false,
 		["lastZone"] = "",
 		["startMarker"] = 1,
 		["biggestSelect"] = 0,
@@ -193,26 +192,17 @@ SW_DataCollection = {
 			["classE"] = "MAGE",
 			["level"] = 60,
 			["type"] = "PC",
-			["rank"] = 2,
-		},
-		[2] = {
-			["type"] = "PC",
-			["stringID"] = 2,
-			["everGroup"] = true,
-			["classE"] = "WARRIOR",
-			["level"] = 0,
-			["origName"] = "Vashin",
 			["rank"] = 0,
 		},
 	},
 	["data"] = {
 		[1] = {
 			["initTS"] = {
-				["uTS"] = 21.76500000000033,
-				["msO"] = -0.2349999999996726,
-				["epochTS"] = 1498023509,
+				["uTS"] = 11.42199999999866,
+				["msO"] = -0.5780000000013388,
+				["epochTS"] = 1506844276,
 			},
-			["Name"] = "SyncInit",
+			["Name"] = "Start",
 		},
 	},
 }
