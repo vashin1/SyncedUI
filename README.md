@@ -68,7 +68,10 @@ Hold shift and hover over the frame you wish to modify and then mouse wheel up t
 Hold shift and select a raid frame in the middle and drag, the entire frames will interlock to it's new location.
 
 **How can I make my own profile?**  
-Enter pfUI config and create a new profile, rename it and modify to your taste & save. This is handy to have if you have a healer and DPS toon.
+Enter pfUI config and create a new profile, rename it and modify to your taste & save. This is handy to have if you have a healer and DPS toon.  
+
+**How do I make my swstats come back, it disappeared?**  
+Type /sws bars  
 	
 ## Credits
 
