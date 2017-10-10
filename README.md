@@ -23,6 +23,8 @@ Special thanks to Shagu, Shino, Athene and Shirsig.
 *  **Crafty** - Improved crafting interface  
 *  **Extended Quest Log** - Improved quest log    
 *  **Classic Snowfall** - On press casting for all classes   
+*  **MobHealth3** - MobHealth3 is a mod that calculates hostile monster and player HP      
+
 
 ## Recommended Addons
 * [Bonus Scanner](http://www.vanilla-addons.com/dls/bonusscanner/) Scans your equipment for cumulative item bonuses and sums them up for use with Healcomm  
