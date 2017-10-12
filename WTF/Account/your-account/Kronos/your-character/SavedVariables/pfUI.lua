@@ -962,36 +962,4 @@ pfUI_playerDB = {
 		["class"] = "Unknown",
 		["level"] = 0,
 	},
-	["Marelle"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
-	},
-	["Mystra"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
-	},
-	["Naice"] = {
-		["class"] = "PRIEST",
-		["level"] = 60,
-	},
-	["Torch"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
-	},
-	["Melfice"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
-	},
-	["Nephran"] = {
-		["class"] = "WARRIOR",
-		["level"] = 60,
-	},
-	["Lauzz"] = {
-		["class"] = "MAGE",
-		["level"] = 60,
-	},
-	["Mcg"] = {
-		["class"] = "ROGUE",
-		["level"] = 60,
-	},
 }
