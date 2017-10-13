@@ -44,7 +44,7 @@ local function onEvent(unitname)
 	if UnitName("target") == unitname then
 		onHeal("target")
 	end
-	local unitobj = roster:GetUnitObjectFromName(name)
+	local unitobj = roster:GetUnitObjectFromName(unitname)
 	if not unitobj or not unitobj.unitid then
 		return
 	end
@@ -93,7 +93,7 @@ function new_RaidPullout_Update(pullOutFrame)
 	for i=1, pullOutFrame.numPulloutButtons do
 		frame = getglobal(pullOutFrame:GetName().."Button"..i.."HealthBar")
 		if not frame.incheal then
-			frame.incHeal = CreateFrame("StatusBar", "PlayerFrameIncHealBar", PlayerFrame)
+			frame.incHeal = CreateFrame("StatusBar", "PlayerFrameIncHealBar", frame)
 			frame.incHeal:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
 			frame.incHeal:SetMinMaxValues(0, 1)
 			frame.incHeal:SetValue(1)
