@@ -1293,6 +1293,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(this, T["Enable Sticky Chat"], C.chat.global, "sticky", "checkbox")
       CreateConfig(this, T["Enable Chat Fade"], C.chat.global, "fadeout", "checkbox")
       CreateConfig(this, T["Seconds Before Chat Fade"], C.chat.global, "fadetime")
+      CreateConfig(this, T["Mousewheel Scroll Speed"], C.chat.global, "scrollspeed")
       this.setup = true
     end
   end)
@@ -1324,6 +1325,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(this, T["Nameplate Width"], C.nameplates, "width")
       CreateConfig(this, T["Healthbar Height"], C.nameplates, "heighthealth")
       CreateConfig(this, T["Castbar Height"], C.nameplates, "heightcast")
+      CreateConfig(this, T["Enable Combo Point Display"], C.nameplates, "cpdisplay", "checkbox")
       this.setup = true
     end
   end)
