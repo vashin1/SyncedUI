@@ -39,7 +39,7 @@ Special thanks to Shagu, Shino, Athene and Shirsig.
 
 ## Installation
 1. Backup your current Interface & WTF folders or make a new client (Recommended)   
-2. Unpack the ZIP & replace your Interface and WTF folders with the ones provided.  
+2. Delete Interface/WTF & unpack the ZIP. Place the provided SyncedUI Interface/WTF folders in the WoW directory.
 3. Navigate to /WTF, find and rename the "your-account" folder to your account name in all caps.  
 4. Rename the "Kronos" folder to the realm your currently playing on.  
 5. Rename the "your-character" folder to your characters name, make a copy and rename for any alts on that account.  
