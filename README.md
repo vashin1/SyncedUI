@@ -1,5 +1,5 @@
 **SyncedUI is a compilation created using [pfUI](https://github.com/shagu/pfUI) to form a complete and fully fuctional interface for 1.12 WoW clients.**  
-Special thanks to Shagu, Shino, Athene and Shirsig.
+Special thanks to Shagu, Shino, Aviana, Athene and Shirsig.
 
 **Note:** This release is for **1080p** users only. The **1440p** release of SyncedUI can be found [here](https://github.com/vashin1/SyncedUI-1440p-).  
 
@@ -81,6 +81,7 @@ Shagu - pfUI
 Shino - VCB    
 Athene - MSBT  
 Shirsig - Linkmend, Postal, Crafty  
+Aviana - Healcomm  
 
 
 
