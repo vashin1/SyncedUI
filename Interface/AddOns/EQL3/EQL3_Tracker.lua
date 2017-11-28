@@ -221,7 +221,11 @@ function QuestWatch_Update()
 									if (QuestlogOptions[EQL3_Player].UseTrackerListing == 1) then -- Tracker Listing
 										watchText:SetText("    "..EQL3_TrackerLists[QuestlogOptions[EQL3_Player].TrackerList][markerID]..") "..text);
 									else
+										if ( finished ) then
+											watchText:SetText("    X "..text);
+										else
 										watchText:SetText("    "..EQL3_TrackerSymbols[QuestlogOptions[EQL3_Player].TrackerSymbol].." "..text);
+									end
 									end
 								else
 									watchText:SetText("    "..text);
@@ -239,7 +243,7 @@ function QuestWatch_Update()
 																 b=QuestlogOptions[EQL3_Player].Color["ObjectiveComplete"].b };
 								else
 									tempColor = {r=0.8, g=0.8, b=0.8};
-									tempColor2 = {r=HIGHLIGHT_FONT_COLOR.r, g=HIGHLIGHT_FONT_COLOR.g, b=HIGHLIGHT_FONT_COLOR.b};
+									tempColor2 = {r=0.75, g=1.0, b=0.81};
 								end
 								
 								
@@ -325,9 +329,35 @@ function QuestWatch_Update()
 					watchText:SetTextColor(tempColor.r, tempColor.g, tempColor.b);
 				else
 					if ( isComplete or  objectivesCompleted == numObjectives ) then
-							watchText:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+						local playerLevel = UnitLevel("player");
+						local colorHeader;
+						if (level - playerLevel >= 10) then
+							colorHeader = {r = 1.00, g = 0.00, b = 0.00};
+						elseif (level - playerLevel >= 0) then
+							colorHeader = {r = 1.00, g = ((10.00 - level + playerLevel)/10), b = 0.00};
+						elseif ( playerLevel - level < GetQuestGreenRange() ) then
+							colorHeader = {r = ((9.00 + level - playerLevel)/10), g = 1.00, b = 0.00};
+						elseif ( playerLevel - level == GetQuestGreenRange() ) then
+							colorHeader = {r = 0.50, g = 1.00, b = 0.50};
 					else
-							watchText:SetTextColor(0.75, 0.61, 0);
+							colorHeader = {r = 0.75, g = 0.75, b = 0.75};
+						end
+						watchText:SetTextColor(colorHeader.r, colorHeader.g, colorHeader.b);
+					else
+						local playerLevel = UnitLevel("player");
+						local colorHeader;
+						if (level - playerLevel >= 10) then
+							colorHeader = {r = 1.00, g = 0.00, b = 0.00};
+						elseif (level - playerLevel >= 0) then
+							colorHeader = {r = 1.00, g = ((10.00 - level + playerLevel)/10), b = 0.00};
+						elseif ( playerLevel - level < GetQuestGreenRange() ) then
+							colorHeader = {r = ((9.00 + level - playerLevel)/10), g = 1.00, b = 0.00};
+						elseif ( playerLevel - level == GetQuestGreenRange() ) then
+							colorHeader = {r = 0.50, g = 1.00, b = 0.50};
+						else
+							colorHeader = {r = 0.75, g = 0.75, b = 0.75};
+						end
+						watchText:SetTextColor(colorHeader.r, colorHeader.g, colorHeader.b);
 					end
 				end
 				
@@ -337,6 +367,27 @@ function QuestWatch_Update()
 			
 		end
 	end
+--[[
+			local playerLevel = UnitLevel("player");
+			if ( isHeader ) then
+				colorHeader = QuestDifficultyColor["header"];
+			elseif (level - playerLevel >= 10) then
+				colorHeader = {r = 1.00, g = 0.00, b = 0.00};
+			elseif (level - playerLevel >= 0) then
+				colorHeader = {r = 1.00, g = ((10.00 - level + playerLevel)/10), b = 0.00};
+			elseif ( playerLevel - level < GetQuestGreenRange() ) then
+				colorHeader = {r = ((9.00 + level - playerLevel)/10), g = 1.00, b = 0.00};
+			elseif ( playerLevel - level == GetQuestGreenRange() ) then
+				colorHeader = {r = 0.50, g = 1.00, b = 0.50};
+			else
+				colorHeader = {r = 0.75, g = 0.75, b = 0.75};
+			end
+
+--]]
+
+
+
+
 
 	-- Set tracking indicator
 	if ( GetNumQuestWatches() > 0 ) then

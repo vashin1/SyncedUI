@@ -1,15 +1,19 @@
 ## Interface: 11200
-## Title: Extended QuestLog |cff00ff003.6.1
-## Title-deDE: Extended QuestLog |cff00ff003.6.1
-## Title-deFR: Extended QuestLog |cff00ff003.6.1
+## Title: Extended QuestLog |cff71C6713.6.2 Vividz ReSkin
+## Title-deDE: Extended QuestLog |cff71C6713.6.2 Vividz ReSkin
+## Title-deFR: Extended QuestLog |cff71C6713.6.2 Vividz ReSkin
 ## Notes: Extended QuestLog is an extension of the questlog. Choose from different layouts as well as many nice features.
-## Notes-deDE: Extended Questlog ist eine Erweiterung des Questlogs. W�hle zwischen verschiedenen Layouts sowie jeder Menge neuer Features.
-## Notes-frFR: "Extended QuestLog" est une extension de "Questlog". Choisissez autant de pr�sentations diff�rentes que d'options agr�ables.
+## Notes-deDE: Extended Questlog ist eine Erweiterung des Questlogs. Wдhle zwischen verschiedenen Layouts sowie jeder Menge neuer Features.
+## Notes-frFR: "Extended QuestLog" est une extension de "Questlog". Choisissez autant de prйsentations diffйrentes que d'options agrйables.
+## Notes-esES: Extended Questlog es una extensión del registro de misiones. Eligir layouts diferentes además de muchas características buenas.
+## Notes-ruRU: "Extended QuestLog" расширяет журнал заданий. Множество различных функций, а также приятных особенностей.
 ## SavedVariables: QuestlogOptions, QuestLevel_Quest2Level
 ## Version: 3.6.1.11200
 localization_en.lua
 localization_de.lua
 localization_fr.lua
+localization_ru.lua
+localization_es.lua
 EQL3_Main.lua
 EQL3_QuestDB.xml
 EQL3_Log.xml

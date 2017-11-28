@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-	
+
 	<Script file="EQL3_Log.lua"/>
 
 	<Frame name="EQL3_QuestLogFrame" toplevel="true" enableMouse="true" movable="true" parent="UIParent" hidden="true">
@@ -30,7 +30,7 @@
 							</Offset>
 						</Anchor>
 					</Anchors>
-				</Texture>		
+				</Texture>
 			</Layer>
 			<Layer level="ARTWORK">
 				<Texture file="Interface\Addons\EQL3\Images\EQL3_TopLeft">
@@ -80,12 +80,12 @@
 					<Anchors>
 						<Anchor point="BOTTOMRIGHT"/>
 					</Anchors>
-				</Texture>		
+				</Texture>
 			</Layer>
-			
+
 		</Layers>
 		<Frames>
-		
+
 			<Frame name="EQL3_QuestLogExpandButtonFrame">
 				<Size>
 					<AbsDimension x="54" y="32"/>
@@ -163,7 +163,7 @@
 					</Button>
 				</Frames>
 			</Frame>
-			
+
 			<Frame name="EQL3_QuestLogTrack" enableMouse="true">
 				<Size>
 					<AbsDimension x="20" y="20"/>
@@ -210,7 +210,7 @@
 					</OnLeave>
 				</Scripts>
 			</Frame>
-			
+
 			<Frame name="EQL3_EmptyQuestLogFrame" hidden="true">
 				<Size>
 					<AbsDimension x="768" y="512"/>
@@ -239,7 +239,7 @@
 					</Layer>
 				</Layers>
 			</Frame>
-			
+
 			<Button name="EQL3_QuestLogFrameCloseButton" inherits="UIPanelCloseButton">
 				<Anchors>
 					<Anchor point="TOPRIGHT" relativeTo="EQL3_QuestLogFrame" relativePoint="TOPRIGHT">
@@ -249,7 +249,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			
+
 			<Button name="EQL3_QuestLogFrameMaximizeButton">
 				<Size>
 					<AbsDimension x="32" y="32"/>
@@ -277,7 +277,7 @@
 				<PushedTexture file="Interface\Addons\EQL3\Images\MaximizeButton-Down"/>
 				<HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" AlphaMode="ADD"/>
 			</Button>
-			
+
 			<Button name="EQL3_QuestLogFrameAbandonButton" inherits="UIPanelButtonTemplate" text="ABANDON_QUEST">
 				<Size>
 					<AbsDimension x="125" y="21"/>
@@ -326,7 +326,7 @@
 					</OnLeave>
 				</Scripts>
 			</Button>
-			
+
 			<ScrollFrame name="EQL3_QuestLogListScrollFrame" inherits="FauxScrollFrameTemplate">
 				<Size>
 					<AbsDimension x="300" y="411"/>
@@ -344,7 +344,7 @@
 					</OnVerticalScroll>
 				</Scripts>
 			</ScrollFrame>
-		
+
 		</Frames>
 		<Scripts>
 			<OnEvent>
@@ -374,8 +374,8 @@
 			</OnDragStop>
 		</Scripts>
 	</Frame>
-	
-	
+
+
 	<Frame name="EQL3_QuestLogFrame_Description" toplevel="false" enableMouse="true" movable="false" parent="EQL3_QuestLogFrame" hidden="true">
 		<Size>
 			<AbsDimension x="320" y="512"/>
@@ -423,11 +423,11 @@
 					<Anchors>
 						<Anchor point="BOTTOMRIGHT"/>
 					</Anchors>
-				</Texture>		
+				</Texture>
 			</Layer>
 		</Layers>
 		<Frames>
-		
+
 			<ScrollFrame name="EQL3_QuestLogDetailScrollFrame" inherits="UIPanelScrollFrameTemplate">
 				<Size>
 					<AbsDimension x="300" y="413"/>
@@ -758,7 +758,7 @@
 					</Frame>
 				</ScrollChild>
 			</ScrollFrame>
-			
+
 			<Button name="EQL3_QuestLogFrameCloseButton2">
 				<Size>
 					<AbsDimension x="32" y="32"/>
@@ -779,7 +779,7 @@
 				<PushedTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Down"/>
 				<HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" AlphaMode="ADD"/>
 			</Button>
-			
+
 			<Button name="EQL3_QuestLogFrameMinimizeButton">
 				<Size>
 					<AbsDimension x="32" y="32"/>
@@ -807,7 +807,7 @@
 				<PushedTexture file="Interface\Addons\EQL3\Images\RestoreButton-Down"/>
 				<HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" AlphaMode="ADD"/>
 			</Button>
-			
+
 		</Frames>
 		<Scripts>
 			<OnDragStart>
@@ -820,7 +820,7 @@
 		</Scripts>
 	</Frame>
 
-	
+
 	<Frame name="EQL3_QuestLogFrame_Details" toplevel="false" enableMouse="false" movable="false" parent="EQL3_QuestLogFrame" hidden="false">
 		<Size>
 			<AbsDimension x="784" y="512"/>
@@ -921,7 +921,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
+
 			<Frame name="EQL3_QuestLogHighlightFrame" hidden="true">
 				<Size>
 					<AbsDimension x="293" y="16"/>
@@ -935,9 +935,9 @@
 					</Layer>
 				</Layers>
 			</Frame>
-			
+
 <!-- 27 of theese -->
-			
+
 			<Button name="EQL3_QuestLogTitle1" inherits="QuestLogTitleButtonTemplate" id="1" hidden="true">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="EQL3_QuestLogFrame">
@@ -1181,8 +1181,8 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			
-			<!-- End of the 27 -->		
+
+			<!-- End of the 27 -->
 		</Frames>
 
 		<Scripts>
@@ -1194,12 +1194,12 @@
 			</OnLoad>
 		</Scripts>
 	</Frame>
-	
+
 	<Frame name="EQL3_Organize_Popup" hidden="true" parent="UIParent" toplevel="true" enableMouse="false" movable="true" frameStrata="ARTWORK">
 		<Size>
 			<AbsDimension x="256" y="127"/>
 		</Size>
-		
+
 		<Anchors>
 			<Anchor point="CENTER">
 				<Offset>
@@ -1207,7 +1207,7 @@
 				</Offset>
 			</Anchor>
 		</Anchors>
-		
+
 		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
 			<EdgeSize>
 				<AbsValue val="16"/>
@@ -1219,7 +1219,7 @@
 				<AbsInset left="5" right="5" top="5" bottom="5"/>
 			</BackgroundInsets>
 		</Backdrop>
-		
+
 		<Frames>
 			<Button name="EQL3_Organize_Popup_Move" hidden="false">
 				<Size>
@@ -1263,8 +1263,8 @@
 					</OnLeave>
 				</Scripts>
 			</Button>
-			
-			
+
+
 			<Button name="EQL3_Organize_Popup_Reset" hidden="false">
 				<Size>
 					<AbsDimension x="200" y="15"/>
@@ -1306,8 +1306,8 @@
 					</OnLeave>
 				</Scripts>
 			</Button>
-			
-			
+
+
 			<Button name="EQL3_Organize_Popup_ResetAll" hidden="false">
 				<Size>
 					<AbsDimension x="200" y="15"/>
@@ -1349,8 +1349,8 @@
 					</OnLeave>
 				</Scripts>
 			</Button>
-			
-			
+
+
 			<Button name="EQL3_Organize_Popup_Track" hidden="false">
 				<Size>
 					<AbsDimension x="200" y="15"/>
@@ -1392,10 +1392,10 @@
 					</OnLeave>
 				</Scripts>
 			</Button>
-			
-			
-			
-			
+
+
+
+
 			<Button name="EQL3_Organize_Popup_Cancel" hidden="false">
 				<Size>
 					<AbsDimension x="200" y="15"/>
@@ -1441,28 +1441,28 @@
 	<Scripts>
 		<OnLoad>
 			-- Lame method to find the longest string.. xD
-			
+
 			local temp = EQL3_Organize_Popup_ResetAll_Text:GetWidth();
-			
+
 			if(EQL3_Organize_Popup_Reset_Text:GetWidth() > temp) then
 				temp = EQL3_Organize_Popup_Reset_Text:GetWidth();
 			end
-			
+
 			if(EQL3_Organize_Popup_Move_Text:GetWidth() > temp) then
 				temp = EQL3_Organize_Popup_Move_Text:GetWidth();
 			end
-			
+
 			if(EQL3_Organize_Popup_Track_Text:GetWidth() > temp) then
 				temp = EQL3_Organize_Popup_Track_Text:GetWidth();
 			end
-			
+
 			EQL3_Organize_Popup_Track_Text:SetText(EQL3_POPUP_UNTRACK);
-			
+
 			if(EQL3_Organize_Popup_Track_Text:GetWidth() > temp) then
 				temp = EQL3_Organize_Popup_Track_Text:GetWidth();
 			end
-			
-			
+
+
 			EQL3_Organize_Popup_Move:SetWidth(temp);
 			EQL3_Organize_Popup_Reset:SetWidth(temp);
 			EQL3_Organize_Popup_ResetAll:SetWidth(temp);
@@ -1474,6 +1474,6 @@
 			EQL3_Organize_Popup:Hide();
 		</OnLeave>
 	</Scripts>
-		
+
 	</Frame>
 </Ui>
