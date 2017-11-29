@@ -33,7 +33,7 @@ Special thanks to Shagu, Shino, Aviana, Athene and Shirsig.
 * [Decursive](https://drive.google.com/open?id=0B5QT3H5F-mBXNDRtbUloODJnWVU) Dispel & decurse automation.  
 * [Cartographer](https://drive.google.com/open?id=0B5QT3H5F-mBXRHlUbGVrTW1ZUm8) Cartographer is a modular, lightweight, and efficient framework for manipulation of the world map with mining/herb support.  
 * [Atlas](https://github.com/Cabro/Atlas/) The best version of Atlas, Atlas Loot, and Atlas Quest your going to find for the 1.12 client.  
-* [Questie](https://github.com/Dyaxler/QuestieDev/tree/Version3.70) Quest helper for Vanilla.  
+* [Questie](https://github.com/AeroScripts/QuestieDev) Quest helper for Vanilla.  
 * [BigWigs-Kronos](https://github.com/Vnm-Kronos/BigWigs) Boss timers for use on the Kronos server.  
 * [BigWigs-Elysium](https://github.com/Hosq/BigWigs) Boss timers for use on the Elysium server.   
 
