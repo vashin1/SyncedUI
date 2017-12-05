@@ -472,6 +472,13 @@ pfUI:RegisterModule("gui", function ()
     "cursor:" .. T["Cursor"]
   }
 
+  pfUI.gui.dropdowns.tooltip_align = {
+    "native:" .. T["Native"],
+    "top:" .. T["Top"],
+    "left:" .. T["Left"],
+    "right:" .. T["Right"]
+  }
+
   pfUI.gui.dropdowns.gmserver_text = {
     "elysium:" .. T["Elysium Based Core"],
   }
@@ -1194,6 +1201,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(this, T["Show Macro Text"], C.bars, "showmacro", "checkbox")
       CreateConfig(this, T["Show Hotkey Text"], C.bars, "showkeybind", "checkbox")
       CreateConfig(this, T["Enable Range Based Auto Paging (Hunter)"], C.bars, "hunterbar", "checkbox")
+      CreateConfig(this, T["Enable Action On Key Down"], C.bars, "keydown", "checkbox")
       this.setup = true
     end
   end)
@@ -1254,6 +1262,18 @@ pfUI:RegisterModule("gui", function ()
     end
   end)
 
+  -- >> Autohide
+  pfUI.gui.tabs.panel.tabs.autohide = pfUI.gui.tabs.panel.tabs:CreateTabChild(T["Autohide"], true)
+  pfUI.gui.tabs.panel.tabs.autohide:SetScript("OnShow", function()
+    if not this.setup then
+      CreateConfig(this, T["Enable Autohide For Left Chat Panel"], C.panel, "hide_leftchat", "checkbox")
+      CreateConfig(this, T["Enable Autohide For Right Chat Panel"], C.panel, "hide_rightchat", "checkbox")
+      CreateConfig(this, T["Enable Autohide For Minimap Panel"], C.panel, "hide_minimap", "checkbox")
+      CreateConfig(this, T["Enable Autohide For Microbar Panel"], C.panel, "hide_microbar", "checkbox")
+      this.setup = true
+    end
+  end)
+
 
   -- [[ Tooltip ]]
   pfUI.gui.tabs.tooltip = pfUI.gui.tabs:CreateTabChild(T["Tooltip"], nil, nil, nil, true)
@@ -1264,6 +1284,8 @@ pfUI:RegisterModule("gui", function ()
   pfUI.gui.tabs.tooltip.tabs.general:SetScript("OnShow", function()
     if not this.setup then
       CreateConfig(this, T["Tooltip Position"], C.tooltip, "position", "dropdown", pfUI.gui.dropdowns.tooltip_position)
+      CreateConfig(this, T["Cursor Tooltip Align"], C.tooltip, "cursoralign", "dropdown", pfUI.gui.dropdowns.tooltip_align)
+      CreateConfig(this, T["Cursor Tooltip Offset"], C.tooltip, "cursoroffset")
       CreateConfig(this, T["Enable Extended Guild Information"], C.tooltip, "extguild", "checkbox")
       CreateConfig(this, T["Custom Transparency"], C.tooltip, "alpha")
       CreateConfig(this, T["Always Show Item Comparison"], C.tooltip.compare, "showalways", "checkbox")
