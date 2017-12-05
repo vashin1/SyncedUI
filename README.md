@@ -21,8 +21,7 @@ Special thanks to Shagu, Shino, Aviana, Athene and Shirsig.
 *  **Linkmend** - Converts clink item links into actual item links, also localizes items that would otherwise appear in another language  
 *  **Postal** - Improved mailbox interface  
 *  **Crafty** - Improved crafting interface  
-*  **Extended Quest Log** - Improved quest log    
-*  **Classic Snowfall** - On press casting for all classes   
+*  **Extended Quest Log** - Improved quest log      
 *  **MobHealth3** - MobHealth3 is a mod that calculates hostile monster and player HP      
 
 
