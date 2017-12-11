@@ -26,7 +26,7 @@ Special thanks to Shagu, Shino, Aviana, Athene and Shirsig.
 
 ## Recommended Addons
 * [WIM (continued)](https://github.com/shirsig/WIM) Give whispers an instant messenger feel.  
-* [Decursive](https://drive.google.com/open?id=0B5QT3H5F-mBXNDRtbUloODJnWVU) Dispel & decurse automation.  
+* [Decursive](https://github.com/Zerf/Decursive) Dispel & decurse automation.  
 * [Cartographer](https://github.com/Road-block/Cartographer) Cartographer is a modular, lightweight, and efficient framework for manipulation of the world map with mining/herb support.  
 * [Atlas](https://github.com/Cabro/Atlas/) The best version of Atlas, Atlas Loot, and Atlas Quest your going to find for the 1.12 client.  
 * [pfQuest](https://github.com/shagu/pfQuest/releases) Quest helper for Vanilla. 
