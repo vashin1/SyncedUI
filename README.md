@@ -19,20 +19,17 @@ Special thanks to Shagu, Shino, Aviana, Athene and Shirsig.
 *  **VCB** - Consolidated buff frames  
 *  **Cooline** - Track your cooldowns neatly 
 *  **Linkmend** - Converts clink item links into actual item links, also localizes items that would otherwise appear in another language  
-*  **Postal** - Improved mailbox interface  
+*  **Mail** - Improved mailbox interface  
 *  **Crafty** - Improved crafting interface  
-*  **Extended Quest Log** - Improved quest log      
-*  **MobHealth3** - MobHealth3 is a mod that calculates hostile monster and player HP      
-
+*  **Extended Quest Log** - Improved quest log    
+*  **MobHealth3** - MobHealth3 is a mod that calculates hostile monster and player HP    
 
 ## Recommended Addons
-* [Bonus Scanner](http://www.vanilla-addons.com/dls/bonusscanner/) Scans your equipment for cumulative item bonuses and sums them up for use with Healcomm  
 * [WIM (continued)](https://github.com/shirsig/WIM) Give whispers an instant messenger feel.  
-* [Clean_Up](https://github.com/shirsig/Clean_Up) Automatically stacks and sorts your items.  
 * [Decursive](https://drive.google.com/open?id=0B5QT3H5F-mBXNDRtbUloODJnWVU) Dispel & decurse automation.  
-* [Cartographer](https://drive.google.com/open?id=0B5QT3H5F-mBXRHlUbGVrTW1ZUm8) Cartographer is a modular, lightweight, and efficient framework for manipulation of the world map with mining/herb support.  
+* [Cartographer](https://github.com/Road-block/Cartographer) Cartographer is a modular, lightweight, and efficient framework for manipulation of the world map with mining/herb support.  
 * [Atlas](https://github.com/Cabro/Atlas/) The best version of Atlas, Atlas Loot, and Atlas Quest your going to find for the 1.12 client.  
-* [Questie](https://github.com/AeroScripts/QuestieDev) Quest helper for Vanilla.  
+* [pfQuest](https://github.com/shagu/pfQuest/releases) Quest helper for Vanilla. 
 * [BigWigs-Kronos](https://github.com/Vnm-Kronos/BigWigs) Boss timers for use on the Kronos server.  
 * [BigWigs-Elysium](https://github.com/Hosq/BigWigs) Boss timers for use on the Elysium server.   
 
