@@ -12,8 +12,8 @@ MikSBT = {};
 -------------------------------------------------------------------------------
 
 MikSBT.MOD_NAME		= "MikScrollingBattleText"
-MikSBT.VERSION_NUMBER	= 4.42;
-MikSBT.VERSION_STRING	= "v4.42";
+MikSBT.VERSION_NUMBER	= 4.43;
+MikSBT.VERSION_STRING	= "v4.43 beta";
 MikSBT.WINDOW_TITLE	= "Mik's Scrolling Battle Text " .. MikSBT.VERSION_STRING .. " - \124cffF58CBA\124hAthene Edit\124h\124r";
 
 MikSBT.COMMAND		= "/msbt";
@@ -106,6 +106,14 @@ MikSBT.AVAILABLE_FONTS = {
  [20] = {Name="College", Path="Interface\\Addons\\MikScrollingBattleText\\Fonts\\college.ttf"},
  [21] = {Name="Galaxy", Path="Interface\\Addons\\MikScrollingBattleText\\Fonts\\galaxy.ttf"},
  [22] = {Name="Skratch Punk", Path="Interface\\Addons\\MikScrollingBattleText\\Fonts\\skratchpunk.ttf"},
+ [23] = {Name="DieDieDie", Path="Interface\\Addons\\MikScrollingBattleText\\Fonts\\DieDieDie.ttf"},
+ [24] = {Name="BigNoodleTitling", Path="Interface\\Addons\\MikScrollingBattleText\\Fonts\\BigNoodleTitling.ttf"},
+ [25] = {Name="Continuum", Path="Interface\\Addons\\MikScrollingBattleText\\Fonts\\Continuum.ttf"},
+ [26] = {Name="Expressway", Path="Interface\\Addons\\MikScrollingBattleText\\Fonts\\Expressway.ttf"},
+ [27] = {Name="Homespun", Path="Interface\\Addons\\MikScrollingBattleText\\Fonts\\Homespun.ttf"},
+ [28] = {Name="Myriad-Pro", Path="Interface\\Addons\\MikScrollingBattleText\\Fonts\\Myriad-Pro.ttf"},
+ [29] = {Name="PT-Sans-Narrow-Bold", Path="Interface\\Addons\\MikScrollingBattleText\\Fonts\\PT-Sans-Narrow-Bold.ttf"},
+ [30] = {Name="PT-Sans-Narrow-Regular", Path="Interface\\Addons\\MikScrollingBattleText\\Fonts\\PT-Sans-Narrow-Regular.ttf"},
 };
 
 -- Holds the available font outlines.
@@ -152,6 +160,22 @@ MikSBT.AVAILABLE_TRIGGER_TYPES = {
  [4] = {Name="Enemy Target Health"},
  [5] = {Name="Friendly Target Health"},
  [6] = {Name="Search Pattern"},
+};
+
+
+------------------------------
+-- Stances info
+------------------------------
+
+-- Holds the available stances.
+MikSBT.AVAILABLE_STANCES = {
+ [1] = {Name="|cffC79C6EBattle Stance|r/|cffFF7D0ABear Form|r/|cffFFF569Stealth|r/|cffF58CBADevotion Aura"},
+ [2] = {Name="|cffC79C6EDefensive Stance|r/|cffFF7D0AAquatic Form|r/|cffF58CBARetribution Aura"},
+ [3] = {Name="|cffC79C6EBeserker Stance|r/|cffFF7D0ACat Form|r/|cffF58CBAConcentration Aura"},
+ [4] = {Name="|cffFF7D0ATravel Form|r/|cffF58CBAShadow Resistance Aura"},
+ [5] = {Name="|cffFF7D0AMoonkin Form|r/|cffF58CBAFrost Resistance Aura"},
+ [6] = {Name="|cffF58CBAFire Resistance Aura"},
+ [7] = {Name="Any"},
 };
 
 
