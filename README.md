@@ -11,7 +11,7 @@ Special thanks to Shagu, Shino, Aviana, Athene and Shirsig.
 ![Modular](https://i.imgur.com/VviqvTc.jpg)
 
 ## Included Addons
-*  **pfUI custom fork** - A complete rewrite of the stock UI with a few adjustments from me.  [Source](https://github.com/vashin1/pfUI)
+*  **pfUI** - A complete rewrite of the stock UI.  
 *  **HealComm** - Visual representation of incoming heals  
 *  **KTM 17.35** - Threat meter     
 *  **SWStats** - Combat analysis  
