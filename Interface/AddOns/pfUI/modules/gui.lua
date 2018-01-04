@@ -1373,6 +1373,9 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(this, T["Enable Chat Fade"], C.chat.global, "fadeout", "checkbox")
       CreateConfig(this, T["Seconds Before Chat Fade"], C.chat.global, "fadetime")
       CreateConfig(this, T["Mousewheel Scroll Speed"], C.chat.global, "scrollspeed")
+      CreateConfig(this, T["Enable Chat Bubbles"], C.chat.bubbles, "chat", "checkbox")
+      CreateConfig(this, T["Enable Party Chat Bubbles"], C.chat.bubbles, "party", "checkbox")
+      CreateConfig(this, T["Chat Bubble Transparency"], C.chat.bubbles, "alpha")
       this.setup = true
     end
   end)
@@ -1419,6 +1422,7 @@ pfUI:RegisterModule("gui", function ()
   pfUI.gui.tabs.thirdparty.tabs.general = pfUI.gui.tabs.thirdparty.tabs:CreateTabChild(T["Thirdparty"], true)
   pfUI.gui.tabs.thirdparty.tabs.general:SetScript("OnShow", function()
     if not this.setup then
+      CreateConfig(this, T["Use Chat Colors for Meters"], C.thirdparty, "chatbg", "checkbox")
       CreateConfig(this, T["DPSMate (Skin)"], C.thirdparty.dpsmate, "skin", "checkbox")
       CreateConfig(this, T["DPSMate (Dock)"], C.thirdparty.dpsmate, "dock", "checkbox")
       CreateConfig(this, T["SWStats (Skin)"], C.thirdparty.swstats, "skin", "checkbox")
