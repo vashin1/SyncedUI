@@ -4,35 +4,15 @@ pfUI:RegisterModule("actionbar", function ()
     default_border = C.appearance.border.actionbars
   end
 
-  -- override wow ui functions
-  function _G.ActionButton_ShowGrid(button)
-    if not button then button = this end
-    button.showgrid = button.showgrid + 1
-    button:Show()
-  end
+  hooksecurefunc("MultiActionBar_ShowAllGrids", function()
+    MultiActionBar_UpdateGrid("BonusAction", 1)
+    MultiActionBar_UpdateGrid("Action", 1)
+  end)
 
-  function _G.ActionButton_HideGrid(button)
-    if not button then button = this end
-    button.showgrid = button.showgrid - 1
-
-    if button.showgrid == 0 and not HasAction(ActionButton_GetPagedID(button)) then
-      button:Hide()
-    end
-  end
-
-  function _G.MultiActionBar_ShowAllGrids()
-    for _, bar in pairs({ "MultiBarBottomLeft", "MultiBarBottomRight",
-    "MultiBarRight", "MultiBarLeft", "BonusAction", "Action" }) do
-      MultiActionBar_UpdateGrid(bar, 1)
-    end
-  end
-
-  function _G.MultiActionBar_HideAllGrids()
-    for _, bar in pairs({ "MultiBarBottomLeft", "MultiBarBottomRight",
-    "MultiBarRight", "MultiBarLeft", "BonusAction", "Action" }) do
-      MultiActionBar_UpdateGrid(bar)
-    end
-  end
+  hooksecurefunc("MultiActionBar_HideAllGrids", function()
+    MultiActionBar_UpdateGrid("BonusAction")
+    MultiActionBar_UpdateGrid("Action")
+  end)
 
   hooksecurefunc("ShowBonusActionBar", function()
     if pfActionBar then pfActionBar:Hide() end
@@ -260,6 +240,11 @@ pfUI:RegisterModule("actionbar", function ()
   PetActionBarFrame:SetParent(pfUI.bars.pet)
 
   pfUI.bars:SetScript("OnEvent", function()
+      MultiActionBar_Update()
+      UIParent_ManageFramePositions();
+      MultiActionBar_Update()
+      UpdateMicroButtons()
+
       BarLayoutSize(pfUI.bars.actionmain, NUM_ACTIONBAR_BUTTONS, C.bars.actionmain.formfactor, C.bars.icon_size, default_border)
       pfUI.bars.actionmain:SetWidth(pfUI.bars.actionmain._size[1])
       pfUI.bars.actionmain:SetHeight(pfUI.bars.actionmain._size[2])
@@ -435,8 +420,12 @@ pfUI:RegisterModule("actionbar", function ()
         pfUI.bars.right:Hide()
       end
 
-      if SHOW_MULTI_ACTIONBAR_4 and SHOW_MULTI_ACTIONBAR_3 then
+      if SHOW_MULTI_ACTIONBAR_4 then
         pfUI.bars.tworight:Show()
+        for i=1, NUM_ACTIONBAR_BUTTONS do
+          _G["MultiBarLeftButton"..i]:Show()
+        end
+
         pfUI.bars.tworight:SetFrameStrata("LOW")
         pfUI.bars.tworight:ClearAllPoints()
         pfUI.bars.tworight:SetPoint("RIGHT", UIParent, "RIGHT", -5, 0)
@@ -600,10 +589,8 @@ pfUI:RegisterModule("actionbar", function ()
       button:SetHeight(C.bars.icon_size)
       button:Show()
 
-      local texture = _G[actionbutton..i..'NormalTexture']
-      texture:SetAlpha(0)
-      texture:SetAllPoints(button)
-      texture:SetTexCoord(.08, .92, .08, .92)
+      button:SetNormalTexture("")
+      button.SetNormalTexture = function() return end
 
       local icon = _G[actionbutton..i..'Icon']
       icon:SetAllPoints(button)

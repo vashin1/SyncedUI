@@ -27,17 +27,16 @@ pfUI:RegisterModule("gui", function ()
     frame:SetPoint("TOPLEFT", 25, parent.objectCount * -25)
     frame:EnableMouse(true)
     frame:SetScript("OnEnter", function()
-      this:SetBackdropBorderColor(1,1,1,.3)
+      this:SetBackdropBorderColor(1,1,1,.08)
     end)
 
     frame:SetScript("OnLeave", function()
-      this:SetBackdropBorderColor(1,1,1,.15)
+      this:SetBackdropBorderColor(1,1,1,.04)
     end)
 
     if not widget or (widget and widget ~= "button") then
-
-      frame:SetBackdrop(pfUI.backdrop_underline)
-      frame:SetBackdropBorderColor(1,1,1,.15)
+      frame:SetBackdrop(pfUI.backdrop_hover)
+      frame:SetBackdropBorderColor(1,1,1,.04)
 
       if not ufunc and widget ~= "header" and C.gui.reloadmarker == "1" then
         caption = caption .. " [|cffffaaaa!|r]"
@@ -46,14 +45,34 @@ pfUI:RegisterModule("gui", function ()
       -- caption
       frame.caption = frame:CreateFontString("Status", "LOW", "GameFontNormal")
       frame.caption:SetFont(pfUI.font_default, C.global.font_size + 2, "OUTLINE")
-      frame.caption:SetAllPoints(frame)
+      frame.caption:SetPoint("LEFT", frame, "LEFT", 3, 1)
       frame.caption:SetFontObject(GameFontWhite)
       frame.caption:SetJustifyH("LEFT")
       frame.caption:SetText(caption)
     end
 
-    frame.configCategory = category
-    frame.configEntry = config
+    if category == "CVAR" then
+      category = {}
+      category[config] = tostring(GetCVar(config))
+      ufunc = function()
+        SetCVar(this:GetParent().config, this:GetParent().category[config])
+      end
+    end
+
+    if category == "GVAR" then
+      category = {}
+      category[config] = tostring(_G[config] or 0)
+
+      local update = ufunc
+
+      ufunc = function()
+        _G[config] = this:GetChecked() and 1 or nil
+        UIOptionsFrame_Save()
+        if update then
+          update()
+        end
+      end
+    end
 
     frame.category = category
     frame.config = config
@@ -64,7 +83,7 @@ pfUI:RegisterModule("gui", function ()
       frame.color:SetWidth(24)
       frame.color:SetHeight(12)
       CreateBackdrop(frame.color)
-      frame.color:SetPoint("TOPRIGHT" , 0, -4)
+      frame.color:SetPoint("RIGHT" , -5, 1)
       frame.color.prev = frame.color.backdrop:CreateTexture("OVERLAY")
       frame.color.prev:SetAllPoints(frame.color)
 
@@ -136,12 +155,14 @@ pfUI:RegisterModule("gui", function ()
     if not widget or widget == "text" then
       -- input field
       frame.input = CreateFrame("EditBox", nil, frame)
+      CreateBackdrop(frame.input, nil, true)
+      frame.input:SetTextInsets(5, 5, 5, 5)
       frame.input:SetTextColor(.2,1,.8,1)
       frame.input:SetJustifyH("RIGHT")
 
       frame.input:SetWidth(100)
-      frame.input:SetHeight(16)
-      frame.input:SetPoint("TOPRIGHT" , 0, -2)
+      frame.input:SetHeight(18)
+      frame.input:SetPoint("RIGHT" , -3, 0)
       frame.input:SetFontObject(GameFontNormal)
       frame.input:SetAutoFocus(false)
       frame.input:SetText(category[config])
@@ -185,7 +206,7 @@ pfUI:RegisterModule("gui", function ()
       CreateBackdrop(frame.input, nil, true)
       frame.input:SetWidth(14)
       frame.input:SetHeight(14)
-      frame.input:SetPoint("TOPRIGHT" , 0, -4)
+      frame.input:SetPoint("RIGHT" , -5, 1)
       frame.input:SetScript("OnClick", function ()
         if this:GetChecked() then
           this:GetParent().category[this:GetParent().config] = "1"
@@ -207,7 +228,7 @@ pfUI:RegisterModule("gui", function ()
 
       frame.input = CreateFrame("Frame", "pfUIDropDownMenu" .. name, frame, "UIDropDownMenuTemplate")
       frame.input:ClearAllPoints()
-      frame.input:SetPoint("TOPRIGHT" , 20, 3)
+      frame.input:SetPoint("RIGHT" , 16, -2)
       frame.input:Show()
       frame.input.point = "TOPRIGHT"
       frame.input.relativePoint = "BOTTOMRIGHT"
@@ -565,7 +586,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Enable Offscreen Frame Positions"], C.global, "offscreen", "checkbox")
       CreateConfig(nil, this, T["Enable Single Line UIErrors"], C.global, "errors_limit", "checkbox")
       CreateConfig(nil, this, T["Disable All UIErrors"], C.global, "errors_hide", "checkbox")
-      CreateConfig(nil, this, T["Hightlight Settings That Require Reload"], C.gui, "reloadmarker", "checkbox")
+      CreateConfig(nil, this, T["Highlight Settings That Require Reload"], C.gui, "reloadmarker", "checkbox")
 
       -- Delete / Reset
       CreateConfig(nil, this, T["Delete / Reset"], nil, nil, "header")
@@ -698,6 +719,8 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Panel Border Size"], C.appearance.border, "panels")
       CreateConfig(nil, this, T["Chat Border Size"], C.appearance.border, "chat")
       CreateConfig(nil, this, T["Bags Border Size"], C.appearance.border, "bags")
+      CreateConfig(nil, this) -- spacer
+      CreateConfig(nil, this, T["Enable Combat Glow Effects On Screen Edges"], C.appearance.infight, "screen", "checkbox")
       this.setup = true
     end
   end)
@@ -878,21 +901,6 @@ pfUI:RegisterModule("gui", function ()
     end
   end
 
-  -- [[ Combat ]]
-  pfUI.gui.tabs.combat = pfUI.gui.tabs:CreateTabChild(T["Combat"], nil, nil, nil, true)
-  pfUI.gui.tabs.combat.tabs = CreateTabFrame(pfUI.gui.tabs.combat, "TOP", true)
-
-  -- >> General
-  pfUI.gui.tabs.combat.tabs.general = pfUI.gui.tabs.combat.tabs:CreateTabChild(T["Combat"], true)
-  pfUI.gui.tabs.combat.tabs.general:SetScript("OnShow", function()
-    if not this.setup then
-      CreateConfig(nil, this, T["Enable Combat Glow Effects On Screen Edges"], C.appearance.infight, "screen", "checkbox")
-      CreateConfig(nil, this, T["Enable Combat Glow Effects On Unit Frames"], C.appearance.infight, "common", "checkbox")
-      CreateConfig(nil, this, T["Enable Combat Glow Effects On Group Frames"], C.appearance.infight, "group", "checkbox")
-      this.setup = true
-    end
-  end)
-
 
   -- [[ Bags & Bank ]]
   pfUI.gui.tabs.bags = pfUI.gui.tabs:CreateTabChild(T["Bags & Bank"], nil, nil, nil, true)
@@ -958,6 +966,7 @@ pfUI:RegisterModule("gui", function ()
     if not this.setup then
       CreateConfig(nil, this, T["Icon Size"], C.bars, "icon_size")
       CreateConfig(nil, this, T["Enable Action Bar Backgrounds"], C.bars, "background", "checkbox")
+      CreateConfig(MultiActionBar_UpdateGridVisibility, this, T["Always Show Action Bar Buttons"], "GVAR", "ALWAYS_SHOW_MULTIBARS", "checkbox")
       CreateConfig(nil, this, T["Enable Range Display On Hotkeys"], C.bars, "glowrange", "checkbox")
       CreateConfig(nil, this, T["Range Display Color"], C.bars, "rangecolor", "color")
       CreateConfig(nil, this, T["Show Macro Text"], C.bars, "showmacro", "checkbox")
@@ -966,6 +975,27 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Enable Range Based Auto Paging (Hunter)"], C.bars, "hunterbar", "checkbox")
       CreateConfig(nil, this, T["Enable Action On Key Down"], C.bars, "keydown", "checkbox")
       CreateConfig(nil, this, T["Switch Bar On Meta Key Press"], C.bars, "pagemaster", "checkbox")
+      this.setup = true
+    end
+  end)
+
+  -- >> Layout
+  pfUI.gui.tabs.actionbar.tabs.layout = pfUI.gui.tabs.actionbar.tabs:CreateTabChild(T["Layout"], true)
+  pfUI.gui.tabs.actionbar.tabs.layout:SetScript("OnShow", function()
+    if not this.setup then
+      CreateConfig(UIParent_ManageFramePositions, this, T["Enable Second Actionbar (BottomLeft)"], "GVAR", "SHOW_MULTI_ACTIONBAR_1", "checkbox")
+      CreateConfig(UIParent_ManageFramePositions, this, T["Enable Left Actionbar (BottomRight)"], "GVAR", "SHOW_MULTI_ACTIONBAR_2", "checkbox")
+      CreateConfig(UIParent_ManageFramePositions, this, T["Enable Right Actionbar (Right)"], "GVAR", "SHOW_MULTI_ACTIONBAR_3", "checkbox")
+      CreateConfig(UIParent_ManageFramePositions, this, T["Enable Vertical Actionbar (TwoRight)"], "GVAR", "SHOW_MULTI_ACTIONBAR_4", "checkbox")
+
+      CreateConfig(update[c], this, T["Form Factor"], nil, nil, "header")
+      CreateConfig(nil, this, T["Main Actionbar (ActionMain)"], C.bars.actionmain, "formfactor", "dropdown", pfUI.gui.dropdowns.num_actionbar_buttons)
+      CreateConfig(nil, this, T["Second Actionbar (BottomLeft)"], C.bars.bottomleft, "formfactor", "dropdown", pfUI.gui.dropdowns.num_actionbar_buttons)
+      CreateConfig(nil, this, T["Left Actionbar (BottomRight)"], C.bars.bottomright, "formfactor", "dropdown", pfUI.gui.dropdowns.num_actionbar_buttons)
+      CreateConfig(nil, this, T["Right Actionbar (Right)"], C.bars.right, "formfactor", "dropdown", pfUI.gui.dropdowns.num_actionbar_buttons)
+      CreateConfig(nil, this, T["Vertical Actionbar (TwoRight)"], C.bars.tworight, "formfactor", "dropdown", pfUI.gui.dropdowns.num_actionbar_buttons)
+      CreateConfig(nil, this, T["Shapeshift Bar (BarShapeShift)"], C.bars.shapeshift, "formfactor", "dropdown", pfUI.gui.dropdowns.num_shapeshift_slots)
+      CreateConfig(nil, this, T["Pet Bar (BarPet)"], C.bars.pet, "formfactor", "dropdown", pfUI.gui.dropdowns.num_pet_action_slots)
       this.setup = true
     end
   end)
@@ -985,22 +1015,6 @@ pfUI:RegisterModule("gui", function ()
       this.setup = true
     end
   end)
-
-  -- >> Layout
-  pfUI.gui.tabs.actionbar.tabs.layout = pfUI.gui.tabs.actionbar.tabs:CreateTabChild(T["Layout"], true)
-  pfUI.gui.tabs.actionbar.tabs.layout:SetScript("OnShow", function()
-    if not this.setup then
-      CreateConfig(nil, this, T["Main Actionbar (ActionMain)"], C.bars.actionmain, "formfactor", "dropdown", pfUI.gui.dropdowns.num_actionbar_buttons)
-      CreateConfig(nil, this, T["Second Actionbar (BottomLeft)"], C.bars.bottomleft, "formfactor", "dropdown", pfUI.gui.dropdowns.num_actionbar_buttons)
-      CreateConfig(nil, this, T["Left Actionbar (BottomRight)"], C.bars.bottomright, "formfactor", "dropdown", pfUI.gui.dropdowns.num_actionbar_buttons)
-      CreateConfig(nil, this, T["Right Actionbar (Right)"], C.bars.right, "formfactor", "dropdown", pfUI.gui.dropdowns.num_actionbar_buttons)
-      CreateConfig(nil, this, T["Vertical Actionbar (TwoRight)"], C.bars.tworight, "formfactor", "dropdown", pfUI.gui.dropdowns.num_actionbar_buttons)
-      CreateConfig(nil, this, T["Shapeshift Bar (BarShapeShift)"], C.bars.shapeshift, "formfactor", "dropdown", pfUI.gui.dropdowns.num_shapeshift_slots)
-      CreateConfig(nil, this, T["Pet Bar (BarPet)"], C.bars.pet, "formfactor", "dropdown", pfUI.gui.dropdowns.num_pet_action_slots)
-      this.setup = true
-    end
-  end)
-
 
   -- [[ Panel ]]
   pfUI.gui.tabs.panel = pfUI.gui.tabs:CreateTabChild(T["Panel"], nil, nil, nil, true)
@@ -1115,8 +1129,8 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Enable Chat Fade"], C.chat.global, "fadeout", "checkbox")
       CreateConfig(nil, this, T["Seconds Before Chat Fade"], C.chat.global, "fadetime")
       CreateConfig(nil, this, T["Mousewheel Scroll Speed"], C.chat.global, "scrollspeed")
-      CreateConfig(nil, this, T["Enable Chat Bubbles"], C.chat.bubbles, "chat", "checkbox")
-      CreateConfig(nil, this, T["Enable Party Chat Bubbles"], C.chat.bubbles, "party", "checkbox")
+      CreateConfig(nil, this, T["Enable Chat Bubbles"], "CVAR", "chatBubbles", "checkbox")
+      CreateConfig(nil, this, T["Enable Party Chat Bubbles"], "CVAR", "chatBubblesParty", "checkbox")
       CreateConfig(nil, this, T["Chat Bubble Transparency"], C.chat.bubbles, "alpha")
       this.setup = true
     end
