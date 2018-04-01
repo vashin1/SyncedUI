@@ -47,7 +47,6 @@ Special thanks to Shagu, Shino, Aviana, Athene and Shirsig.
     /pfui       Open the configuration GUI  
     /gm         Open the ticket Dialog  
     /rl         Reload the whole UI  
-    /vcb config Configure buff frames  
 	/swstats    Configure damage meter  
 	/msbt       Configure scrolling battle text  
 
