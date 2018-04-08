@@ -739,6 +739,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Cooldown Text Threshold"], C.appearance.cd, "threshold")
       CreateConfig(nil, this, T["Cooldown Text Font Size"], C.appearance.cd, "font_size")
       CreateConfig(nil, this, T["Display Debuff Durations"], C.appearance.cd, "debuffs", "checkbox")
+      CreateConfig(nil, this, T["Enable Durations On Blizzard Frames"], C.appearance.cd, "blizzard", "checkbox")
       this.setup = true
     end
   end)
@@ -1199,6 +1200,7 @@ pfUI:RegisterModule("gui", function ()
   pfUI.gui.tabs.thirdparty.tabs.general = pfUI.gui.tabs.thirdparty.tabs:CreateTabChild(T["Thirdparty"], true)
   pfUI.gui.tabs.thirdparty.tabs.general:SetScript("OnShow", function()
     if not this.setup then
+      CreateConfig(nil, this, T["Show Meters By Default"], C.thirdparty, "showmeter", "checkbox")
       CreateConfig(nil, this, T["Use Chat Colors for Meters"], C.thirdparty, "chatbg", "checkbox")
       CreateConfig(nil, this, T["DPSMate (Skin)"], C.thirdparty.dpsmate, "skin", "checkbox")
       CreateConfig(nil, this, T["DPSMate (Dock)"], C.thirdparty.dpsmate, "dock", "checkbox")

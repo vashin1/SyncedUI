@@ -350,6 +350,7 @@ function pfUI.uf:UpdateConfig()
       f.buffs[i].stacks:SetShadowOffset(0.8, -0.8)
       f.buffs[i].stacks:SetTextColor(1,1,.5)
       f.buffs[i].cd = f.buffs[i].cd or CreateFrame("Model", nil, f.buffs[i], "CooldownFrameTemplate")
+      f.buffs[i].cd.pfCooldownType = "ALL"
       f.buffs[i].cd:SetAlpha(0)
 
       f.buffs[i]:RegisterForClicks("RightButtonUp")
@@ -428,6 +429,7 @@ function pfUI.uf:UpdateConfig()
       f.debuffs[i].stacks:SetShadowOffset(0.8, -0.8)
       f.debuffs[i].stacks:SetTextColor(1,1,.5)
       f.debuffs[i].cd = f.debuffs[i].cd or CreateFrame("Model", nil, f.debuffs[i], "CooldownFrameTemplate")
+      f.debuffs[i].cd.pfCooldownType = "ALL"
       f.debuffs[i].cd:SetAlpha(0)
 
       f.debuffs[i]:RegisterForClicks("RightButtonUp")
@@ -803,12 +805,14 @@ function pfUI.uf:RefreshUnitState(unitframe)
 end
 
 function pfUI.uf:RefreshUnit(unit, component)
+  -- break early on misconfigured UF's
   if not unit.label then return end
   if not unit.hp then return end
   if not unit.power then return end
 
   local component = component or ""
-  -- break early on misconfigured UF's
+
+  -- don't update scanner activity
   if unit.label == "target" or unit.label == "targettarget" then
     if pfScanActive == true then return end
   end
@@ -838,23 +842,28 @@ function pfUI.uf:RefreshUnit(unit, component)
     default_border = pfUI_config.appearance.border.unitframes
   end
 
-  local C = pfUI_config
-
   -- hide and return early on unused frames
   if not ( pfUI.unlock and pfUI.unlock:IsShown() ) then
-    -- check existing units or focus frames
+
+    --keep focus and named frames visible
     if unit.unitname and unit.unitname ~= "focus" then
       unit:Show()
+
+
+    -- only update visibility state for existing units
     elseif UnitName(unit.label .. unit.id) then
+
       -- hide group while in raid and option is set
       if pfUI_config["unitframes"]["group"]["hide_in_raid"] == "1" and strsub(unit.label,0,5) == "party" and UnitInRaid("player") then
         unit:Hide()
         return
 
-      -- hide existing but too far away pet
-      elseif strsub(unit.label,0,8) == "partypet" and not UnitIsVisible(unit.label .. unit.id) then
-        unit:Hide()
-        return
+      -- hide existing but too far away pet and pets of old group members
+      elseif unit.label == "partypet" then
+        if not UnitIsVisible(unit.label .. unit.id) or not UnitExists("party" .. unit.id) then
+          unit:Hide()
+          return
+        end
 
       -- hide self in group if solo or hide in raid is set
       elseif unit.fname == "Group0" or unit.fname == "PartyPet0" or unit.fname == "Party0Target" then
@@ -866,12 +875,12 @@ function pfUI.uf:RefreshUnit(unit, component)
 
       unit:Show()
     else
-      -- hide unused frame
       unit:Hide()
       return
     end
   end
 
+  -- create required fields
   if not unit.cache then unit.cache = {} end
   if not unit.id then unit.id = "" end
 
