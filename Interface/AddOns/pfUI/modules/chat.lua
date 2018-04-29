@@ -736,36 +736,69 @@ pfUI:RegisterModule("chat", function ()
   end
   ChatFrameEditBox:SetAltArrowKeyMode(false)
 
-  local default = " " .. "%s" .. "|r:" .. "\32"
-  _G.CHAT_CHANNEL_GET = "%s" .. "|r:" .. "\32"
-  _G.CHAT_GUILD_GET = '[G]' .. default
-  _G.CHAT_OFFICER_GET = '[O]'.. default
-  _G.CHAT_PARTY_GET = '[P]' .. default
-  _G.CHAT_RAID_GET = '[R]' .. default
-  _G.CHAT_RAID_LEADER_GET = '[RL]' .. default
-  _G.CHAT_RAID_WARNING_GET = '[RW]' .. default
-  _G.CHAT_BATTLEGROUND_GET = '[BG]' .. default
-  _G.CHAT_BATTLEGROUND_LEADER_GET = '[BL]' .. default
-  _G.CHAT_SAY_GET = '[S]' .. default
+  if C.chat.text.mouseover == "1" then
+    for i=1, NUM_CHAT_WINDOWS do
+      local frame = _G["ChatFrame" .. i]
+      frame:SetScript("OnHyperlinkEnter", function()
+        local _, _, linktype = string.find(arg1, "^(.-):(.+)$")
+        if linktype == "item" then
+          GameTooltip:SetOwner(this, "ANCHOR_CURSOR")
+          GameTooltip:SetHyperlink(arg1)
+          GameTooltip:Show()
+        end
+      end)
 
+      frame:SetScript("OnHyperlinkLeave", function()
+        GameTooltip:Hide()
+      end)
+    end
+  end
+
+  -- read and parse whisper color settings
   local cr, cg, cb, ca = strsplit(",", C.chat.global.whisper)
   cr, cg, cb = tonumber(cr), tonumber(cg), tonumber(cb)
-  local wcol = string.format("%02x%02x%02x",cr * 255,cg * 255, cb * 255)
+  wcol = string.format("%02x%02x%02x",cr * 255,cg * 255, cb * 255)
+
+  -- read and parse chat bracket settings
+  local left = string.sub(C.chat.text.bracket, 1, 1)
+  local right = string.sub(C.chat.text.bracket, 2, 2)
+
+  -- read and parse chat time bracket settings
+  local tleft = string.sub(C.chat.text.timebracket, 1, 1)
+  local tright = string.sub(C.chat.text.timebracket, 2, 2)
+
+  -- shorten chat channel indicators
+  local default = " " .. "%s" .. "|r:" .. "\32"
+  _G.CHAT_CHANNEL_GET = "%s" .. "|r:" .. "\32"
+  _G.CHAT_GUILD_GET = left .. "G" .. right .. default
+  _G.CHAT_OFFICER_GET = left .. "O" .. right .. default
+  _G.CHAT_PARTY_GET = left .. "P" .. right .. default
+  _G.CHAT_RAID_GET = left .. "R" .. right .. default
+  _G.CHAT_RAID_LEADER_GET = left .. "RL" .. right .. default
+  _G.CHAT_RAID_WARNING_GET = left .. "RW" .. right .. default
+  _G.CHAT_BATTLEGROUND_GET = left .. "BG" .. right .. default
+  _G.CHAT_BATTLEGROUND_LEADER_GET = left .. "BL" .. right .. default
+  _G.CHAT_SAY_GET = left .. "S" .. right .. default
+  _G.CHAT_YELL_GET = left .. "Y" .. right ..default
 
   if C.chat.global.whispermod == "1" then
     _G.CHAT_WHISPER_GET = '|cff' .. wcol .. '[W]' .. default
     _G.CHAT_WHISPER_INFORM_GET = '[W]' .. default
   end
 
-  CHAT_YELL_GET = '[Y]' .. default
-
   for i=1,NUM_CHAT_WINDOWS do
     if not _G["ChatFrame"..i].HookAddMessage then
       _G["ChatFrame"..i].HookAddMessage = _G["ChatFrame"..i].AddMessage
     end
-    _G["ChatFrame"..i].AddMessage = function (frame, text, ...)
+    _G["ChatFrame"..i].AddMessage = function (frame, text, a1, a2, a3, a4, a5)
       if text then
 
+        -- Remove prat's CLINK itemlinks.
+        text = gsub(text, '%{CLINK:(%x%x%x%x%x%x%x%x):(%d*):(%d*):(%d*):(%d*):(.-)%}', function(color, id, enchant, suffix, uuid, name)
+          return format('|c%s|Hitem:%s:%s:%s:%s|h[%s]|h|r', color, id, enchant, suffix, uuid, name)
+        end)
+
+        -- detect urls
         if C.chat.text.detecturl == "1" then
           local URLPattern = pfUI.chat.URLPattern
           text = string.gsub (text, URLPattern.WWW.rx, function(a1,a2,a3) return pfUI.chat:FormatLink(URLPattern.WWW.fm,a1,a2,a3) end)
@@ -778,6 +811,7 @@ pfUI:RegisterModule("chat", function ()
           text = string.gsub (text, URLPattern.URL.rx, function(a1,a2,a3) return pfUI.chat:FormatLink(URLPattern.URL.fm,a1,a2,a3) end)
         end
 
+        -- display class colors if already indexed
         if C.chat.text.classcolor == "1" then
           local Name = string.gsub(text, ".*|Hplayer:(.-)|h.*", "%1")
           if pfUI_playerDB[Name] and pfUI_playerDB[Name].class ~= nil then
@@ -790,28 +824,26 @@ pfUI:RegisterModule("chat", function ()
               Name = "|cff" .. Color .. Name .. "|r"
             end
           end
-          text = string.gsub(text, "|Hplayer:(.-)|h%[.-%]|h(.-:-)", "[|Hplayer:%1|h" .. Name .. "|h]" .. "%2")
+          text = string.gsub(text, "|Hplayer:(.-)|h%[.-%]|h(.-:-)", "|r" .. left .. "|Hplayer:%1|h" .. Name .. "|h|r" .. right .. "%2")
         end
 
+        -- reduce channel name to number
         if C.chat.text.channelnumonly == "1" then
           local pattern = "%]%s+(.*|Hplayer)"
-          local channel = string.gsub(text, ".*%[(.-)" .. pattern ..".+", "%1")
+          local channel = string.gsub(text, ".*%[(.-)" .. pattern .. ".+", "%1")
           if string.find(channel, "%d+%. ") then
             channel = string.gsub(channel, "(%d+)%..*", "channel%1")
             channel = string.gsub(channel, "channel", "")
             pattern = "%[%d+%..-" .. pattern
-            text = string.gsub(text, pattern, "["..channel.."] ".."%1")
+            text = string.gsub(text, pattern, left .. channel .. right .. " %1")
           end
         end
 
         -- show timestamp in chat
         if C.chat.text.time == "1" then
-          local left = string.sub(C.chat.text.timebracket, 1, 1)
-          local right = string.sub(C.chat.text.timebracket, 2, 2)
-
           local r,g,b,a = strsplit(",", C.chat.text.timecolor)
           local chex = string.format("%02x%02x%02x%02x", a*255, r*255, g*255, b*255)
-          text = "|c" .. chex .. left .. date(C.chat.text.timeformat) .. right .. "|r " .. text
+          text = "|c" .. chex .. tleft .. date(C.chat.text.timeformat) .. tright .. "|r " .. text
         end
 
         if C.chat.global.whispermod == "1" then
@@ -821,7 +853,7 @@ pfUI:RegisterModule("chat", function ()
           end
         end
 
-        _G["ChatFrame"..i].HookAddMessage(frame, text, unpack(arg))
+        _G["ChatFrame"..i].HookAddMessage(frame, text, a1, a2, a3, a4, a5)
       end
     end
   end

@@ -620,7 +620,7 @@ pfUI:RegisterModule("gui", function ()
           function()
             _G["pfUI_init"] = {}
             this:GetParent():Hide()
-            pfUI.gui:Reload()
+            pfUI.firstrun:NextStep()
           end)
       end, true)
 
@@ -628,6 +628,7 @@ pfUI:RegisterModule("gui", function ()
         CreateQuestionDialog(T["Do you really want to reset your configuration?\nThis also includes frame positions"],
           function()
             _G["pfUI_config"] = {}
+            _G["pfUI_init"] = {}
             pfUI:LoadConfig()
             this:GetParent():Hide()
             pfUI.gui:Reload()
@@ -740,6 +741,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Cooldown Text Font Size"], C.appearance.cd, "font_size")
       CreateConfig(nil, this, T["Display Debuff Durations"], C.appearance.cd, "debuffs", "checkbox")
       CreateConfig(nil, this, T["Enable Durations On Blizzard Frames"], C.appearance.cd, "blizzard", "checkbox")
+      CreateConfig(nil, this, T["Enable Durations On Foreign Frames"], C.appearance.cd, "foreign", "checkbox")
       this.setup = true
     end
   end)
@@ -802,6 +804,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Show Hots as Buff Indicators"], C.unitframes, "show_hots", "checkbox")
       CreateConfig(nil, this, T["Show Hots of all Classes"], C.unitframes, "all_hots", "checkbox")
       CreateConfig(nil, this, T["Show Procs as Buff Indicators"], C.unitframes, "show_procs", "checkbox")
+      CreateConfig(nil, this, T["Show Totems as Buff Indicators"], C.unitframes, "show_totems", "checkbox")
       CreateConfig(nil, this, T["Show Procs of all Classes"], C.unitframes, "all_procs", "checkbox")
       CreateConfig(nil, this, T["Buff Indicator Size"], C.unitframes, "indicator_size")
       CreateConfig(nil, this, T["Only Show Indicators for Dispellable Debuffs"], C.unitframes, "debuffs_class", "checkbox")
@@ -898,6 +901,10 @@ pfUI:RegisterModule("gui", function ()
           CreateConfig(update[c], this, T["Enable Level Color"], C.unitframes[c], "levelcolor", "checkbox")
           CreateConfig(update[c], this, T["Enable Class Color"], C.unitframes[c], "classcolor", "checkbox")
 
+          CreateConfig(update[c], this, T["Hit Indicator"], nil, nil, "header")
+          CreateConfig(update[c], this, T["Enable Hit Indicator"], C.unitframes[c], "hitindicator", "checkbox")
+          CreateConfig(update[c], this, T["Hit Indicator Text Font"], C.unitframes[c], "hitindicatorfont", "dropdown", pfUI.gui.dropdowns.fonts)
+          CreateConfig(update[c], this, T["Hit Indicator Text Size"], C.unitframes[c], "hitindicatorsize")
           this.setup = true
         end
       end)
@@ -915,6 +922,10 @@ pfUI:RegisterModule("gui", function ()
     if not this.setup then
       CreateConfig(nil, this, T["Disable Item Quality Color For \"Common\" Items"], C.appearance.bags, "borderlimit", "checkbox")
       CreateConfig(nil, this, T["Enable Item Quality Color For Equipment Only"], C.appearance.bags, "borderonlygear", "checkbox")
+      CreateConfig(nil, this, T["Enable Movable Bags"], C.appearance.bags, "movable", "checkbox")
+      CreateConfig(nil, this, T["Bagslots Per Row"], C.appearance.bags, "bagrowlength")
+      CreateConfig(nil, this, T["Bankslots Per Row"], C.appearance.bags, "bankrowlength")
+      CreateConfig(nil, this, T["Item Slot Size"], C.appearance.bags, "icon_size")
       CreateConfig(nil, this, T["Auto Sell Grey Items"], C.global, "autosell", "checkbox")
       CreateConfig(nil, this, T["Auto Repair Items"], C.global, "autorepair", "checkbox")
       this.setup = true
@@ -1126,6 +1137,8 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Inputbox Width"], C.chat.text, "input_width")
       CreateConfig(nil, this, T["Inputbox Height"], C.chat.text, "input_height")
       CreateConfig(nil, this, T["Enable Text Shadow"], C.chat.text, "outline", "checkbox")
+      CreateConfig(nil, this, T["Show Items On Mouseover"], C.chat.text, "mouseover", "checkbox")
+      CreateConfig(nil, this, T["Chat Default Brackets"], C.chat.text, "bracket", nil, nil, nil, nil, "STRING")
       CreateConfig(nil, this, T["Enable Timestamps"], C.chat.text, "time", "checkbox")
       CreateConfig(nil, this, T["Timestamp Format"], C.chat.text, "timeformat", nil, nil, nil, nil, "STRING")
       CreateConfig(nil, this, T["Timestamp Brackets"], C.chat.text, "timebracket", nil, nil, nil, nil, "STRING")
