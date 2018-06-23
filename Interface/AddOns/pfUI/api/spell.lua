@@ -109,7 +109,8 @@ function pfUI.api.GetSpellInfo(index, bookType)
           local _, _, min = string.find(text:GetText(), gsub(SPELL_CAST_TIME_MIN, "%%.3g", "%(.+%)"))
           local _, _, range = string.find(text:GetText(), gsub(SPELL_RANGE, "%%s", "%(.+%)"))
 
-          if sec or min then castingTime = tonumber(sec) * 1000 or tonumber(min) * 1000 end
+          castingTime = (tonumber(sec) or tonumber(min) or 0) * 1000
+
           if range then
             local _, _, min, max = string.find(range, "(.+)-(.+)")
             if min and max then

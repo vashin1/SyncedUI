@@ -65,8 +65,8 @@ pfUI:RegisterModule("unlock", function ()
       this.setup = true
     end
 
-    for _,frame in pairs(pfUI.movables) do
-      local frame = _G[frame]
+    for name, frame in pairs(pfUI.movables) do
+      local frame = frame or _G[name]
 
       if frame then
         if not frame:IsShown() then
@@ -74,7 +74,8 @@ pfUI:RegisterModule("unlock", function ()
         end
 
         if not frame.drag then
-          frame.drag = CreateFrame("Frame", nil, frame)
+          frame.drag = CreateFrame("Button", "pfUnlockDragger", frame)
+          frame.drag:RegisterForClicks("MiddleButtonUp")
           frame.drag:SetAllPoints(frame)
           frame.drag:SetFrameStrata("DIALOG")
           CreateBackdrop(frame.drag, nil, nil, .8)
@@ -142,6 +143,7 @@ pfUI:RegisterModule("unlock", function ()
 
 
           frame.drag:SetScript("OnMouseDown",function()
+            if arg1 == "MiddleButton" then return end
             if IsShiftKeyDown() then
               if strsub(frame:GetName(),0,7) == "pfCombo" then
                 for i=1,5 do
@@ -201,6 +203,7 @@ pfUI:RegisterModule("unlock", function ()
           end)
 
           frame.drag:SetScript("OnMouseUp",function()
+              if arg1 == "MiddleButton" then return end
               frame:StopMovingOrSizing()
               _, _, _, xpos, ypos = frame:GetPoint()
               frame.drag.backdrop:SetBackdropBorderColor(.2,1,.8,1)
@@ -258,6 +261,12 @@ pfUI:RegisterModule("unlock", function ()
               pfUI.unlock:SavePosition(frame)
               pfUI.unlock.settingChanged = true
           end)
+
+          frame.drag:SetScript("OnClick", function()
+            pfUI_config["position"][frame:GetName()] = nil
+            frame:ClearAllPoints()
+            UpdateMovable(frame)
+          end)
         end
 
         frame:SetMovable(true)
@@ -269,16 +278,18 @@ pfUI:RegisterModule("unlock", function ()
   end)
 
   pfUI.unlock:SetScript("OnHide", function()
-    for _,frame in pairs(pfUI.movables) do
-      local frame = _G[frame]
+    for name, frame in pairs(pfUI.movables) do
+      local frame = frame or _G[name]
 
       if frame then
+        frame:StopMovingOrSizing()
         frame:SetMovable(false)
         frame.drag:EnableMouse(false)
         frame.drag:Hide()
         if frame.hideLater == true then
           frame:Hide()
         end
+        UpdateMovable(frame)
       end
     end
 

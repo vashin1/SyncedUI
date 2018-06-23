@@ -45,6 +45,33 @@ pfUI:RegisterModule("bags", function ()
     return
   end
 
+  local pfHookUseContainerItem = _G.UseContainerItem
+  function _G.UseContainerItem(bag,slot)
+    if TradeFrame:IsShown() then
+      PickupContainerItem(bag,slot)
+      local slot = TradeFrame_GetAvailableSlot()
+      if slot then ClickTradeButton(slot) end
+      if CursorHasItem() then
+        ClearCursor()
+      end
+    elseif AuctionFrame and AuctionFrame:IsShown() and
+        AuctionFrameBrowse and AuctionFrameBrowse:IsShown() then
+      local link = GetContainerItemLink(bag,slot)
+      local name = link and string.sub(link, string.find(link, "%[")+1, string.find(link, "%]")-1) or ""
+      BrowseName:SetText(name)
+      AuctionFrameBrowse_Search()
+    elseif AuctionFrame and AuctionFrame:IsShown() and
+        AuctionFrameAuctions and AuctionFrameAuctions:IsShown() then
+      PickupContainerItem(bag,slot)
+      AuctionsItemButton:Click()
+      if CursorHasItem() then
+        ClearCursor()
+      end
+    else
+      pfHookUseContainerItem(bag,slot)
+    end
+  end
+
   -- hide blizzard's bankframe
   BankFrame:SetScale(0.001)
   BankFrame:SetPoint("TOPLEFT", 0,0)
@@ -60,6 +87,13 @@ pfUI:RegisterModule("bags", function ()
   pfUI.bag:RegisterEvent("BANKFRAME_CLOSED")
   pfUI.bag:RegisterEvent("BANKFRAME_OPENED")
   pfUI.bag:RegisterEvent("ITEM_LOCK_CHANGED")
+
+  pfUI.bag:SetScript("OnUpdate", function()
+    if this.fakeEvent and this.fakeEvent + 0.2 < GetTime() then
+      pfUI.bag:CheckFullUpdate()
+      this.fakeEvent = nil
+    end
+  end)
 
   pfUI.bag:SetScript("OnEvent", function()
     if event == "PLAYER_ENTERING_WORLD" then
@@ -77,6 +111,7 @@ pfUI:RegisterModule("bags", function ()
        event == "PLAYERBANKBAGSLOTS_CHANGED" or event == "BAG_UPDATE" or
        event == "BANKFRAME_OPENED" or event == "BANKFRAME_CLOSED" then
       pfUI.bag:CheckFullUpdate()
+      this.fakeEvent = GetTime()
     end
 
     if event == "BAG_UPDATE_COOLDOWN" then
@@ -270,8 +305,23 @@ pfUI:RegisterModule("bags", function ()
     if pfUI.panel then topspace = topspace + pfUI.panel.right:GetHeight() end
     frame:SetHeight( default_border*2 + y*(frame.button_size+default_border*3) + topspace)
 
-    frame:SetScript("OnShow", function() pfUI.bag:CreateBags(object) end)
-    frame:SetScript("OnHide", function() pfUI.bag:CreateBags(object) end)
+    local chat = pfUI.chat and ( object == "bank" and pfUI.chat.left or pfUI.chat.right) or nil
+
+    frame:SetScript("OnShow", function()
+      if C.appearance.bags.hidechat == "1" and chat and chat:IsVisible() then
+        frame.chatWasOpen = true
+        chat:Hide()
+      end
+      pfUI.bag:CreateBags(object)
+    end)
+
+    frame:SetScript("OnHide", function()
+      if C.appearance.bags.hidechat == "1" and chat and frame.chatWasOpen then
+        chat:Show()
+        frame.chatWasOpen = false
+      end
+      pfUI.bag:CreateBags(object)
+    end)
   end
 
   function pfUI.bag:UpdateBag(bag)

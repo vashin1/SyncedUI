@@ -501,6 +501,7 @@ pfUI:RegisterModule("gui", function ()
     "none:" .. T["Disable"],
     "unit:" .. T["Unit String"],
     "name:" .. T["Name"],
+    "nameshort:" .. T["Name (Short)"],
     "level:" .. T["Level"],
     "class:" .. T["Class"],
     "healthdyn:" .. T["Health - Auto"],
@@ -826,7 +827,8 @@ pfUI:RegisterModule("gui", function ()
       [2] = { "target",   T["Target"] },
       [3] = { "ttarget",  T["Target-Target"]},
       [4] = { "pet",      T["Pet"] },
-      [5] = { "focus",    T["Focus"] },
+      [5] = { "ptarget",  T["Pet-Target"]},
+      [6] = { "focus",    T["Focus"] },
     },
 
     ["gf"] = {
@@ -850,6 +852,7 @@ pfUI:RegisterModule("gui", function ()
         if not this.setup then
           -- link update tables
           update.ttarget     = update["targettarget"]
+          update.ptarget     = update["pettarget"]
           update.grouptarget = update["group"]
           update.grouppet    = update["group"]
 
@@ -923,6 +926,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Disable Item Quality Color For \"Common\" Items"], C.appearance.bags, "borderlimit", "checkbox")
       CreateConfig(nil, this, T["Enable Item Quality Color For Equipment Only"], C.appearance.bags, "borderonlygear", "checkbox")
       CreateConfig(nil, this, T["Enable Movable Bags"], C.appearance.bags, "movable", "checkbox")
+      CreateConfig(nil, this, T["Hide Chat When Bags Are Opened"], C.appearance.bags, "hidechat", "checkbox")
       CreateConfig(nil, this, T["Bagslots Per Row"], C.appearance.bags, "bagrowlength")
       CreateConfig(nil, this, T["Bankslots Per Row"], C.appearance.bags, "bankrowlength")
       CreateConfig(nil, this, T["Item Slot Size"], C.appearance.bags, "icon_size")
@@ -945,6 +949,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Disable Loot Confirmation Dialog (Without Group)"], C.loot, "autopickup", "checkbox")
       CreateConfig(nil, this, T["Enable Loot Window On MouseCursor"], C.loot, "mousecursor", "checkbox")
       CreateConfig(nil, this, T["Enable Advanced Master Loot Menu"], C.loot, "advancedloot", "checkbox")
+      CreateConfig(nil, this, T["Detailed Random Roll Announcement"], C.loot, "rollannounce", "checkbox")
       CreateConfig(nil, this, T["Use Item Rarity Color For Loot-Roll Timer"], C.loot, "raritytimer", "checkbox")
       this.setup = true
     end
@@ -979,9 +984,12 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(update["buff"], this, T["Enable Buff Display"], C.buffs, "buffs", "checkbox")
       CreateConfig(update["buff"], this, T["Enable Debuff Display"], C.buffs, "debuffs", "checkbox")
       CreateConfig(update["buff"], this, T["Enable Weapon Buff Display"], C.buffs, "weapons", "checkbox")
+      CreateConfig(update["buff"], this, T["Seperate Weapon Buffs"], C.buffs, "separateweapons", "checkbox")
       CreateConfig(update["buff"], this, T["Buff Size"], C.buffs, "size")
       CreateConfig(update["buff"], this, T["Buff Spacing"], C.buffs, "spacing")
-      CreateConfig(update["buff"], this, T["Number Of Buffs Per Row"], C.buffs, "rowsize")
+      CreateConfig(update["buff"], this, T["Number Of Weapon Buffs Per Row"], C.buffs, "wepbuffrowsize")
+      CreateConfig(update["buff"], this, T["Number Of Buffs Per Row"], C.buffs, "buffrowsize")
+      CreateConfig(update["buff"], this, T["Number Of Debuffs Per Row"], C.buffs, "debuffrowsize")
       CreateConfig(update["buff"], this, T["Show Duration Inside Buff"], C.buffs, "textinside", "checkbox")
       CreateConfig(update["buff"], this, T["Buff Font Size"], C.buffs, "fontsize")
       this.setup = true
@@ -1008,6 +1016,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Enable Range Based Auto Paging (Hunter)"], C.bars, "hunterbar", "checkbox")
       CreateConfig(nil, this, T["Enable Action On Key Down"], C.bars, "keydown", "checkbox")
       CreateConfig(nil, this, T["Switch Bar On Meta Key Press"], C.bars, "pagemaster", "checkbox")
+      CreateConfig(nil, this, T["Show Indicator For Castable Pet Actions"], C.bars, "showcastable", "checkbox")
       this.setup = true
     end
   end)
@@ -1200,6 +1209,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Healthbar Height"], C.nameplates, "heighthealth")
       CreateConfig(nil, this, T["Castbar Height"], C.nameplates, "heightcast")
       CreateConfig(nil, this, T["Enable Combo Point Display"], C.nameplates, "cpdisplay", "checkbox")
+      CreateConfig(nil, this, T["Highlight Target Nameplate"], C.nameplates, "targethighlight", "checkbox")
       this.setup = true
     end
   end)

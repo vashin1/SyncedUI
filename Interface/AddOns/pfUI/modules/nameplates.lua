@@ -159,6 +159,15 @@ pfUI:RegisterModule("nameplates", function ()
       this.healthbar.bg:SetHeight(this.healthbar:GetHeight() + 3)
     end
 
+    if not this.healthbar.bgtarget then
+      this.healthbar.bgtarget = this.healthbar:CreateTexture(nil, "BACKGROUND")
+      this.healthbar.bgtarget:SetTexture(1,1,1,.8)
+      this.healthbar.bgtarget:ClearAllPoints()
+      this.healthbar.bgtarget:SetPoint("CENTER", this.healthbar, "CENTER", 0, 0)
+      this.healthbar.bgtarget:SetWidth(this.healthbar:GetWidth() + 5)
+      this.healthbar.bgtarget:SetHeight(this.healthbar:GetHeight() + 5)
+    end
+
     this.healthbar.reaction = nil
 
     -- level
@@ -465,6 +474,13 @@ pfUI:RegisterModule("nameplates", function ()
       name:SetTextColor(1,1,1,0.85)
     end
 
+    -- target indicator
+    if UnitExists("target") and healthbar:GetAlpha() == 1 and C.nameplates.targethighlight == "1" then
+      healthbar.bgtarget:Show()
+    else
+      healthbar.bgtarget:Hide()
+    end
+
     -- update combopoints
     if combopoints and C.nameplates.cpdisplay == "1" then
       for point=1, 5 do
@@ -480,16 +496,17 @@ pfUI:RegisterModule("nameplates", function ()
     end
 
     -- show castbar
-    if healthbar.castbar and pfUI.castbar and C.nameplates["showcastbar"] == "1" and pfUI.castbar.target.casterDB[unitname] ~= nil and pfUI.castbar.target.casterDB[unitname]["cast"] ~= nil then
-      if pfUI.castbar.target.casterDB[unitname]["starttime"] + pfUI.castbar.target.casterDB[unitname]["casttime"] <= GetTime() then
-        pfUI.castbar.target.casterDB[unitname] = nil
+    if healthbar.castbar and pfUI.castbar and C.nameplates["showcastbar"] == "1" then
+      local spellname, start, casttime, icon = libcast:GetCastInfo(unitname)
+      casttime = casttime / 1000
+      if not spellname then
         healthbar.castbar:Hide()
       else
-        healthbar.castbar:SetMinMaxValues(0,  pfUI.castbar.target.casterDB[unitname]["casttime"])
-        healthbar.castbar:SetValue(GetTime() -  pfUI.castbar.target.casterDB[unitname]["starttime"])
-        healthbar.castbar.text:SetText(round( pfUI.castbar.target.casterDB[unitname]["starttime"] +  pfUI.castbar.target.casterDB[unitname]["casttime"] - GetTime(),1))
+        healthbar.castbar:SetMinMaxValues(0,  casttime)
+        healthbar.castbar:SetValue(GetTime() -  start)
+        healthbar.castbar.text:SetText(round(start +  casttime - GetTime(),1))
         if C.nameplates.spellname == "1" and healthbar.castbar.spell then
-          healthbar.castbar.spell:SetText(pfUI.castbar.target.casterDB[unitname]["cast"])
+          healthbar.castbar.spell:SetText(spellname)
         else
           healthbar.castbar.spell:SetText("")
         end
@@ -498,8 +515,8 @@ pfUI:RegisterModule("nameplates", function ()
           this.debuffs[1]:SetPoint("TOPLEFT", healthbar.castbar, "BOTTOMLEFT", 0, -3)
         end
 
-        if pfUI.castbar.target.casterDB[unitname]["icon"] then
-          healthbar.castbar.icon:SetTexture("Interface\\Icons\\" ..  pfUI.castbar.target.casterDB[unitname]["icon"])
+        if icon then
+          healthbar.castbar.icon:SetTexture("Interface\\Icons\\" ..  icon)
           healthbar.castbar.icon:SetTexCoord(.1,.9,.1,.9)
         end
       end
@@ -524,10 +541,10 @@ pfUI:RegisterModule("nameplates", function ()
           this.debuffs[j].icon:SetTexture(icon)
           this.debuffs[j].icon:SetTexCoord(.078, .92, .079, .937)
 
-          if pfUI.debuffs and pfUI.debuffs.active and name then
+          if libdebuff and name then
             this.debuffs[j].cd = this.debuffs[j].cd or CreateFrame("Model", nil, this.debuffs[j], "CooldownFrameTemplate")
             this.debuffs[j].cd.pfCooldownType = "ALL"
-            local start, duration, timeleft = pfUI.debuffs:GetDebuffInfo("target", name)
+            local start, duration, timeleft = libdebuff:GetDebuffInfo("target", name)
             this.debuffs[j].cd:SetAlpha(0)
             CooldownFrame_SetTimer(this.debuffs[j].cd, start, duration, 1)
           end
@@ -548,6 +565,9 @@ pfUI:RegisterModule("nameplates", function ()
     if C.nameplates.showhp == "1" and healthbar.hptext then
       local min, max = healthbar:GetMinMaxValues()
       local cur = healthbar:GetValue()
+      if (MobHealth3 or MobHealthFrame) and unitname == UnitName('target') and healthbar:GetAlpha() == 1 and MobHealth_GetTargetCurHP() then
+        cur, max = MobHealth_GetTargetCurHP(), MobHealth_GetTargetMaxHP()
+      end
       healthbar.hptext:SetText(cur .. " / " .. max)
     end
   end
@@ -569,7 +589,7 @@ pfUI:RegisterModule("nameplates", function ()
       for i = 1, 16 do
         if not UnitDebuff("target", i) then return end
         local debuff = UnitDebuff("target", i)
-        local effect = (pfUI.debuffs and pfUI.debuffs:GetDebuffName("target", i)) or ""
+        local effect = (libdebuff and libdebuff:GetDebuffName("target", i)) or ""
         pfUI.nameplates.debuffs[i] = { debuff, effect }
       end
     end
