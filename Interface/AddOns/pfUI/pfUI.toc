@@ -2,8 +2,8 @@
 ## Title: |cff33ffccpf|cffffffffUI
 ## Author: Shagu
 ## Notes: A complete user interface replacement.
-## Version: 3.10.0
-## SavedVariables: pfUI_profiles, pfUI_gold
+## Version: 3.11.0
+## SavedVariables: pfUI_profiles, pfUI_gold, pfUI_addon_profiles
 ## SavedVariablesPerCharacter: pfUI_config, pfUI_init, pfUI_playerDB
 
 # main
@@ -43,6 +43,10 @@ api\unitframes.lua
 libs\libcast.lua
 libs\libdebuff.lua
 libs\librange.lua
+
+# skins
+skins\blizzard\character.lua
+skins\blizzard\spellbook.lua
 
 # modules
 modules\firstrun.lua
@@ -96,3 +100,4 @@ modules\tracking.lua
 modules\easteregg.lua
 modules\farmmode.lua
 modules\pettarget.lua
+modules\mapreveal.lua

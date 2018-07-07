@@ -40,6 +40,20 @@ pfUI:RegisterModule("eqcompare", function ()
     [INVTYPE_THROWN] = "RangedSlot",
   }
 
+  HookScript(ShoppingTooltip1, "OnShow", function()
+    if C.tooltip.compare.basestats == "1" then
+      local targetData = pfUI.eqcompare:ExtractAttributes(ShoppingTooltip1)
+      pfUI.eqcompare:CompareAttributes(ShoppingTooltip1._data, targetData)
+    end
+  end)
+
+  HookScript(ShoppingTooltip2, "OnShow", function()
+    if C.tooltip.compare.basestats == "1" then
+      local targetData = pfUI.eqcompare:ExtractAttributes(ShoppingTooltip2)
+      pfUI.eqcompare:CompareAttributes(ShoppingTooltip2._data, targetData)
+    end
+  end)
+
   pfUI.eqcompare = CreateFrame( "Frame" , "pfEQCompare", GameTooltip )
   pfUI.eqcompare.ShowCompare = function(tooltip)
     -- use GameTooltip as default
@@ -48,6 +62,10 @@ pfUI:RegisterModule("eqcompare", function ()
     if not IsShiftKeyDown() and C.tooltip.compare.showalways ~= "1" then
       return
     end
+
+    local data = pfUI.eqcompare:ExtractAttributes(tooltip)
+    ShoppingTooltip1._data = data
+    ShoppingTooltip2._data = data
 
     local border = tonumber(C.appearance.border.default)
 
@@ -93,10 +111,72 @@ pfUI:RegisterModule("eqcompare", function ()
             ShoppingTooltip2:SetInventoryItem("player", slotID_other)
             ShoppingTooltip2:Show();
           end
-
+          return true
         end
       end
     end
   end
   pfUI.eqcompare:SetScript("OnShow", pfUI.eqcompare.ShowCompare)
+
+  local function startsWith(str, start)
+    return string.sub(str, 1, string.len(start)) == start
+  end
+
+  function pfUI.eqcompare:ExtractAttributes(tooltip)
+    local name = tooltip:GetName()
+    local data = {}
+    for i=1,30 do
+      local widget = _G[name.."TextLeft"..i]
+      if widget and widget:GetObjectType() == "FontString" then
+        local text = widget:GetText()
+        if text and not string.find(text, "-", 1, true) then
+          local start = 1
+          if startsWith(text, "\+") or startsWith(text, "\(") then start = 2 end
+
+          local space = string.find(text, " ", 1, true)
+          if space then
+            local value = tonumber(string.sub(text, start, space-1))
+            if value and text then
+              -- we've found an attr
+              local attr = string.sub(text, space, string.len(text))
+              data[attr] = { value = tonumber(value), widget = widget }
+            end
+          end
+        end
+      end
+    end
+    return data
+  end
+
+  function pfUI.eqcompare:CompareAttributes(data, targetData)
+    if not data then return end
+    for attr,v in pairs(data) do
+      if targetData then
+        local target = targetData[attr]
+        if target then
+          if v.value ~= target.value then
+            if v.value > target.value then
+              v.widget:SetText(v.widget:GetText() .. "|cff88ff88 (+" .. v.value - target.value .. ")")
+            else
+              v.widget:SetText(v.widget:GetText() .. "|cffff8888 (-" .. target.value - v.value .. ")")
+            end
+            target.processed = true
+          else
+            target.processed = true
+          end
+        else
+          -- this attribute doesnt exist in target
+          v.widget:SetTextColor(.4, 1, .4)
+        end
+      end
+    end
+
+    for _,target in pairs(targetData) do
+      if target and not target.processed then
+        -- we are an extra value
+        target.widget:SetTextColor(.4, 1, .4)
+      end
+    end
+  end
+
 end)

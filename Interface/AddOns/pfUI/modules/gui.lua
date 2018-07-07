@@ -114,7 +114,7 @@ pfUI:RegisterModule("gui", function ()
 
           if not this:GetParent():IsShown() then
             category[config] = r .. "," .. g .. "," .. b .. "," .. a
-            pfUI.gui.settingChanged = true
+            if ufunc then ufunc() else pfUI.gui.settingChanged = true end
           end
         end
 
@@ -716,6 +716,7 @@ pfUI:RegisterModule("gui", function ()
     if not this.setup then
       CreateConfig(nil, this, T["Background Color"], C.appearance.border, "background", "color")
       CreateConfig(nil, this, T["Border Color"], C.appearance.border, "color", "color")
+      CreateConfig(update["mapreveal"], this, T["Map Reveal Color"], C.appearance.worldmap, "mapreveal_color", "color")
       CreateConfig(nil, this) -- spacer
       CreateConfig(nil, this, T["Global Border Size"], C.appearance.border, "default")
       CreateConfig(nil, this, T["Action Bar Border Size"], C.appearance.border, "actionbars")
@@ -1108,6 +1109,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Cursor Tooltip Offset"], C.tooltip, "cursoroffset")
       CreateConfig(nil, this, T["Enable Extended Guild Information"], C.tooltip, "extguild", "checkbox")
       CreateConfig(nil, this, T["Custom Transparency"], C.tooltip, "alpha")
+      CreateConfig(nil, this, T["Compare Item Base Stats"], C.tooltip.compare, "basestats", "checkbox")
       CreateConfig(nil, this, T["Always Show Item Comparison"], C.tooltip.compare, "showalways", "checkbox")
       CreateConfig(nil, this, T["Always Show Extended Vendor Values"], C.tooltip.vendor, "showalways", "checkbox")
       this.setup = true
@@ -1236,6 +1238,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["SortBags"], C.thirdparty.sortbags, "enable", "checkbox")
       CreateConfig(nil, this, T["FlightMap"], C.thirdparty.flightmap, "enable", "checkbox")
       CreateConfig(nil, this, T["AtlasLoot"], C.thirdparty.atlasloot, "enable", "checkbox")
+      CreateConfig(nil, this, T["DruidManaBar"], C.thirdparty.druidmana, "enable", "checkbox")
       this.setup = true
     end
   end)
