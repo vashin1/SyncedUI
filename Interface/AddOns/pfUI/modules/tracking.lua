@@ -3,6 +3,13 @@ pfUI:RegisterModule("tracking", function ()
   MiniMapTrackingFrame:UnregisterAllEvents()
   MiniMapTrackingFrame:Hide()
 
+  local function HasEntries(tbl)
+    for _ in pairs(tbl) do
+      return true
+    end
+    return nil
+  end
+
   local config = {
       border = C.appearance.border.default,
       size = tonumber(C.appearance.minimap.tracking_size),
@@ -60,6 +67,10 @@ pfUI:RegisterModule("tracking", function ()
   pfUI.tracking:RegisterEvent("SPELLS_CHANGED")
   pfUI.tracking:RegisterEvent("UPDATE_SHAPESHIFT_FORMS")
   pfUI.tracking:SetScript("OnEvent", function()
+    if event == "SPELLS_CHANGED" then
+      state.spells = {}
+    end
+
     this:RefreshSpells()
     local texture = GetTrackingTexture()
     if texture and texture ~= state.texture then
@@ -71,7 +82,7 @@ pfUI:RegisterModule("tracking", function ()
     elseif not texture then
       state.texture = nil
 
-      if config.pulse and table.getn(state.spells) > 0 then
+      if config.pulse and HasEntries(state.spells) then
         this.pulse = true
         this.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
         this.icon:SetVertexColor(1,1,1,1)
@@ -126,27 +137,40 @@ pfUI:RegisterModule("tracking", function ()
     local _, playerClass = UnitClass("player")
     local isCatForm = pfUI.tracking:PlayerIsDruidInCatForm(playerClass)
 
-    state.spells = {}
     for tabIndex = 1, GetNumSpellTabs() do
       local _, _, offset, numSpells = GetSpellTabInfo(tabIndex)
       for spellIndex = offset + 1, offset + numSpells do
         local spellTexture = GetSpellTexture(spellIndex, BOOKTYPE_SPELL)
-        for _, c in pairs({"any", playerClass}) do
-          for _, t in pairs(knownTrackingSpellTextures[c] or {}) do
-            if c == "DRUID" and not isCatForm then
-              break
-            end
-            if strfind(spellTexture, t) then
-              table.insert(state.spells, {
-                index = spellIndex,
-                name = GetSpellName(spellIndex, BOOKTYPE_SPELL),
-                texture = spellTexture
-              })
-              break
+
+        -- scan for generic tracking icons
+        for _, texture in pairs(knownTrackingSpellTextures["any"]) do
+          if strfind(spellTexture, texture) and not state.spells[texture] then
+            state.spells[texture] = {
+              index = spellIndex,
+              name = GetSpellName(spellIndex, BOOKTYPE_SPELL),
+              texture = spellTexture
+            }
+          end
+        end
+
+        -- scan class specific tracking icons
+        if knownTrackingSpellTextures[playerClass] then
+          for _, texture in pairs(knownTrackingSpellTextures[playerClass]) do
+            if strfind(spellTexture, texture) and not state.spells[texture] then
+                state.spells[texture] = {
+                  index = spellIndex,
+                  name = GetSpellName(spellIndex, BOOKTYPE_SPELL),
+                  texture = spellTexture
+                }
             end
           end
         end
       end
+    end
+
+    -- remove humanoid tracking for non-cat druids
+    if playerClass == "DRUID" and not isCatForm then
+      state.spells["Ability_Tracking"] = nil
     end
   end
 
