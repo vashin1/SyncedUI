@@ -27,6 +27,7 @@ This is **not** an addon-pack like [ShaguUI](http://shagu.org/ShaguUI/), however
     /gm           Open the ticket Dialog
     /rl           Reload the whole UI
     /farm         Toggles the Farm-Mode
+    /pfcast       Same as /cast but for mouseover units
     /focus        Creates a Focus-Frame for the current target
     /clearfocus   Clears the Focus-Frame
 
@@ -50,11 +51,6 @@ pfUI supports and contains language specific code for the following gameclients.
 * [pfUI-eliteoverlay](https://shagu.org/pfUI-eliteoverlay) Add elite dragons to unitframes
 * [pfUI-fonts](https://shagu.org/pfUI-fonts) Additional fonts for pfUI
 * [pfUI-CustomMedia](https://github.com/mrrosh/pfUI-CustomMedia) A font and texture package
-
-## Other Addons
-* [DPSMate](https://github.com/Geigerkind/DPSMate) An advanced combat analyzation tool
-* [Clique](https://gitlab.com/shagu/Clique) Simply powerful click-casting interface
-* [SortBags](https://github.com/shirsig/SortBags) Automatically stacks and sorts your items.
 
 ## FAQ
 **What does "pfUI" stand for?**  

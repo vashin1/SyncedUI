@@ -358,6 +358,8 @@ end
 -- return:      [string]        a colorized string which is split into
 --                              gold,silver and copper values.
 function pfUI.api.CreateGoldString(money)
+  if type(money) ~= "number" then return "-" end
+
   local gold = floor(money/ 100 / 100)
   local silver = floor(mod((money/100),100))
   local copper = floor(mod(money,100))
@@ -632,7 +634,7 @@ end
 -- 'f'          [frame]         the frame which should get a backdrop.
 -- 'inset'      [int]           backdrop inset, defaults to border size.
 -- 'legacy'     [bool]          use legacy backdrop instead of creating frames.
--- 'transp'     [bool]          force default transparency of 0.8.
+-- 'transp'     [number]        set default transparency
 function pfUI.api.CreateBackdrop(f, inset, legacy, transp, backdropSetting)
   -- exit if now frame was given
   if not f then return end

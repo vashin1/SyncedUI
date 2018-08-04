@@ -2,7 +2,7 @@
 ## Title: |cff33ffccpf|cffffffffUI
 ## Author: Shagu
 ## Notes: A complete user interface replacement.
-## Version: 3.11.0
+## Version: 3.12.0
 ## SavedVariables: pfUI_profiles, pfUI_gold, pfUI_addon_profiles
 ## SavedVariablesPerCharacter: pfUI_config, pfUI_init, pfUI_playerDB
 
@@ -34,12 +34,13 @@ env\profiles.lua
 
 # api
 api\api.lua
-api\spell.lua
 api\config.lua
 api\ui-widgets.lua
 api\unitframes.lua
 
 # libs
+libs\libtipscan.lua
+libs\libspell.lua
 libs\libcast.lua
 libs\libdebuff.lua
 libs\librange.lua
@@ -101,3 +102,4 @@ modules\easteregg.lua
 modules\farmmode.lua
 modules\pettarget.lua
 modules\mapreveal.lua
+modules\unusable.lua
