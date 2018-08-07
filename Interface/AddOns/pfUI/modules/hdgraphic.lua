@@ -24,9 +24,6 @@ pfUI:RegisterModule("hdgraphic", function ()
         SetCVar("useUiScale", 1)
 
         UIParent:SetScale(scale)
-        UIParent:SetWidth(screenwidth)
-        UIParent:SetHeight(screenheight)
-        UIParent:SetPoint("CENTER",0,0)
       end
     end
   end
@@ -108,6 +105,7 @@ pfUI:RegisterModule("hdgraphic", function ()
     local f = CreateFrame("Frame")
     f:RegisterEvent("PLAYER_ENTERING_WORLD")
     f:SetScript("OnEvent", pixelperfect)
+    pixelperfect()
   end
 
   pfUI.hdgraphic = {}
