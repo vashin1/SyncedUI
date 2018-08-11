@@ -1,4 +1,4 @@
-**SyncedUI is a compilation created using [pfUI](https://github.com/shagu/pfUI) to form a complete and fully fuctional interface for 1.12 WoW clients.**  
+**SyncedUI is a compilation created using pfUI to form a complete and fully fuctional interface for 1.12 WoW clients.**  
 Special thanks to Shagu, Shino, Aviana, Athene and Shirsig.
 
 **Note:** This release is for **1080p** users only. The **1440p** release of SyncedUI can be found [here](https://github.com/vashin1/SyncedUI-1440p-).  
@@ -29,7 +29,6 @@ Special thanks to Shagu, Shino, Aviana, Athene and Shirsig.
 * [Decursive](https://github.com/Zerf/Decursive) Dispel & decurse automation.  
 * [Cartographer](https://github.com/Road-block/Cartographer) Cartographer is a modular, lightweight, and efficient framework for manipulation of the world map with mining/herb support.  
 * [Atlas](https://github.com/Cabro/Atlas/) The best version of Atlas, Atlas Loot, and Atlas Quest your going to find for the 1.12 client.  
-* [pfQuest](https://github.com/shagu/pfQuest/releases) Quest helper for Vanilla. 
 * [BigWigs-Kronos](https://github.com/Vnm-Kronos/BigWigs) Boss timers for use on the Kronos server.  
 * [BigWigs-Elysium](https://github.com/Hosq/BigWigs) Boss timers for use on the Elysium server.   
 
@@ -51,9 +50,6 @@ Special thanks to Shagu, Shino, Aviana, Athene and Shirsig.
 	/msbt       Configure scrolling battle text  
 
 ## FAQ
-
-**Can I use Clique with pfUI?**  
-A pfUI compatible version of Clique can be found [Here](https://github.com/shagu/Clique/releases). If you want to keep your current version of Clique, you'll have to apply this [Patch](https://github.com/shagu/Clique/commit/a5ee56c3f803afbdda07bae9cd330e0d4a75d75a).
 
 **How can I enable mouseover cast?**  
 Create a macro with "/pfcast SPELLNAME". If you also want to see the cooldown, You might want to add "/run if nil then CastSpellByName("SPELLNAME") end" on top of the macro.
