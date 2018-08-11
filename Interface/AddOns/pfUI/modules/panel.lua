@@ -164,7 +164,7 @@ pfUI:RegisterModule("panel", function()
     do -- XP & Kills To Level
       local widget = CreateFrame("Frame", "pfPanelWidgetXP", UIParent)
       widget:RegisterEvent("PLAYER_ENTERING_WORLD")
-      widget:RegisterEvent("PLAYER_MONEY")
+      widget:RegisterEvent("PLAYER_XP_UPDATE")
       widget:SetScript("OnEvent", function()
         if UnitLevel("player") ~= 60 then
           curexp = UnitXP("player")
@@ -314,11 +314,17 @@ pfUI:RegisterModule("panel", function()
       widget:RegisterEvent("PLAYER_REGEN_ENABLED")
       widget:RegisterEvent("PLAYER_DEAD")
       widget:RegisterEvent("PLAYER_UNGHOST")
-      widget:RegisterEvent("UPDATE_INVENTORY_ALERTS")
+      widget:RegisterEvent("UNIT_INVENTORY_CHANGED")
+
+      -- The following event is disabled as most servers flood this event
+      -- even on other peoples durability changes. Therefore the event
+      -- would run about 50 times per minute (depending on the population)
+      -- while being in AFK in a capital city. We hopefully might be able
+      -- to bring that back, once the most popular servers accept the fix.
+      -- widget:RegisterEvent("UPDATE_INVENTORY_ALERTS")
 
       widget.itemLines = {}
-      widget.slotnames = { "Head", "Shoulder", "Chest", "Wrist",
-        "Hands", "Waist", "Legs", "Feet", "MainHand", "SecondaryHand", "Ranged", }
+      widget.durability_slots = { 1, 3, 5, 6, 7, 8, 9, 10, 16, 17, 18 }
       widget.totalRep = 0
       widget.scantip = libtipscan:GetScanner("panel")
       widget.duracapture = string.gsub(DURABILITY_TEMPLATE, "%%[^%s]+", "(.+)")
@@ -336,12 +342,13 @@ pfUI:RegisterModule("panel", function()
         end
       end
       widget:SetScript("OnEvent", function()
+        if event == "UNIT_INVENTORY_CHANGED" and arg1 ~= "player" then return end
+
         local repPercent = 100
         local lowestPercent = 100
         widget.totalRep = 0
         wipe(widget.itemLines)
-        for i,slotName in pairs(widget.slotnames) do
-          local id, _ = GetInventorySlotInfo(slotName.. "Slot")
+        for _, id in pairs(widget.durability_slots) do
           local hasItem, _, repCost = widget.scantip:SetInventoryItem("player", id)
           if (hasItem) then
             widget.totalRep = widget.totalRep + repCost
