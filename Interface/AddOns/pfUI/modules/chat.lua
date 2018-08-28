@@ -23,6 +23,10 @@ pfUI:RegisterModule("chat", function ()
   pfUI.chat = CreateFrame("Frame",nil,UIParent)
 
   pfUI.chat.left = CreateFrame("Frame", "pfChatLeft", UIParent)
+  pfUI.chat.left.OnMove = function()
+    pfUI.chat:RefreshChat()
+  end
+
   pfUI.chat.left:SetFrameStrata("BACKGROUND")
   pfUI.chat.left:SetWidth(C.chat.left.width)
   pfUI.chat.left:SetHeight(C.chat.left.height)
@@ -337,6 +341,26 @@ pfUI:RegisterModule("chat", function ()
   pfUI.chat:RegisterEvent("WHO_LIST_UPDATE")
   pfUI.chat:RegisterEvent("CHAT_MSG_SYSTEM")
 
+  local function ChatOnMouseWheel()
+    if (arg1 > 0) then
+      if IsShiftKeyDown() then
+        this:ScrollToTop()
+      else
+        for i=1, C.chat.global.scrollspeed do
+          this:ScrollUp()
+        end
+      end
+    elseif (arg1 < 0) then
+      if IsShiftKeyDown() then
+        this:ScrollToBottom()
+      else
+        for i=1, C.chat.global.scrollspeed do
+          this:ScrollDown()
+        end
+      end
+    end
+  end
+
   function pfUI.chat:RefreshChat()
     local panelheight = C.global.font_size+default_border*5
 
@@ -394,11 +418,12 @@ pfUI:RegisterModule("chat", function ()
         -- Combat Log
         FCF_UnDockFrame(frame)
         FCF_Close(frame)
-      elseif i == 1 or frame.isDocked then
+      elseif frame.isDocked then
         -- Left Chat
         FCF_DockFrame(frame)
         tab:SetParent(pfUI.chat.left.panelTop)
         frame:SetParent(pfUI.chat.left)
+        frame:ClearAllPoints()
         frame:SetPoint("TOPLEFT", pfUI.chat.left ,"TOPLEFT", default_border, -panelheight)
         frame:SetPoint("BOTTOMRIGHT", pfUI.chat.left ,"BOTTOMRIGHT", -default_border, panelheight)
       else
@@ -436,25 +461,12 @@ pfUI:RegisterModule("chat", function ()
       end
 
       frame:EnableMouseWheel(true)
-      frame:SetScript("OnMouseWheel", function()
-        if (arg1 > 0) then
-          if IsShiftKeyDown() then
-            frame:ScrollToTop()
-          else
-            for i=1, C.chat.global.scrollspeed do
-              frame:ScrollUp()
-            end
-          end
-        elseif (arg1 < 0) then
-          if IsShiftKeyDown() then
-            frame:ScrollToBottom()
-          else
-            for i=1, C.chat.global.scrollspeed do
-              frame:ScrollDown()
-            end
-          end
-        end
-      end)
+      frame:SetScript("OnMouseWheel", ChatOnMouseWheel)
+    end
+
+    -- update dock frame for all windows
+    for index, value in DOCKED_CHAT_FRAMES do
+      FCF_UpdateButtonSide(value)
     end
   end
 

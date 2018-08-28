@@ -323,6 +323,24 @@ function pfUI.api.HookScript(f, script, func)
   end)
 end
 
+-- [ HookAddonOrVariable ]
+-- Sets a function to be called automatically once an addon gets loaded
+-- 'addon'      [string]            addon or variable name
+-- 'func'       [function]          function that should run
+function pfUI.api.HookAddonOrVariable(addon, func)
+  local lurker = CreateFrame("Frame", nil)
+  lurker.func = func
+  lurker:RegisterEvent("ADDON_LOADED")
+  lurker:RegisterEvent("VARIABLES_LOADED")
+  lurker:RegisterEvent("PLAYER_ENTERING_WORLD")
+  lurker:SetScript("OnEvent",function()
+    if IsAddOnLoaded(addon) or _G[addon] then
+      this:func()
+      this:UnregisterAllEvents()
+    end
+  end)
+end
+
 -- [ QueueFunction ]
 -- Add functions to a FIFO queue for execution after a short delay.
 -- '...'        [vararg]        function, [arguments]
@@ -579,6 +597,8 @@ function pfUI.api.SetAutoPoint(frame, parent, spacing)
   local d = GetScreenHeight() / 3
 
   local x, y = parent:GetCenter()
+
+  if not x or not y then return end
 
   local off = spacing or 0
 

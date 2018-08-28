@@ -1,118 +1,40 @@
 pfUI:RegisterModule("hdgraphic", function ()
-  -- pixel perfect
-  local function pixelperfect()
-    local conf = tonumber(C.global.pixelperfect)
-    if conf < 4 then
-      -- restore gamesettings
-      local scale = GetCVar("uiScale")
-      local use = GetCVar("useUiScale")
+  -- inject video settings to provide advanced slider values
+  _G.OptionsFrameSliders[3].maxValue = 15
+  local HookSetWorldDetail = SetWorldDetail
+  function _G.SetWorldDetail(arg)
+    HookSetWorldDetail((arg > 2 and 2 or arg))
 
-      if use == 1 then
-        UIParent:SetScale(tonumber(use))
-      else
-        UIParent:SetScale(.9)
-      end
-    else
-      -- apply pixel dependent scaling
-      local resolution = GetCVar("gxResolution")
+    if arg > 2 then
+      ConsoleExec("frillDensity " .. (arg+1)*16)
+      ConsoleExec("lodDist " .. 100+arg*10)
+      ConsoleExec("nearClip " .. arg*2/100)
+      ConsoleExec("maxLOD " .. arg)
+      ConsoleExec("footstepBias " .. arg/15)
+      ConsoleExec("DistCull " .. 500+arg*25.92)
 
-      for screenwidth, screenheight in string.gfind(resolution, "(.+)x(.+)") do
-        local screenheight = tonumber(screenheight) / 8
-        local scale = 768 / ( screenheight * conf )
-
-        SetCVar("uiScale", scale)
-        SetCVar("useUiScale", 1)
-
-        UIParent:SetScale(scale)
-      end
-    end
-  end
-
-  -- best graphic
-  local function bestgraphic()
-    if C.global.hdgraphic == "1" then
-      ConsoleExec("anisotropic 16")
-      ConsoleExec("detailDoodadAlpha 100")
-      ConsoleExec("farclip 777")
-      ConsoleExec("frillDensity 256")
-      ConsoleExec("gxColorBits 24")
-      ConsoleExec("gxDepthBits 24")
-      ConsoleExec("gxMultisample 8")
-      ConsoleExec("gxMultisampleQuality 1.000000")
-      ConsoleExec("fullAlpha 1")
-      ConsoleExec("lod 0")
-      ConsoleExec("M2Faster 3")
-      ConsoleExec("Gamma 0.8")
-      ConsoleExec("lodDist 250")
-      ConsoleExec("mapObjLightLOD 2")
-      ConsoleExec("maxLOD 3")
-      ConsoleExec("nearClip 0.33")
-      ConsoleExec("particleDensity 1")
-      ConsoleExec("pixelShaders 1")
-      ConsoleExec("shadowLevel 0")
-      ConsoleExec("SmallCull 0.01")
-      ConsoleExec("trilinear 1")
+      -- static triggers
       ConsoleExec("SkyCloudLOD 1")
-      ConsoleExec("SkySunGlare 1")
-      ConsoleExec("specular 1")
-      ConsoleExec("textureLodDist 777")
+      ConsoleExec("mapObjLightLOD 2")
       ConsoleExec("texLodBias -1")
-      ConsoleExec("trilinear 1")
-      ConsoleExec("unitDrawDist 300")
-      ConsoleExec("weatherDensity 3")
-      ConsoleExec("waterParticulates 1")
-      ConsoleExec("waterRipples 1")
-      ConsoleExec("waterSpecular 1")
-      ConsoleExec("waterWaves 1")
-      ConsoleExec("ffxDeath 1")
-      ConsoleExec("ffx 1")
-      ConsoleExec("ffxRectangle 1")
-      ConsoleExec("ffxGlow 1")
-      ConsoleExec("spellEffectLevel 2")
-      ConsoleExec("occlusion 1")
+    else
+      -- defaults
+      ConsoleExec("frillDensity 24")
+      ConsoleExec("lodDist 100")
+      ConsoleExec("nearClip 0.1")
+      ConsoleExec("maxLOD 0")
       ConsoleExec("footstepBias 0.125")
-      ConsoleExec("showfootprints 1")
-      ConsoleExec("horizonfarclip 2112")
-      ConsoleExec("baseMip 0")
-      ConsoleExec("waterLOD 0")
-      ConsoleExec("mapObjOverbright 1")
-      ConsoleExec("MaxLights 4")
-      ConsoleExec("DistCull 888")
-      ConsoleExec("mapShadows 1")
-      ConsoleExec("doodadAnim 1")
-      ConsoleExec("showShadow 1")
-      ConsoleExec("showLowDetail 0")
-      ConsoleExec("showSimpleDoodads 0")
-      ConsoleExec("gxTripleBuffer 1")
-      ConsoleExec("M2UsePixelShaders 1")
-      ConsoleExec("M2UseZFill 1")
-      ConsoleExec("M2UseClipPlanes 1")
-      ConsoleExec("M2UseThreads 1")
-      ConsoleExec("M2UseShaders 1")
-      ConsoleExec("M2BatchDoodads 1")
-      ConsoleExec("bspcache 1")
-      local cur, max = GetCurrentResolution(), table.getn({GetScreenResolutions()})
-      if cur ~= max then
-        SetScreenResolution(max)
-        ConsoleExec("gxrestart")
-        ReloadUI()
-      end
+      ConsoleExec("DistCull 500")
+
+      ConsoleExec("SkyCloudLOD 0")
+      ConsoleExec("mapObjLightLOD 0")
+      ConsoleExec("texLodBias 0")
     end
   end
 
-  -- pixelperfect: native UIScale listener
-  if tonumber(C.global.pixelperfect) > 0 then
-    local f = CreateFrame("Frame")
-    f:RegisterEvent("PLAYER_ENTERING_WORLD")
-    f:SetScript("OnEvent", pixelperfect)
-    pixelperfect()
+  local HookGetWorldDetail = GetWorldDetail
+  function _G.GetWorldDetail(arg)
+    local frill = tonumber(GetCVar("frillDensity"))
+    return frill > 48 and frill/16-1 or HookGetWorldDetail()
   end
-
-  pfUI.hdgraphic = {}
-  function pfUI.hdgraphic:UpdateConfig()
-    bestgraphic()
-    pixelperfect()
-  end
-
-  pfUI.hdgraphic:UpdateConfig()
 end)
