@@ -785,8 +785,8 @@ pfUI:RegisterModule("chat", function ()
   wcol = string.format("%02x%02x%02x",cr * 255,cg * 255, cb * 255)
 
   -- read and parse chat bracket settings
-  local left = string.sub(C.chat.text.bracket, 1, 1)
-  local right = string.sub(C.chat.text.bracket, 2, 2)
+  local left = "|r" .. string.sub(C.chat.text.bracket, 1, 1)
+  local right = string.sub(C.chat.text.bracket, 2, 2) .. "|r"
 
   -- read and parse chat time bracket settings
   local tleft = string.sub(C.chat.text.timebracket, 1, 1)
@@ -814,6 +814,9 @@ pfUI:RegisterModule("chat", function ()
   local r,g,b,a = strsplit(",", C.chat.text.timecolor)
   local timecolorhex = string.format("%02x%02x%02x%02x", a*255, r*255, g*255, b*255)
 
+  local r,g,b = strsplit(",", C.chat.text.unknowncolor)
+  local unknowncolorhex = string.format("%02x%02x%02x", r*255, g*255, b*255)
+
   for i=1,NUM_CHAT_WINDOWS do
     if not _G["ChatFrame"..i].HookAddMessage then
       _G["ChatFrame"..i].HookAddMessage = _G["ChatFrame"..i].AddMessage
@@ -839,18 +842,27 @@ pfUI:RegisterModule("chat", function ()
 
           -- display class colors if already indexed
           if C.chat.text.classcolor == "1" then
-            local Name = string.gsub(text, ".*|Hplayer:(.-)|h.*", "%1")
-            if pfUI_playerDB[Name] and pfUI_playerDB[Name].class ~= nil then
-              local Class = pfUI_playerDB[Name].class
-              if Class ~= UNKNOWN then
-                local Color = string.format("%02x%02x%02x",
-                  RAID_CLASS_COLORS[Class].r * 255,
-                  RAID_CLASS_COLORS[Class].g * 255,
-                  RAID_CLASS_COLORS[Class].b * 255)
-                Name = "|cff" .. Color .. Name .. "|r"
+
+            for name in string.gfind(text, "|Hplayer:(.-)|h") do
+              local color = unknowncolorhex
+              local match = false
+              -- search player in database
+              if pfUI_playerDB[name] and pfUI_playerDB[name].class ~= nil then
+                local class = pfUI_playerDB[name].class
+                if class ~= UNKNOWN then
+                  color = string.format("%02x%02x%02x",
+                    RAID_CLASS_COLORS[class].r * 255,
+                    RAID_CLASS_COLORS[class].g * 255,
+                    RAID_CLASS_COLORS[class].b * 255)
+                  match = true
+                end
+              end
+
+              if C.chat.text.tintunknown == "1" or match then
+                text = string.gsub(text, "|Hplayer:"..name.."|h%["..name.."%]|h(.-:-)",
+                    left.."|cff"..color.."|Hplayer:"..name.."|h" .. name .. "|h|r"..right.."%1")
               end
             end
-            text = string.gsub(text, "|Hplayer:(.-)|h%[.-%]|h(.-:-)", "|r" .. left .. "|Hplayer:%1|h" .. Name .. "|h|r" .. right .. "%2")
           end
 
           -- reduce channel name to number
@@ -879,5 +891,22 @@ pfUI:RegisterModule("chat", function ()
         end
       end
     end
+  end
+
+  -- create playerlinks on shift-click
+  local pfHookSetItemRef = SetItemRef
+  _G.SetItemRef = function(link, text, button)
+    if ( strsub(link, 1, 6) == "player" ) then
+      local name = strsub(link, 8)
+      if ( name and (strlen(name) > 0) ) then
+        name = gsub(name, "([^%s]*)%s+([^%s]*)%s+([^%s]*)", "%3");
+        name = gsub(name, "([^%s]*)%s+([^%s]*)", "%2");
+        if IsShiftKeyDown() and ChatFrameEditBox:IsVisible() then
+          ChatFrameEditBox:Insert("|cffffffff|Hplayer:"..name.."|h["..name.."]|h|r")
+          return
+        end
+      end
+    end
+    pfHookSetItemRef(link, text, button)
   end
 end)

@@ -29,6 +29,7 @@ This is **not** an addon-pack like [ShaguUI](http://shagu.org/ShaguUI/), however
     /farm         Toggles the Farm-Mode
     /pfcast       Same as /cast but for mouseover units
     /focus        Creates a Focus-Frame for the current target
+    /castfocus    Same as /cast but for focus frame
     /clearfocus   Clears the Focus-Frame
 
 ## Languages
@@ -76,9 +77,6 @@ Please make sure to have the latest version installed and check for conflicting 
 
 **Can I use Clique with pfUI?**  
 A pfUI compatible version of Clique can be found [Here](https://gitlab.com/shagu/Clique/releases). If you want to keep your current version of Clique, you'll have to apply this [Patch](https://gitlab.com/shagu/Clique/commit/a5ee56c3f803afbdda07bae9cd330e0d4a75d75a).
-
-**Why do I see player names instead of linked items?**  
-That's a conflict with prat. You'll have to either disable Prat's class colors by typing `/prat playernames toggle` or disable pfUI's class colors within the settings dialog. The entry can found in the chat section: `Enable Class Colors`.
 
 **How do I show the Damage- and Threatmeter Dock?**  
 If you enabled the "dock"-feature for your external (third-party) meters such as DPSMate or KTM, then you'll be able to toggle between them and the Right Chat by clicking on the ">" symbol on the bottom-right panel.
