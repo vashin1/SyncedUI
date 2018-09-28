@@ -20,6 +20,21 @@ pfUI:RegisterModule("chat", function ()
 
   _G.CHAT_FONT_HEIGHTS = { 8, 10, 12, 14, 16, 18, 20 }
 
+
+  -- add dropdown menu button to ignore player
+  UnitPopupButtons["IGNORE_PLAYER"] = { text = IGNORE_PLAYER, dist = 0 }
+  for index,value in ipairs(UnitPopupMenus["FRIEND"]) do
+    if value == "GUILD_LEAVE" then
+      table.insert(UnitPopupMenus["FRIEND"], index+1, "IGNORE_PLAYER")
+    end
+  end
+
+  hooksecurefunc("UnitPopup_OnClick", function(self)
+    if this.value == "IGNORE_PLAYER" then
+      AddIgnore(_G[UIDROPDOWNMENU_INIT_MENU].name)
+    end
+  end)
+
   pfUI.chat = CreateFrame("Frame",nil,UIParent)
 
   pfUI.chat.left = CreateFrame("Frame", "pfChatLeft", UIParent)
@@ -894,19 +909,21 @@ pfUI:RegisterModule("chat", function ()
   end
 
   -- create playerlinks on shift-click
-  local pfHookSetItemRef = SetItemRef
-  _G.SetItemRef = function(link, text, button)
-    if ( strsub(link, 1, 6) == "player" ) then
-      local name = strsub(link, 8)
-      if ( name and (strlen(name) > 0) ) then
-        name = gsub(name, "([^%s]*)%s+([^%s]*)%s+([^%s]*)", "%3");
-        name = gsub(name, "([^%s]*)%s+([^%s]*)", "%2");
-        if IsShiftKeyDown() and ChatFrameEditBox:IsVisible() then
-          ChatFrameEditBox:Insert("|cffffffff|Hplayer:"..name.."|h["..name.."]|h|r")
-          return
+  if C.chat.text.playerlinks == "1" then
+    local pfHookSetItemRef = SetItemRef
+    _G.SetItemRef = function(link, text, button)
+      if ( strsub(link, 1, 6) == "player" ) then
+        local name = strsub(link, 8)
+        if ( name and (strlen(name) > 0) ) then
+          name = gsub(name, "([^%s]*)%s+([^%s]*)%s+([^%s]*)", "%3");
+          name = gsub(name, "([^%s]*)%s+([^%s]*)", "%2");
+          if IsShiftKeyDown() and ChatFrameEditBox:IsVisible() then
+            ChatFrameEditBox:Insert("|cffffffff|Hplayer:"..name.."|h["..name.."]|h|r")
+            return
+          end
         end
       end
+      pfHookSetItemRef(link, text, button)
     end
-    pfHookSetItemRef(link, text, button)
   end
 end)
