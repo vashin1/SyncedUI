@@ -25,6 +25,9 @@ setfenv(1, pfUI:GetEnvironment())
 --  <scanner>:List()
 --    prints a list of all available scanner methods
 
+-- return instantly when another libtipscan is already active
+if pfUI.api.libtipscan then return end
+
 local libtipscan = {}
 local baseName = "pfUIScan"
 local methods = {
@@ -122,9 +125,9 @@ end
 
 libtipscan._registry = setmetatable({},{__index = function(t,k)
   local v = CreateFrame("GameTooltip", string.format("%s%s",baseName,k), nil, "GameTooltipTemplate")
-  v:SetOwner(v,"ANCHOR_NONE")
+  v:SetOwner(UIParent,"ANCHOR_NONE")
   v:SetScript("OnHide", function ()
-    this:SetOwner(this,"ANCHOR_NONE")
+    this:SetOwner(UIParent,"ANCHOR_NONE")
   end)
   function v:Text()
     return getText(self)

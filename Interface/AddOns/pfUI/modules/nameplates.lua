@@ -399,6 +399,12 @@ pfUI:RegisterModule("nameplates", function ()
       end
     end
 
+    -- disable click events while spell is targeting
+    local mouseEnabled = this.nameplate:IsMouseEnabled()
+    if C.nameplates["clickthrough"] == "0" and C.nameplates["legacy"] == "0" and SpellIsTargeting() == mouseEnabled then
+      this.nameplate:EnableMouse(not mouseEnabled)
+    end
+
     -- level elite indicator
     if this.needEliteUpdate and pfUI.nameplates.mobs[unitname] then
       if level:GetText() ~= nil then
@@ -627,12 +633,15 @@ pfUI:RegisterModule("nameplates", function ()
           this.debuffs[j].icon:SetTexture(icon)
           this.debuffs[j].icon:SetTexCoord(.078, .92, .079, .937)
 
-          if libdebuff and name then
+          if icon then
             this.debuffs[j].cd = this.debuffs[j].cd or CreateFrame("Model", nil, this.debuffs[j], "CooldownFrameTemplate")
             this.debuffs[j].cd.pfCooldownType = "ALL"
-            local start, duration, timeleft = libdebuff:GetDebuffInfo("target", name)
-            this.debuffs[j].cd:SetAlpha(0)
-            CooldownFrame_SetTimer(this.debuffs[j].cd, start, duration, 1)
+
+            local name, rank, texture, stacks, dtype, duration, timeleft = libdebuff:UnitDebuff("target", j)
+            if duration and timeleft then
+              this.debuffs[j].cd:SetAlpha(0)
+              CooldownFrame_SetTimer(this.debuffs[j].cd, GetTime() + timeleft - duration, duration, 1)
+            end
           end
 
           k = k + 1
@@ -665,9 +674,8 @@ pfUI:RegisterModule("nameplates", function ()
       pfUI.nameplates.debuffs = {}
       for i = 1, 16 do
         if not UnitDebuff("target", i) then return end
-        local debuff = UnitDebuff("target", i)
-        local effect = (libdebuff and libdebuff:GetDebuffName("target", i)) or ""
-        pfUI.nameplates.debuffs[i] = { debuff, effect }
+        local name, _, texture = libdebuff:UnitDebuff("target", i)
+        pfUI.nameplates.debuffs[i] = { texture, name }
       end
     end
   end)

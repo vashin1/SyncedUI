@@ -47,6 +47,9 @@ pfUI.version = {}
 pfUI.hooks = {}
 pfUI.env = {}
 
+local _, _, _, client = GetBuildInfo()
+pfUI.client = client or 11200
+
 -- setup pfUI namespace
 setmetatable(pfUI.env, {__index = getfenv(0)})
 
@@ -166,6 +169,7 @@ function pfUI:GetEnvironment()
 end
 
 function pfUI:RegisterModule(n, f)
+  if pfUI.module[n] then return end
   pfUI.module[n] = f
   table.insert(pfUI.modules, n)
   if not pfUI.bootup then
@@ -174,6 +178,7 @@ function pfUI:RegisterModule(n, f)
 end
 
 function pfUI:RegisterSkin(n, f)
+  if pfUI.skin[n] then return end
   pfUI.skin[n] = f
   table.insert(pfUI.skins, n)
   if not pfUI.bootup then

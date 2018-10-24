@@ -177,8 +177,8 @@ function pfUI.uf:UpdateConfig()
     if f.portrait.backdrop then f.portrait.backdrop:Hide() end
 
     -- place portrait below fonts
-    f.portrait:SetFrameStrata("LOW")
-    f.portrait.model:SetFrameStrata("LOW")
+    f.portrait:SetFrameStrata("BACKGROUND")
+    f.portrait.model:SetFrameStrata("BACKGROUND")
     f.portrait.model:SetFrameLevel(3)
 
     f.portrait:Show()
@@ -376,9 +376,8 @@ function pfUI.uf:UpdateConfig()
       f.buffs[i].stacks:SetShadowColor(0, 0, 0)
       f.buffs[i].stacks:SetShadowOffset(0.8, -0.8)
       f.buffs[i].stacks:SetTextColor(1,1,.5)
-      f.buffs[i].cd = f.buffs[i].cd or CreateFrame("Model", nil, f.buffs[i], "CooldownFrameTemplate")
+      f.buffs[i].cd = f.buffs[i].cd or CreateFrame("Model", nil, f.buffs[i])
       f.buffs[i].cd.pfCooldownType = "ALL"
-      f.buffs[i].cd:SetAlpha(0)
 
       f.buffs[i]:RegisterForClicks("RightButtonUp")
       f.buffs[i]:ClearAllPoints()
@@ -403,6 +402,7 @@ function pfUI.uf:UpdateConfig()
 
       if f:GetName() == "pfPlayer" then
         f.buffs[i]:SetScript("OnUpdate", function()
+          if ( this.tick or 1) > GetTime() then return else this.tick = GetTime() + .4 end
           local timeleft = GetPlayerBuffTimeLeft(GetPlayerBuff(this:GetID()-1,"HELPFUL"))
           CooldownFrame_SetTimer(this.cd, GetTime(), timeleft, 1)
         end)
@@ -493,15 +493,23 @@ function pfUI.uf:UpdateConfig()
       f.debuffs[i].stacks:SetShadowColor(0, 0, 0)
       f.debuffs[i].stacks:SetShadowOffset(0.8, -0.8)
       f.debuffs[i].stacks:SetTextColor(1,1,.5)
-      f.debuffs[i].cd = f.debuffs[i].cd or CreateFrame("Model", nil, f.debuffs[i], "CooldownFrameTemplate")
+      f.debuffs[i].cd = f.debuffs[i].cd or CreateFrame("Model", nil, f.debuffs[i])
       f.debuffs[i].cd.pfCooldownType = "ALL"
-      f.debuffs[i].cd:SetAlpha(0)
 
       f.debuffs[i]:RegisterForClicks("RightButtonUp")
       f.debuffs[i]:ClearAllPoints()
       f.debuffs[i]:SetWidth(f.config.debuffsize)
       f.debuffs[i]:SetHeight(f.config.debuffsize)
       f.debuffs[i]:SetNormalTexture(nil)
+
+      if f:GetName() == "pfPlayer" then
+        f.debuffs[i]:SetScript("OnUpdate", function()
+          if ( this.tick or 1) > GetTime() then return else this.tick = GetTime() + .4 end
+          local timeleft = GetPlayerBuffTimeLeft(GetPlayerBuff(this:GetID()-1,"HARMFUL"))
+          CooldownFrame_SetTimer(this.cd, GetTime(), timeleft, 1)
+        end)
+      end
+
       f.debuffs[i]:SetScript("OnEnter", function()
         if not this:GetParent().label then return end
         GameTooltip:SetOwner(this, "ANCHOR_BOTTOMRIGHT")
@@ -1138,9 +1146,10 @@ function pfUI.uf:RefreshUnit(unit, component)
           local timeleft = GetPlayerBuffTimeLeft(GetPlayerBuff(unit.debuffs[i]:GetID() - 1, "HARMFUL"),"HARMFUL")
           CooldownFrame_SetTimer(unit.debuffs[i].cd, GetTime(), timeleft, 1)
         elseif libdebuff then
-          local effect = libdebuff:GetDebuffName(unitstr, unit.debuffs[i]:GetID())
-          local start, duration, timeleft = libdebuff:GetDebuffInfo(unitstr, effect)
-          CooldownFrame_SetTimer(unit.debuffs[i].cd, start, duration, 1)
+          local name, rank, texture, stacks, dtype, duration, timeleft = libdebuff:UnitDebuff(unitstr, i)
+          if duration and timeleft then
+            CooldownFrame_SetTimer(unit.debuffs[i].cd, GetTime() + timeleft - duration, duration, 1)
+          end
         end
 
         if stacks > 1 then
@@ -1892,20 +1901,11 @@ function pfUI.uf.GetColor(self, preset)
     b = UnitReactionColor[UnitReaction(unitstr, "player")].b
 
   elseif preset == "health" and config["healthcolor"] == "1" then
-    local perc = UnitHealth(unitstr) / UnitHealthMax(unitstr)
-    local r1, g1, b1, r2, g2, b2
-    if perc <= 0.5 then
-      perc = perc * 2
-      r1, g1, b1 = 1, 0, 0
-      r2, g2, b2 = 1, 1, 0
+    if UnitHealthMax(unitstr) > 0 then
+      r, g, b = GetColorGradient(UnitHealth(unitstr) / UnitHealthMax(unitstr))
     else
-      perc = perc * 2 - 1
-      r1, g1, b1 = 1, 1, 0
-      r2, g2, b2 = 0, 1, 0
+      r, g, b = 0, 0, 0
     end
-    r = r1 + (r2 - r1)*perc
-    g = g1 + (g2 - g1)*perc
-    b = b1 + (b2 - b1)*perc
 
   elseif preset == "power" and config["powercolor"] == "1" then
     r = ManaBarColor[UnitPowerType(unitstr)].r

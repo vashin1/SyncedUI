@@ -8,7 +8,7 @@ pfUI:RegisterModule("share", function ()
     for k, v in pairs(tbl) do
       if not ( ignored[k] and spacing == "" ) and ( not comp or not comp[k] or comp[k] ~= tbl[k] ) then
         if type(v) == "table" then
-          local result = serialize(tbl[k], comp[k], k, ignored, spacing .. "  ")
+          local result = serialize(tbl[k], comp and comp[k], k, ignored, spacing .. "  ")
           if result then
             match = true
             str = str .. result
@@ -255,7 +255,7 @@ pfUI:RegisterModule("share", function ()
     f:EnableMouse(true)
     f:SetScript("OnMouseDown", function() f:StartMoving() end)
     f:SetScript("OnMouseUp", function() f:StopMovingOrSizing() end)
-    CreateBackdrop(f, true, 0.5)
+    CreateBackdrop(f, nil, true, 0.8)
 
     do -- Edit Box
       f.scroll = pfUI.api.CreateScrollFrame("pfShareScroll", f)

@@ -184,7 +184,8 @@ end
 -- returns:     [string]     the type of the bag, e.g "QUIVER"
 function pfUI.api.GetBagFamily(bag)
   if bag == -2 then return "KEYRING" end
-  if bag == 0 then return "BAG" end
+  if bag == 0 then return "BAG" end -- backpack
+  if bag == -1 then return "BAG" end -- bank
 
   local _, _, id = strfind(GetInventoryItemLink("player", ContainerIDToInventoryID(bag)) or "", "item:(%d+)")
   if id then
@@ -680,46 +681,65 @@ function pfUI.api.CreateBackdrop(f, inset, legacy, transp, backdropSetting)
     f:SetBackdrop(backdrop)
     f:SetBackdropColor(br, bg, bb, ba)
     f:SetBackdropBorderColor(er, eg, eb , ea)
-    return
-  end
-
-  -- increase clickable area if available
-  if f.SetHitRectInsets then
-    f:SetHitRectInsets(-border,-border,-border,-border)
-  end
-
-  -- use new backdrop behaviour
-  if not f.backdrop then
-    f:SetBackdrop(nil)
-
-    local backdrop = pfUI.backdrop
-    local b = CreateFrame("Frame", nil, f)
-    if tonumber(border) > 1 then
-      local border = tonumber(border) - 1
-      backdrop.insets = {left = -1, right = -1, top = -1, bottom = -1}
-      b:SetPoint("TOPLEFT", f, "TOPLEFT", -border, border)
-      b:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", border, -border)
-    else
-      local border = tonumber(border)
-      backdrop.insets = {left = 0, right = 0, top = 0, bottom = 0}
-      b:SetPoint("TOPLEFT", f, "TOPLEFT", -border, border)
-      b:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", border, -border)
+  else
+    -- increase clickable area if available
+    if f.SetHitRectInsets then
+      f:SetHitRectInsets(-border,-border,-border,-border)
     end
 
-    local level = f:GetFrameLevel()
-    if level < 1 then
-      b:SetFrameLevel(level)
-    else
-      b:SetFrameLevel(level - 1)
+    -- use new backdrop behaviour
+    if not f.backdrop then
+      f:SetBackdrop(nil)
+
+      local backdrop = pfUI.backdrop
+      local b = CreateFrame("Frame", nil, f)
+      if tonumber(border) > 1 then
+        local border = tonumber(border) - 1
+        backdrop.insets = {left = -1, right = -1, top = -1, bottom = -1}
+        b:SetPoint("TOPLEFT", f, "TOPLEFT", -border, border)
+        b:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", border, -border)
+      else
+        local border = tonumber(border)
+        backdrop.insets = {left = 0, right = 0, top = 0, bottom = 0}
+        b:SetPoint("TOPLEFT", f, "TOPLEFT", -border, border)
+        b:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", border, -border)
+      end
+
+      local level = f:GetFrameLevel()
+      if level < 1 then
+        b:SetFrameLevel(level)
+      else
+        b:SetFrameLevel(level - 1)
+      end
+
+      f.backdrop = b
+      b:SetBackdrop(backdrop)
     end
 
-    f.backdrop = b
-    b:SetBackdrop(backdrop)
+    local b = f.backdrop
+    b:SetBackdropColor(br, bg, bb, ba)
+    b:SetBackdropBorderColor(er, eg, eb , ea)
   end
 
-  local b = f.backdrop
-  b:SetBackdropColor(br, bg, bb, ba)
-  b:SetBackdropBorderColor(er, eg, eb , ea)
+  -- add shadow
+  if not f.backdrop_shadow and pfUI_config.appearance.border.shadow == "1" then
+    local size = 8
+    local inset = size-1
+    local anchor = f.backdrop or f
+    local intensity = tonumber(pfUI_config.appearance.border.shadow_intensity)
+
+    f.backdrop_shadow = CreateFrame("Frame", nil, anchor)
+    f.backdrop_shadow:SetFrameStrata("BACKGROUND")
+    f.backdrop_shadow:SetFrameLevel(1)
+
+    f.backdrop_shadow:SetPoint("TOPLEFT", anchor, "TOPLEFT", -inset, inset)
+    f.backdrop_shadow:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", inset, -inset)
+    f.backdrop_shadow:SetBackdrop({
+      edgeFile = "Interface\\AddOns\\pfUI\\img\\glow2", edgeSize = size,
+      insets = {left = 0, right = 0, top = 0, bottom = 0},
+    })
+    f.backdrop_shadow:SetBackdropBorderColor(0,0,0,intensity)
+  end
 end
 
 -- [ Bar Layout Options ] --
@@ -837,7 +857,7 @@ function pfUI.api.GetColoredTimeString(remaining)
     return "|cff" .. string.format("%02x%02x%02x", r*255, g*255, b*255) .. round(remaining / 60) .. "|rm"
   elseif remaining <= 5 then
     local r,g,b,a = pfUI.api.GetStringColor(C.appearance.cd.lowcolor)
-    return "|cff" .. string.format("%02x%02x%02x", r*255, g*255, b*255) .. round(remaining)
+    return "|cff" .. string.format("%02x%02x%02x", r*255, g*255, b*255) .. string.format("%.1f", round(remaining,1))
   elseif remaining >= 0 then
     local r, g, b, a = pfUI.api.GetStringColor(C.appearance.cd.normalcolor)
     return "|cff" .. string.format("%02x%02x%02x", r*255, g*255, b*255) .. round(remaining)
@@ -848,61 +868,41 @@ end
 
 -- [ GetColorGradient ] --
 -- 'perc'     percentage (0-1)
--- 'color1' table or r,g,b tuple
--- 'color2' table or r,g,b tuple
--- ..
--- 'colorN' table or r,g,b tuple
 -- return r,g,b and hexcolor
-local color_tuples = {}
-function pfUI.api.GetColorGradient(perc, ...)
-  local num = arg.n
-  local r,g,b,hex
-  assert(tonumber(perc), "GetColorGradient: "..tostring(perc).." is not a number")
-  assert((type(arg[1])=="number" and num>5) or (type(arg[1])=="table" and num>1), "GetColorGradient: needs at least 2 colors")
-  perc = pfUI.api.clamp(perc,0,1)
-  if type(arg[1])=="number" then -- called with r,g,b tuples
-    -- shortcircuit the edge cases
-    if perc == 1 then
-      r,g,b = arg[num-2], arg[num-1], arg[num]
-      hex = string.format("|cff%02x%02x%02x", r*255, g*255, b*255)
-      return r,g,b,hex
-    elseif perc == 0 then
-      r,g,b = arg[1], arg[2], arg[3]
-      hex = string.format("|cff%02x%02x%02x", r*255, g*255, b*255)
-      return r,g,b,hex
-    end
-    num = num/3
-    local segment, relativepercent = pfUI.api.modf(perc*(num-1))
-    local r1,g1,b1, r2,g2,b2
-    r1,g1,b1 = arg[segment*3+1], arg[segment*3+2], arg[segment*3+3]
-    r2,g2,b2 = arg[segment*3+4], arg[segment*3+5], arg[segment*3+6]
-    if not r2 or not g2 or not b2 then
-      r,g,b = r1,g1,b1
-      hex = string.format("|cff%02x%02x%02x", r*255, g*255, b*255)
-      return r,g,b,hex
+local gradientcolors = {}
+function pfUI.api.GetColorGradient(perc)
+  -- fallback to black on bad numbers
+  if perc < 0 or perc > 1 then return 0,0,0,"|cff000000" end
+
+  if not gradientcolors[perc] then
+    local r1, g1, b1, r2, g2, b2
+    if perc <= 0.5 then
+      perc = perc * 2
+      r1, g1, b1 = 1, 0, 0
+      r2, g2, b2 = 1, 1, 0
     else
-      r,g,b = r1 + (r2-r1)*relativepercent, g1 + (g2-g1)*relativepercent, b1 + (b2-b1)*relativepercent
-      hex = string.format("|cff%02x%02x%02x", r*255, g*255, b*255)
-      return r,g,b,hex
+      perc = perc * 2 - 1
+      r1, g1, b1 = 1, 1, 0
+      r2, g2, b2 = 0, 1, 0
     end
-  elseif type(arg[1])=="table" then -- called with color tables
-    -- shortcircuit the edge cases
-    if perc == 1 then
-      r,g,b = arg[num][1] or arg[num].r, arg[num][2] or arg[num].g, arg[num][3] or arg[num].b
-      hex = string.format("|cff%02x%02x%02x", r*255, g*255, b*255)
-      return r,g,b,hex
-    elseif perc == 0 then
-      r,g,b = arg[1][1] or arg[1].r, arg[1][2] or arg[1].g, arg[1][3] or arg[1].b
-      hex = string.format("|cff%02x%02x%02x", r*255, g*255, b*255)
-      return r,g,b,hex
-    end
-    pfUI.api.wipe(color_tuples)
-    for _,c in ipairs(arg) do
-      local r,g,b = c[1] or c.r, c[2] or c.g, c[3] or c.b
-      color_tuples[table.getn(color_tuples)+1] = r
-      color_tuples[table.getn(color_tuples)+1] = g
-      color_tuples[table.getn(color_tuples)+1] = b
-    end
-    return pfUI.api.GetColorGradient(perc,unpack(color_tuples))
+
+    local r = r1 + (r2 - r1)*perc
+    local g = g1 + (g2 - g1)*perc
+    local b = b1 + (b2 - b1)*perc
+    local h = string.format("|cff%02x%02x%02x", r*255, g*255, b*255)
+
+    gradientcolors[perc] = {}
+    gradientcolors[perc].r = r
+    gradientcolors[perc].g = g
+    gradientcolors[perc].b = b
+    gradientcolors[perc].h = h
   end
+
+  return gradientcolors[perc].r,
+    gradientcolors[perc].g,
+    gradientcolors[perc].b,
+    gradientcolors[perc].h
 end
+
+-- [ shortcuts ]
+pfUI.api.gfind = string.gfind

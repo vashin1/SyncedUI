@@ -127,15 +127,15 @@ pfUI:RegisterModule("panel", function()
         end
 
         local memkb, gckb = gcinfo()
-        local memmb = round(memkb/1000, 2)
-        local gcmb = round(gckb/1000, 2)
+        local memmb = memkb and memkb > 0 and round((memkb or 0)/1000, 2) .. " MB" or UNAVAILABLE
+        local gcmb = gckb and gckb > 0 and round((gckb or 0)/1000, 2) .. " MB" or UNAVAILABLE
 
         local nin, nout, nping = GetNetStats()
 
         GameTooltip:AddDoubleLine(T["Active Addons"], "|cffffffff" .. active .. "|cff555555 / |cffffffff" .. GetNumAddOns())
         GameTooltip:AddLine(" ")
-        GameTooltip:AddDoubleLine(T["Memory Usage"], "|cffffffff" .. memmb .. " MB")
-        GameTooltip:AddDoubleLine(T["Next Memory Cleanup"], "|cffffffff" .. gcmb .. " MB")
+        GameTooltip:AddDoubleLine(T["Memory Usage"], "|cffffffff" .. memmb)
+        GameTooltip:AddDoubleLine(T["Next Memory Cleanup"], "|cffffffff" .. gcmb)
         GameTooltip:AddLine(" ")
         GameTooltip:AddDoubleLine(T["Network Down"], "|cffffffff" .. round(nin,1) .. "KB/s")
         GameTooltip:AddDoubleLine(T["Network Up"], "|cffffffff" .. round(nout,1) .. "KB/s")
@@ -243,7 +243,7 @@ pfUI:RegisterModule("panel", function()
         GameTooltip:AddDoubleLine(T["Login"] .. ":", CreateGoldString(pfUI.panel.initMoney))
         GameTooltip:AddDoubleLine(T["Now"] .. ":", CreateGoldString(GetMoney()))
         GameTooltip:AddDoubleLine("|cffffffff","")
-        for name, gold in pfUI_cache["gold"][GetRealmName()] do
+        for name, gold in pairs(pfUI_cache["gold"][GetRealmName()]) do
           if name ~= UnitName("player") then
             GameTooltip:AddDoubleLine(name .. ":", CreateGoldString(gold))
           end
@@ -357,7 +357,7 @@ pfUI:RegisterModule("panel", function()
               repPercent = math.floor(lval / rval * 100)
               if repPercent < 100 then
                 local link = GetInventoryItemLink("player",id)
-                local r,g,b,hex = GetColorGradient(repPercent/100, 1,0,0, 1,1,0, 0,1,0) -- red to green through yellow
+                local r,g,b,hex = GetColorGradient(repPercent/100)
                 local cPercent = string.format("%s%s%%|r",hex,repPercent)
                 widget.itemLines[table.getn(widget.itemLines)+1]={link, cPercent}
               end

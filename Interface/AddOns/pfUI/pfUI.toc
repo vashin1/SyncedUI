@@ -34,6 +34,7 @@ env\profiles.lua
 
 # api
 api\api.lua
+api\tbc.lua
 api\config.lua
 api\ui-widgets.lua
 api\unitframes.lua
@@ -81,10 +82,12 @@ modules\xpbar.lua
 modules\autoshift.lua
 modules\autovendor.lua
 modules\bags.lua
+modules\itemclick.lua
 modules\cooldown.lua
 modules\tooltip.lua
 modules\thirdparty.lua
 modules\buff.lua
+modules\buffwatch.lua
 modules\nameplates.lua
 modules\loot.lua
 modules\roll.lua

@@ -172,7 +172,7 @@ pfUI:RegisterModule("prediction", function ()
   function pfUI.prediction:UpdateUnitFrames(name, heal, ress)
     OVERHEALPERCENT = OVERHEALPERCENT or 20
 
-    for id, frame in _G.pfUI.uf.frames do
+    for id, frame in pairs(_G.pfUI.uf.frames) do
       if frame:IsVisible() and frame.label and frame.id then
         local unit = frame.label .. frame.id
         local health, maxHealth = UnitHealth(unit), UnitHealthMax(unit)
@@ -278,25 +278,25 @@ pfUI:RegisterModule("prediction", function ()
   pfUI.prediction.sender:SetScript("OnEvent", function()
     if event == "CHAT_MSG_SPELL_SELF_BUFF" then
       -- "Your %s heals %s for %d.";
-      for spell, _, heal in string.gfind(arg1, healedselfother) do
+      for spell, _, heal in gfind(arg1, healedselfother) do
         if spell == spell_queue[1] then cache[spell_queue[2]] = tonumber(heal) end
         return
       end
 
       -- "Your %s heals you for %d."
-      for spell, heal in string.gfind(arg1, healedselfself) do
+      for spell, heal in gfind(arg1, healedselfself) do
         if spell == spell_queue[1] then cache[spell_queue[2]] = tonumber(heal) end
         return
       end
 
       -- "Your %s critically heals %s for %d."
-      for spell, heal in string.gfind(arg1, healedcritselfother) do
+      for spell, heal in gfind(arg1, healedcritselfother) do
         if spell == spell_queue[1] and not cache[spell_queue[2]] then cache[spell_queue[2]] = tonumber(heal)*2/3 end
         return
       end
 
       -- "Your %s critically heals you for %d."
-      for spell, _, heal in string.gfind(arg1, healedcritselfself) do
+      for spell, _, heal in gfind(arg1, healedcritselfself) do
         if spell == spell_queue[1] and not cache[spell_queue[2]] then cache[spell_queue[2]] = tonumber(heal)*2/3 end
         return
       end

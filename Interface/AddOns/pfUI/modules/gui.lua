@@ -130,6 +130,11 @@ pfUI:RegisterModule("gui", function ()
         ColorPickerFrame:SetFrameStrata("DIALOG")
         ShowUIPanel(ColorPickerFrame)
       end)
+
+      -- hide shadows on wrong stratas
+      if frame.color.backdrop_shadow then
+        frame.color.backdrop_shadow:Hide()
+      end
     end
 
     if widget == "warning" then
@@ -182,6 +187,11 @@ pfUI:RegisterModule("gui", function ()
           this:SetTextColor(1,.3,.3,1)
         end
       end)
+
+      -- hide shadows on wrong stratas
+      if frame.input.backdrop_shadow then
+        frame.input.backdrop_shadow:Hide()
+      end
     end
 
     -- use button widget
@@ -195,6 +205,11 @@ pfUI:RegisterModule("gui", function ()
       frame.button:SetText(caption)
       frame.button:SetTextColor(1,1,1,1)
       frame.button:SetScript("OnClick", values)
+
+      -- hide shadows on wrong stratas
+      if frame.button.backdrop_shadow then
+        frame.button.backdrop_shadow:Hide()
+      end
     end
 
     -- use checkbox widget
@@ -219,6 +234,11 @@ pfUI:RegisterModule("gui", function ()
       end)
 
       if category[config] == "1" then frame.input:SetChecked() end
+
+      -- hide shadows on wrong stratas
+      if frame.input.backdrop_shadow then
+        frame.input.backdrop_shadow:Hide()
+      end
     end
 
     -- use dropdown widget
@@ -229,51 +249,127 @@ pfUI:RegisterModule("gui", function ()
 
       frame.input = CreateFrame("Frame", "pfUIDropDownMenu" .. name, frame, "UIDropDownMenuTemplate")
       frame.input:ClearAllPoints()
-      frame.input:SetPoint("RIGHT" , 16, -2)
-      frame.input:Show()
-      frame.input.point = "TOPRIGHT"
-      frame.input.relativePoint = "BOTTOMRIGHT"
+      frame.input:SetPoint("RIGHT", 16, -3)
       frame.input.values = values
+
+      UIDropDownMenu_SetWidth(160, frame.input)
+      UIDropDownMenu_SetButtonWidth(160, frame.input)
+      UIDropDownMenu_JustifyText("RIGHT", frame.input)
+      UIDropDownMenu_Initialize(frame.input, function()
+        local info = {}
+        for i, k in pairs(frame.input.values) do
+          -- get human readable
+          local value, text = strsplit(":", k)
+          text = text or value
+
+          info.text = text
+          info.checked = false
+          info.func = function()
+            UIDropDownMenu_SetSelectedID(frame.input, this:GetID(), 0)
+            UIDropDownMenu_SetText(this:GetText(), frame.input)
+            if category[config] ~= value then
+              category[config] = value
+              if ufunc then ufunc() else pfUI.gui.settingChanged = true end
+            end
+          end
+
+          UIDropDownMenu_AddButton(info)
+          if category[config] == value then
+            frame.input.current = i
+          end
+        end
+      end)
+      UIDropDownMenu_SetSelectedID(frame.input, frame.input.current)
+
+      SkinDropDown(frame.input)
+      frame.input.backdrop:Hide()
+      frame.input.button.icon:SetParent(frame.input.button.backdrop)
+
+      -- hide shadows on wrong stratas
+      if frame.input.backdrop_shadow then
+        frame.input.backdrop_shadow:Hide()
+        frame.input.button.backdrop_shadow:Hide()
+      end
+    end
+
+    -- use list widget
+    if widget == "list" then
+      if not pfUI.gui.ddc then pfUI.gui.ddc = 1 else pfUI.gui.ddc = pfUI.gui.ddc + 1 end
+      local name = pfUI.gui.ddc
+      if named then name = named end
+
+      frame.input = CreateFrame("Frame", "pfUIDropDownMenu" .. name, frame, "UIDropDownMenuTemplate")
+      frame.input:ClearAllPoints()
+      frame.input:SetPoint("RIGHT" , -22, -3)
+      frame.category = category
+      frame.config = configh
 
       frame.input.Refresh = function()
         local function CreateValues()
-          local info = {}
-          for i, k in pairs(frame.input.values) do
-            -- get human readable
-            local value, text = strsplit(":", k)
-            text = text or value
-
-            info.text = text
-            info.checked = false
-            info.func = function()
-              UIDropDownMenu_SetSelectedID(frame.input, this:GetID(), 0)
-              if category[config] ~= value then
-                category[config] = value
-                if ufunc then ufunc() else pfUI.gui.settingChanged = true end
+          for _, val in pairs({strsplit("#", category[config])}) do
+            UIDropDownMenu_AddButton({
+              ["text"] = val,
+              ["checked"] = false,
+              ["func"] = function()
+                UIDropDownMenu_SetSelectedID(frame.input, this:GetID(), 0)
               end
-            end
-
-            UIDropDownMenu_AddButton(info)
-            if category[config] == value then
-              frame.input.current = i
-            end
+            })
           end
         end
 
         UIDropDownMenu_Initialize(frame.input, CreateValues)
+        UIDropDownMenu_SetText("", frame.input)
       end
 
       frame.input:Refresh()
 
-      UIDropDownMenu_SetWidth(120, frame.input)
-      UIDropDownMenu_SetButtonWidth(125, frame.input)
+      UIDropDownMenu_SetWidth(160, frame.input)
+      UIDropDownMenu_SetButtonWidth(160, frame.input)
       UIDropDownMenu_JustifyText("RIGHT", frame.input)
       UIDropDownMenu_SetSelectedID(frame.input, frame.input.current)
 
-      for i,v in ipairs({frame.input:GetRegions()}) do
-        if v.SetTexture then v:Hide() end
-        if v.SetTextColor then v:SetTextColor(.2,1,.8) end
-        if v.SetBackdrop then CreateBackdrop(v) end
+      SkinDropDown(frame.input)
+      frame.input.backdrop:Hide()
+      frame.input.button.icon:SetParent(frame.input.button.backdrop)
+
+      frame.add = CreateFrame("Button", "pfUIDropDownMenu" .. name .. "Add", frame, "UIPanelButtonTemplate")
+      SkinButton(frame.add)
+      frame.add:SetWidth(18)
+      frame.add:SetHeight(18)
+      frame.add:SetPoint("RIGHT", -21, 0)
+      frame.add:GetFontString():SetPoint("CENTER", 1, 0)
+      frame.add:SetText("+")
+      frame.add:SetTextColor(.5,1,.5,1)
+      frame.add:SetScript("OnClick", function()
+        CreateQuestionDialog(T["New entry:"], function()
+            category[config] = category[config] .. "#" .. this:GetParent().input:GetText()
+          end, false, true)
+      end)
+
+      frame.del = CreateFrame("Button", "pfUIDropDownMenu" .. name .. "Del", frame, "UIPanelButtonTemplate")
+      SkinButton(frame.del)
+      frame.del:SetWidth(18)
+      frame.del:SetHeight(18)
+      frame.del:SetPoint("RIGHT", -2, 0)
+      frame.del:GetFontString():SetPoint("CENTER", 1, 0)
+      frame.del:SetText("-")
+      frame.del:SetTextColor(1,.5,.5,1)
+      frame.del:SetScript("OnClick", function()
+        local sel = UIDropDownMenu_GetSelectedID(frame.input)
+        local newconf = ""
+        for id, val in pairs({strsplit("#", category[config])}) do
+          if id ~= sel then newconf = newconf .. "#" .. val end
+        end
+        category[config] = newconf
+        frame.input:Refresh()
+      end)
+
+      -- hide shadows on wrong stratas
+      if frame.input.backdrop_shadow then
+        frame.input.backdrop_shadow:Hide()
+        frame.input.button.backdrop_shadow:Hide()
+        frame.add.backdrop_shadow:Hide()
+        frame.del.backdrop_shadow:Hide()
       end
     end
 
@@ -568,6 +664,17 @@ pfUI:RegisterModule("gui", function ()
     "elysium:" .. T["Elysium Based Core"],
   }
 
+  pfUI.gui.dropdowns.buffbarfilter = {
+    "none:"      .. T["None"],
+    "whitelist:" .. T["Whitelist"],
+    "blacklist:" .. T["Blacklist"],
+  }
+
+  pfUI.gui.dropdowns.buffbarsort = {
+    "asc:" .. T["Ascending"],
+    "desc:" .. T["Descending"],
+  }
+
   pfUI.gui.dropdowns.minimap_cords_position = {
     "topleft:" .. T["Top Left"],
     "topright:" .. T["Top Right"],
@@ -747,6 +854,9 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Background Color"], C.appearance.border, "background", "color")
       CreateConfig(nil, this, T["Border Color"], C.appearance.border, "color", "color")
       CreateConfig(update["mapreveal"], this, T["Map Reveal Color"], C.appearance.worldmap, "mapreveal_color", "color")
+      CreateConfig(nil, this) -- spacer
+      CreateConfig(nil, this, T["Enable Frame Shadow"], C.appearance.border, "shadow", "checkbox")
+      CreateConfig(nil, this, T["Frame Shadow Intensity"], C.appearance.border, "shadow_intensity", "dropdown", pfUI.gui.dropdowns.uf_debuff_indicator_size)
       CreateConfig(nil, this) -- spacer
       CreateConfig(nil, this, T["Global Border Size"], C.appearance.border, "default")
       CreateConfig(nil, this, T["Action Bar Border Size"], C.appearance.border, "actionbars")
@@ -1033,6 +1143,48 @@ pfUI:RegisterModule("gui", function ()
     end
   end)
 
+  -- >> Buff Bars
+  pfUI.gui.tabs.buffs.tabs.buffbars = pfUI.gui.tabs.buffs.tabs:CreateTabChild(T["Bars"], true)
+  pfUI.gui.tabs.buffs.tabs.buffbars:SetScript("OnShow", function()
+    if not this.setup then
+      CreateConfig(update[c], this, T["Player Buffs"], nil, nil, "header")
+      CreateConfig(nil, this, T["Enable Bar"], C.buffbar.pbuff, "enable", "checkbox")
+      CreateConfig(nil, this, T["Sort Order"], C.buffbar.pbuff, "sort", "dropdown", pfUI.gui.dropdowns.buffbarsort)
+      CreateConfig(nil, this, T["Custom Color"], C.buffbar.pbuff, "color", "color")
+      CreateConfig(nil, this, T["Automatic Color"], C.buffbar.pbuff, "autocolor", "checkbox")
+      CreateConfig(nil, this, T["Buffbar Width"], C.buffbar.pbuff, "width")
+      CreateConfig(nil, this, T["Buffbar Height"], C.buffbar.pbuff, "height")
+      CreateConfig(nil, this, T["Filter Mode"], C.buffbar.pbuff, "filter", "dropdown", pfUI.gui.dropdowns.buffbarfilter)
+      CreateConfig(nil, this, T["Time Threshold"], C.buffbar.pbuff, "threshold")
+      CreateConfig(nil, this, T["Whitelist"], C.buffbar.pbuff, "whitelist", "list")
+      CreateConfig(nil, this, T["Blacklist"], C.buffbar.pbuff, "blacklist", "list")
+
+      CreateConfig(update[c], this, T["Player Debuffs"], nil, nil, "header")
+      CreateConfig(nil, this, T["Enable Bar"], C.buffbar.pdebuff, "enable", "checkbox")
+      CreateConfig(nil, this, T["Sort Order"], C.buffbar.pdebuff, "sort", "dropdown", pfUI.gui.dropdowns.buffbarsort)
+      CreateConfig(nil, this, T["Custom Color"], C.buffbar.pdebuff, "color", "color")
+      CreateConfig(nil, this, T["Automatic Color"], C.buffbar.pdebuff, "autocolor", "checkbox")
+      CreateConfig(nil, this, T["Buffbar Width"], C.buffbar.pdebuff, "width")
+      CreateConfig(nil, this, T["Buffbar Height"], C.buffbar.pdebuff, "height")
+      CreateConfig(nil, this, T["Filter Mode"], C.buffbar.pdebuff, "filter", "dropdown", pfUI.gui.dropdowns.buffbarfilter)
+      CreateConfig(nil, this, T["Time Threshold"], C.buffbar.pdebuff, "threshold")
+      CreateConfig(nil, this, T["Whitelist"], C.buffbar.pdebuff, "whitelist", "list")
+      CreateConfig(nil, this, T["Blacklist"], C.buffbar.pdebuff, "blacklist", "list")
+
+      CreateConfig(update[c], this, T["Target Debuffs"], nil, nil, "header")
+      CreateConfig(nil, this, T["Enable Bar"], C.buffbar.tdebuff, "enable", "checkbox")
+      CreateConfig(nil, this, T["Sort Order"], C.buffbar.tdebuff, "sort", "dropdown", pfUI.gui.dropdowns.buffbarsort)
+      CreateConfig(nil, this, T["Custom Color"], C.buffbar.tdebuff, "color", "color")
+      CreateConfig(nil, this, T["Automatic Color"], C.buffbar.tdebuff, "autocolor", "checkbox")
+      CreateConfig(nil, this, T["Buffbar Width"], C.buffbar.tdebuff, "width")
+      CreateConfig(nil, this, T["Buffbar Height"], C.buffbar.tdebuff, "height")
+      CreateConfig(nil, this, T["Filter Mode"], C.buffbar.tdebuff, "filter", "dropdown", pfUI.gui.dropdowns.buffbarfilter)
+      CreateConfig(nil, this, T["Time Threshold"], C.buffbar.tdebuff, "threshold")
+      CreateConfig(nil, this, T["Whitelist"], C.buffbar.tdebuff, "whitelist", "list")
+      CreateConfig(nil, this, T["Blacklist"], C.buffbar.tdebuff, "blacklist", "list")
+      this.setup = true
+    end
+  end)
 
   -- [[ Actionbar ]]
   pfUI.gui.tabs.actionbar = pfUI.gui.tabs:CreateTabChild(T["Actionbar"], nil, nil, nil, true)
@@ -1280,6 +1432,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, "MrPlow", C.thirdparty.mrplow, "enable", "checkbox")
       CreateConfig(nil, this, "FlightMap", C.thirdparty.flightmap, "enable", "checkbox")
       CreateConfig(nil, this, "AtlasLoot", C.thirdparty.atlasloot, "enable", "checkbox")
+      CreateConfig(nil, this, "MyRolePlay", C.thirdparty.myroleplay, "enable", "checkbox")
       CreateConfig(nil, this, "DruidManaBar", C.thirdparty.druidmana, "enable", "checkbox")
       this.setup = true
     end
